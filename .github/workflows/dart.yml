@@ -16,6 +16,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        flutter-version: '1.15.3'
+        channel: 'dev'
     - name: Install dependencies
       run: pub get
     - name: Run tests
