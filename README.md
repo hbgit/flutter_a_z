@@ -11,4 +11,5 @@ The goal is trying different flutter features, and apply CI/CD using github acti
 - Setting up the https://codecov.io
 - The APK generation adopts draft release
 - Deploy APK in the github pages, the site will be published as <yourusername>.github.io/<repo-name>
+- 
 
