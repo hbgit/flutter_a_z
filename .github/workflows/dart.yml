@@ -40,4 +40,9 @@ jobs:
         artifacts: "build/app/outputs/apk/debug/*.apk"
         draft: 'true'
         tag: 'v1.0'
+        body: '## Hello World sample \n 
+                  - $flutter create . \n
+                  - Creating .github/worflows/dart.yml \n
+                  - The APK generation adopts draft release \n
+                  - Setting up the https://codecov.io \n'
         token: ${{ secrets.GITHUB_TOKEN }}
