@@ -70,6 +70,11 @@ jobs:
           tag: 'v1.0'        
           token: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: Install SSH Client 🔑
+        uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+      
       # This action will create a github release and optionally upload an artifact to it.
       - run: flutter build web
       # Handle the deploy process of your project to GitHub Pages.
@@ -77,7 +82,7 @@ jobs:
       # https://github.com/JamesIves/github-pages-deploy-action
       - uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SSH: true
           BASE_BRANCH: master
           BRANCH: gh-pages
           FOLDER: build/web
