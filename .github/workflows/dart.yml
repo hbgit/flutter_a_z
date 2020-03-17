@@ -71,9 +71,15 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Install SSH Client 🔑
-        uses: webfactory/ssh-agent@v0.2.0
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}        
+        #uses: webfactory/ssh-agent@v0.2.0
+        #with:
+        #  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       
       # This action will create a github release and optionally upload an artifact to it.
       - run: flutter build web
