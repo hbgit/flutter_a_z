@@ -30,4 +30,4 @@ jobs:
         artifacts: "build/app/outputs/apk/debug/*.apk"
         draft: 'true'
         tag: 'v1.0'
-        token: ${{ secrets.TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
