@@ -7,7 +7,9 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+
+  # Job to test and analyze app
+  test:
     name: Build APK
     runs-on: ubuntu-latest
     steps:
@@ -32,17 +34,53 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: coverage/lcov.info
 
-    - run: flutter build apk --debug --split-per-abi
 
-    - name: Create a Release APK
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: "build/app/outputs/apk/debug/*.apk"
-        draft: 'true'
-        tag: 'v1.0'
-        body: '## Hello World sample \n 
-                  - $flutter create . \n
-                  - Creating .github/worflows/dart.yml \n
-                  - The APK generation adopts draft release \n
-                  - Setting up the https://codecov.io \n'
-        token: ${{ secrets.GITHUB_TOKEN }}
+  # Job to build app and deploy
+  build_deploy:
+    #if conditional to prevent a job from running
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    #Identifies any jobs that must complete successfully before this job will run.    
+    needs: test
+    name: Build apk and web deploy
+    steps:
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '1.15.3'
+          channel: 'dev'
+      
+      # This action sets up a java environment
+      # https://github.com/actions/setup-java
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      
+          # Enable linux,macos,windows and web
+      - run: flutter  config --enable-web
+      - run: flutter  config --enable-linux-desktop
+      #- run: flutter  config --enable-macos-desktop
+      - run: flutter  config --enable-windows-desktop
+      - run: flutter build apk --debug --split-per-abi
+      - name: Create a Release APK
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/debug/*.apk"
+          draft: 'true'
+          tag: 'v1.0'        
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      # This action will create a github release and optionally upload an artifact to it.
+      - run: flutter build web
+      # Handle the deploy process of your project to GitHub Pages.
+      # The site will be published as <yourusername>.github.io/<repo-name>
+      # https://github.com/JamesIves/github-pages-deploy-action
+      - uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          BASE_BRANCH: master
+          BRANCH: gh-pages
+          FOLDER: build/web
+
+
+
