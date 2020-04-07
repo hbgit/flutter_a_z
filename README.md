@@ -35,3 +35,16 @@ $ flutter create .
 
 --- 
 
+# v2.0
+---
+
+## Phrases of the Day
+
+- The goal of this APP is show random phrases in the screen according to the button is clicked
+
+- Some NOTES about this APP:
+    - Plugin adopted in the Visual Code IDE: Flutter (Dart-Code); Awesome Flutter Snippets (Nash Ramdial); and Dart (Dart-Code)
+
+
+---
+
