@@ -138,6 +138,7 @@ class _JokenPoGameState extends State<JokenPoGame> {
                   "images/pedra.png", 
                   height: 100,
                 ),
+                key: Key('rock_op'),
               ),
               // Image 2
               GestureDetector(

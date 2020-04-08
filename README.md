@@ -65,5 +65,8 @@ $ flutter create .
 
 - Overview of the APP:
 
+| Start  | WIN  | LOST  | Same Result  |
+|---|---|---|---|
+|<img src="./docs/images/app_v3_t0.png" width="200"> |<img src="./docs/images/app_v3_t1.png" width="200">|<img src="./docs/images/app_v3_t2.png" width="200">|<img src="./docs/images/app_v3_t3.png" width="200">|
 ---
 

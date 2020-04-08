@@ -19,15 +19,19 @@ void main() {
       home: JokenPoGame()
     ));
 
-    // Verify the initial text is presented
-    expect(find.text('What is your move?'), findsOneWidget);
-    expect(find.byWidget(Image.asset("images/pedra.png")), findsOneWidget);    
+    // Create the Finders.
+    final gameTextFinder = find.text('What is your move?');
+    final rockOpFinder   = find.byKey(Key('rock_op')); 
+
+    // Verify the inital frame
+    expect(gameTextFinder, findsOneWidget);
+    expect(rockOpFinder, findsOneWidget);    
 
     // Tap on each option of the game
-    // 1 - paper
-    await tester.tap(find.byWidget(Image.asset("images/pedra.png")) );
+    // 1 - rock
+    await tester.tap(rockOpFinder);
     await tester.pump();    
-    expect(find.text('What is your move?'), findsNothing);    
+    expect(gameTextFinder, findsNothing);    
     
   });
 }
