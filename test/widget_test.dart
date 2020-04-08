@@ -11,9 +11,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_a_z/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Generate phrases testing', (WidgetTester tester) async {
+
+    //final Key bodyKey = UniqueKey();
+
     // Build our app and trigger a frame.
-    await tester.pumpWidget(Home());
+    await tester.pumpWidget(MaterialApp(
+      home: Home()
+    ));
 
     // Verify the initial text is presented
     expect(find.text('Hit the button to get a new phrase!'), findsOneWidget);
