@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,6 +17,27 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  var _frases = [
+    "We have a great job.",
+    "Are you in matrix?",
+    "I see.",
+    "Don't tell what I need to do."
+  ];
+
+  var _fraseGerada = "Hit the button to get a new phrase!";
+
+  void _generatePhrase(){
+    
+    var index = Random().nextInt(_frases.length);
+
+    setState(() {
+      _fraseGerada = _frases[ index ];
+    });
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +54,7 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Image.asset("images/logo_main_book.jpg"),
               Text(
-                "Hit the button to get a new phrase!",
+                this._fraseGerada,
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 25,
@@ -49,7 +72,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 color: Colors.teal,
-                onPressed: (){},
+                onPressed: () => this._generatePhrase(),
               ),
             ],
           ),
