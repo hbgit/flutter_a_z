@@ -8,27 +8,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_a_z/main.dart';
+// From APP
+import 'package:flutter_a_z/game/jokenPoGame.dart';
 
 void main() {
-  testWidgets('Generate phrases testing', (WidgetTester tester) async {
-
-    //final Key bodyKey = UniqueKey();
-
+  testWidgets('Checking JokenPo moves testing', (WidgetTester tester) async {
+    
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
-      home: Home()
+      home: JokenPoGame()
     ));
 
     // Verify the initial text is presented
-    expect(find.text('Hit the button to get a new phrase!'), findsOneWidget);
-    expect(find.byType(RaisedButton), findsOneWidget);    
+    expect(find.text('What is your move?'), findsOneWidget);
+    expect(find.byType(GestureDetector), findsOneWidget);    
 
-    // Tap on RaisedButton to trigger a frame.
-    await tester.tap(find.byType(RaisedButton));
-    await tester.pump();
-
-    // Verify if is generated a new phrase 
-    expect(find.text('Hit the button to get a new phrase!'), findsNothing);    
+    // Tap on each option of the game
+    // 1 - paper
+    await tester.tap(find.byWidget(Image.asset("images/pedra.png")) );
+    await tester.pump();    
+    expect(find.text('What is your move?'), findsNothing);    
+    
   });
 }
