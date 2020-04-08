@@ -61,5 +61,9 @@ $ flutter create .
 - The goal of this APP is create the game Jokenpo, i.e., rock, paper and scissors
 
 - Some NOTES about this APP:
+    - We adopt internal packages; AppBar on setState; and GestureDetector
+
+- Overview of the APP:
+
 ---
 

@@ -69,7 +69,7 @@ class _JokenPoGameState extends State<JokenPoGame> {
       });
     }else{
       setState(() {
-        this._msgApp = ":) We tie :)";
+        this._msgApp = "We tied the Game :)";
         this._appBarMove = AppBar(
           title: Text('JokenPo Game'),
           backgroundColor: Colors.amber,          

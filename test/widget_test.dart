@@ -21,7 +21,7 @@ void main() {
 
     // Verify the initial text is presented
     expect(find.text('What is your move?'), findsOneWidget);
-    expect(find.byType(GestureDetector), findsOneWidget);    
+    expect(find.byWidget(Image.asset("images/pedra.png")), findsOneWidget);    
 
     // Tap on each option of the game
     // 1 - paper
