@@ -29,16 +29,17 @@ void main() {
 
     // Create the Finders.
     final SemanticsNode gameTextFinder = tester.getSemantics(find.byKey(Key('textMsg')));    
+    final Finder rockImgFinder = find.byKey(Key('rock_img'));
     final Finder rockOpFinder = find.byKey(Key('rock_op'));
-    final Finder paperOpFinder = find.byKey(Key('paper_op'));
-    final Finder scisOpFinder = find.byKey(Key('scissors_op'));
+    final Finder paperImgFinder = find.byKey(Key('paper_img'));
+    final Finder scisImgFinder = find.byKey(Key('scissors_img'));
     
 
     // Verify the inital screen
     expect(gameTextFinder.label, 'What is your move?');
-    expect(rockOpFinder, findsOneWidget);
-    expect(paperOpFinder, findsOneWidget);
-    expect(scisOpFinder, findsOneWidget);
+    expect(rockImgFinder, findsOneWidget);
+    expect(paperImgFinder, findsOneWidget);
+    expect(scisImgFinder, findsOneWidget);
     
     // Tap on each option of the game
     // 1 - rock
@@ -46,12 +47,12 @@ void main() {
     await tester.pump(); 
 
     // 2 - paper
-    await tester.tap(paperOpFinder);
-    await tester.pump(); 
+    //await tester.tap(paperOpFinder);
+    //await tester.pump(); 
 
     // 3 - paper
-    await tester.tap(scisOpFinder);
-    await tester.pump(); 
+    //await tester.tap(scisOpFinder);
+    //await tester.pump(); 
 
   });
 }

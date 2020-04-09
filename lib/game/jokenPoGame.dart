@@ -138,8 +138,9 @@ class _JokenPoGameState extends State<JokenPoGame> {
                 child: Image.asset(
                   "images/pedra.png", 
                   height: 100,
-                  key: Key('rock_op'),
+                  key: Key('rock_img'),
                 ),
+                key: Key('rock_op'),
               ),
               // Image 2
               GestureDetector(
@@ -147,7 +148,7 @@ class _JokenPoGameState extends State<JokenPoGame> {
                 child: Image.asset(
                   "images/papel.png", 
                   height: 100,
-                  key: Key('paper_op'),
+                  key: Key('paper_img'),
                 ),
               ),
               // Image 3
@@ -156,7 +157,7 @@ class _JokenPoGameState extends State<JokenPoGame> {
                 child: Image.asset(
                   "images/tesoura.png", 
                   height: 100,
-                  key: Key('scissors_op'),
+                  key: Key('scissors_img'),
                 ),
               ),
             ],
