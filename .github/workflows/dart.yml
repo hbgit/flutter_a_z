@@ -2,9 +2,9 @@ name: Dart CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ feature_phrase ]
   pull_request:
-    branches: [ master ]
+    branches: [ feature_phrase ]
 
 jobs:
 
@@ -67,7 +67,7 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/debug/*.apk"
           draft: 'true'
-          tag: 'v1.0'        
+          tag: 'v2.0'        
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Install SSH Client 🔑
