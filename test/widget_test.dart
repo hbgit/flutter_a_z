@@ -16,10 +16,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+
 // From APP
 import 'package:flutter_a_z/game/jokenPoGame.dart';
 
-void main() {
+void main() {  
+
   testWidgets('Checking JokenPo moves testing', (WidgetTester tester) async {
     
     // Build our app and trigger a frame.
@@ -41,14 +43,11 @@ void main() {
     expect(scisImgFinder, findsOneWidget);
     
     // Tap on each option of the game
-    final Finder rockOpFinder = find.byKey(Key('rock_op'));
-    final SemanticsNode nodeRockOp = tester.getSemantics(find.byKey(Key('rock_op')));
-    final SemanticsData semaRockOp = nodeRockOp.getSemanticsData();    
-    expect(semaRockOp.hasAction(SemanticsAction.tap), true);
-
+    final Finder rockOpFinder = find.byKey(Key('rock_op'));  
+    
     // 1 - rock
-    await tester.tap(rockOpFinder);
-    await tester.pump(); 
+    await tester.tap(rockOpFinder, pointer: 1);
+    await tester.pump(const Duration(milliseconds: 100)); 
 
     // 2 - paper
     //await tester.tap(paperOpFinder);
