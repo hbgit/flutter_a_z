@@ -29,8 +29,7 @@ void main() {
 
     // Create the Finders.
     final SemanticsNode gameTextFinder = tester.getSemantics(find.byKey(Key('textMsg')));    
-    final Finder rockImgFinder = find.byKey(Key('rock_img'));
-    final Finder rockOpFinder = find.byKey(Key('rock_op'));
+    final Finder rockImgFinder = find.byKey(Key('rock_img'));    
     final Finder paperImgFinder = find.byKey(Key('paper_img'));
     final Finder scisImgFinder = find.byKey(Key('scissors_img'));
     
@@ -42,6 +41,11 @@ void main() {
     expect(scisImgFinder, findsOneWidget);
     
     // Tap on each option of the game
+    final Finder rockOpFinder = find.byKey(Key('rock_op'));
+    final SemanticsNode nodeRockOp = tester.getSemantics(find.byKey(Key('rock_op')));
+    final SemanticsData semaRockOp = nodeRockOp.getSemanticsData();    
+    expect(semaRockOp.hasAction(SemanticsAction.tap), true);
+
     // 1 - rock
     await tester.tap(rockOpFinder);
     await tester.pump(); 
