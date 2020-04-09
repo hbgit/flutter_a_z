@@ -56,7 +56,7 @@ $ flutter create .
 
 # v3.0
 ---
-## Phrases of the Day
+## Jokenpo
 
 - The goal of this APP is create the game Jokenpo, i.e., rock, paper and scissors
 
