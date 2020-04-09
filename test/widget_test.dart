@@ -22,7 +22,7 @@ void main() {
 
     // Create the Finders.
     final SemanticsNode gameTextFinder = tester.getSemantics(find.byKey(Key('textMsg')));    
-    //final Finder rockOpFinder = find.byKey(Key('rock_op'));
+    final Finder rockOpFinder = find.byKey(Key('rock_op'));
     
 
     // Verify the inital screen
@@ -30,8 +30,8 @@ void main() {
     
     // Tap on each option of the game
     // 1 - rock
-    //await tester.tap(rockOpFinder);
-    //await tester.pump();        
+    await tester.tap(rockOpFinder);
+    await tester.pump();        
     
   });
 }
