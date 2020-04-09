@@ -7,11 +7,15 @@ const RESOURCES = {
 "/assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
 "/assets/FontManifest.json": "01700ba55b08a6141f33e168c4a6c22f",
 "/assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
-"/assets/AssetManifest.json": "53f5263dbf17cc64c8dcf36577776a7d",
-"/assets/LICENSE": "fa78e10b637fde9c5a64cbcef8a6e371",
+"/assets/AssetManifest.json": "f2fea8fd8a8880d4e0c9bb818196baa3",
+"/assets/LICENSE": "832c683862cb4bf3929f34d31416f01b",
+"/assets/images/papel.png": "ada35938120c7c8b2a3164cc58fe1756",
+"/assets/images/pedra.png": "db796ff45155ea8c0ced267298d1bb48",
+"/assets/images/tesoura.png": "d8f126622a2a6bb4ad64fd5ed5b35a8a",
+"/assets/images/padrao.png": "589c46b59101f6116106c88f390fb683",
 "/assets/images/logo_main_book.jpg": "f8f84fdf4d60a6ea9d53c6f352d2cd99",
 "/favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"/main.dart.js": "ff2fbbfaac1fcebbbeabfe34754247c4",
+"/main.dart.js": "a5a1405c51cd68a9de634ecf59bef15f",
 "/manifest.json": "267450d2e27a233810c283b77314b646"
 };
 
