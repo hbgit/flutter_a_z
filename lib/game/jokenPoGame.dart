@@ -125,6 +125,7 @@ class _JokenPoGameState extends State<JokenPoGame> {
                 fontSize: 23,
                 fontWeight: FontWeight.bold
               ),
+              key: Key("textMsg"),
             ),
           ),
           //4) Row with 3 Image

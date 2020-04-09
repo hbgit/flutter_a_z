@@ -20,10 +20,10 @@ void main() {
     ));
 
     // Create the Finders.
-    final gameTextFinder = find.text('What is your move?');
+    final gameTextFinder = find.byKey(Key('textMsg'));
     final rockOpFinder   = find.byKey(Key('rock_op')); 
 
-    // Verify the inital frame
+    // Verify the inital screen
     expect(gameTextFinder, findsOneWidget);
     expect(rockOpFinder, findsOneWidget);    
 
