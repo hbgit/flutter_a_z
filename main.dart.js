@@ -9769,8 +9769,8 @@ s=F.cJ(a,!0)
 s=s==null?null:s.b
 if(s==null)s=1
 return new M.jh(t,s,L.On(a,!0),T.aO(a),b,U.zE())},
-Ob:function(a,b){var t=null
-return new U.jg(M.WN(t,t,new L.er(a,t,t)),b,t)},
+Ob:function(a,b,c){var t=null
+return new U.jg(M.WN(t,t,new L.er(a,t,t)),b,c)},
 jg:function jg(a,b,c){this.c=a
 this.r=b
 this.a=c},
@@ -35281,7 +35281,7 @@ else t=!0
 if(t)r.au(new V.Kx(r))
 else r.au(new V.Ky(r))}},
 O:function(a){var t=this,s=null,r=u.hp,q=u.E
-return new M.nC(t.f,T.V8(H.b([new T.eN(new V.az(0,32,0,17),L.k5("APP Choice:",s,A.ka(s,s,s,s,s,s,s,s,s,s,s,21,s,C.b9,s,s,!0,s,s,s,s,s,s),C.bO),s),new U.jg(t.d,s,s),new T.eN(new V.az(0,32,0,17),L.k5(t.e,new D.cm("textMsg",r),A.ka(s,s,s,s,s,s,s,s,s,s,s,23,s,C.b9,s,s,!0,s,s,s,s,s,s),C.bO),s),T.WP(H.b([D.mb(s,U.Ob("images/pedra.png",100),C.a7,!1,new D.cm("rock_op",r),s,s,s,s,s,s,s,s,s,new V.Kz(t),s,s,s,s),D.mb(s,U.Ob("images/papel.png",100),C.a7,!1,s,s,s,s,s,s,s,s,s,s,new V.KA(t),s,s,s,s),D.mb(s,U.Ob("images/tesoura.png",100),C.a7,!1,s,s,s,s,s,s,s,s,s,s,new V.KB(t),s,s,s,s)],q),C.fC,C.kx,C.hO)],q),C.fC,C.kw),s)}}
+return new M.nC(t.f,T.V8(H.b([new T.eN(new V.az(0,32,0,17),L.k5("APP Choice:",s,A.ka(s,s,s,s,s,s,s,s,s,s,s,21,s,C.b9,s,s,!0,s,s,s,s,s,s),C.bO),s),new U.jg(t.d,s,s),new T.eN(new V.az(0,32,0,17),L.k5(t.e,new D.cm("textMsg",r),A.ka(s,s,s,s,s,s,s,s,s,s,s,23,s,C.b9,s,s,!0,s,s,s,s,s,s),C.bO),s),T.WP(H.b([D.mb(s,U.Ob("images/pedra.png",100,new D.cm("rock_op",r)),C.a7,!1,s,s,s,s,s,s,s,s,s,s,new V.Kz(t),s,s,s,s),D.mb(s,U.Ob("images/papel.png",100,s),C.a7,!1,s,s,s,s,s,s,s,s,s,s,new V.KA(t),s,s,s,s),D.mb(s,U.Ob("images/tesoura.png",100,s),C.a7,!1,s,s,s,s,s,s,s,s,s,s,new V.KB(t),s,s,s,s)],q),C.fC,C.kx,C.hO)],q),C.fC,C.kw),s)}}
 V.Kt.prototype={
 $0:function(){this.a.d=new L.er("images/pedra.png",null,null)},
 $S:0}
