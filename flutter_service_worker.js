@@ -15,7 +15,7 @@ const RESOURCES = {
 "/assets/images/padrao.png": "589c46b59101f6116106c88f390fb683",
 "/assets/images/logo_main_book.jpg": "f8f84fdf4d60a6ea9d53c6f352d2cd99",
 "/favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"/main.dart.js": "432876e8aed910267d2e4c1ad9bac3c8",
+"/main.dart.js": "a5a1405c51cd68a9de634ecf59bef15f",
 "/manifest.json": "267450d2e27a233810c283b77314b646"
 };
 
