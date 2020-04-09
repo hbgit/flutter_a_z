@@ -6,6 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // From APP
@@ -20,13 +21,13 @@ void main() {
     ));
 
     // Create the Finders.
-    final gameTextFinder = find.byKey(Key('textMsg'));
-    final rockOpFinder   = find.byKey(Key('rock_op')); 
+    final SemanticsNode gameTextFinder = tester.getSemantics(find.byKey(Key('textMsg')));    
+    final Finder rockOpFinder = find.byKey(Key('rock_op'));
+    
 
     // Verify the inital screen
-    expect(gameTextFinder, findsOneWidget);
-    expect(rockOpFinder, findsOneWidget);    
-
+    expect(gameTextFinder.label, 'What is your move?');
+    
     // Tap on each option of the game
     // 1 - rock
     await tester.tap(rockOpFinder);
