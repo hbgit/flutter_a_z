@@ -147,6 +147,7 @@ class _JokenPoGameState extends State<JokenPoGame> {
                 child: Image.asset(
                   "images/papel.png", 
                   height: 100,
+                  key: Key('paper_op'),
                 ),
               ),
               // Image 3
@@ -155,6 +156,7 @@ class _JokenPoGameState extends State<JokenPoGame> {
                 child: Image.asset(
                   "images/tesoura.png", 
                   height: 100,
+                  key: Key('scissors_op'),
                 ),
               ),
             ],
