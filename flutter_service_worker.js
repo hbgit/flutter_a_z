@@ -8,7 +8,7 @@ const RESOURCES = {
 "/assets/FontManifest.json": "01700ba55b08a6141f33e168c4a6c22f",
 "/assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
 "/assets/AssetManifest.json": "f2fea8fd8a8880d4e0c9bb818196baa3",
-"/assets/LICENSE": "fa78e10b637fde9c5a64cbcef8a6e371",
+"/assets/LICENSE": "832c683862cb4bf3929f34d31416f01b",
 "/assets/images/papel.png": "ada35938120c7c8b2a3164cc58fe1756",
 "/assets/images/pedra.png": "db796ff45155ea8c0ced267298d1bb48",
 "/assets/images/tesoura.png": "d8f126622a2a6bb4ad64fd5ed5b35a8a",
