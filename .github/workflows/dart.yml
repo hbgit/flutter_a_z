@@ -67,7 +67,7 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/debug/*.apk"
           draft: 'true'
-          tag: 'v3.0'        
+          tag: 'v4.0'        
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Install SSH Client 🔑

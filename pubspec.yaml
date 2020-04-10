@@ -48,11 +48,8 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - images/logo_main_book.jpg
-    - images/padrao.png
-    - images/papel.png
-    - images/pedra.png
-    - images/tesoura.png
+    - images/logo_gasvsalc.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
