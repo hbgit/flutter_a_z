@@ -30,6 +30,8 @@ void main() {
       home: Home()
     ));
 
+    final SemanticsHandle semanticsHandle = tester.ensureSemantics();
+
     
     final Finder logoImgFinder = find.byKey(Key('logo_img')); 
     expect(logoImgFinder, findsOneWidget);
@@ -50,18 +52,19 @@ void main() {
     expect(textResulFinder, findsOneWidget);
 
     // Test Result alcool
-    await tester.enterText(inputTextAlcFinder, "1.45");
     await tester.enterText(inputTextGasFinder, "3.59");
+    await tester.enterText(inputTextAlcFinder, "1.45");    
     await tester.tap(butCalcFinder, pointer: 1);
     await tester.pump(const Duration(milliseconds: 100));
     
     final SemanticsNode nodeTextResult = tester.getSemantics(textResulFinder);
     final SemanticsData semanticsTxtRes = nodeTextResult.getSemanticsData();
-    expect(semanticsTxtRes.label, "Melhor abastecer com alcool");    
+    expect(semanticsTxtRes.label, "Melhor abastecer com alcool");
+    semanticsHandle.dispose();    
 
     // Test Result gasolina
-    await tester.enterText(inputTextAlcFinder, "4.45");
     await tester.enterText(inputTextGasFinder, "5.39");
+    await tester.enterText(inputTextAlcFinder, "4.45");    
     await tester.tap(butCalcFinder, pointer: 1);
     await tester.pump(const Duration(milliseconds: 100)); 
     
