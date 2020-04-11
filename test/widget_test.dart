@@ -50,8 +50,8 @@ void main() {
     expect(textResulFinder, findsOneWidget);
 
     // Test Result alcool
-    await tester.enterText(inputTextGasFinder, "1.45");
-    await tester.enterText(inputTextAlcFinder, "3.59");
+    await tester.enterText(inputTextAlcFinder, "1.45");
+    await tester.enterText(inputTextGasFinder, "3.59");
     await tester.tap(butCalcFinder, pointer: 1);
     await tester.pump(const Duration(milliseconds: 100));
     
@@ -60,8 +60,8 @@ void main() {
     expect(semanticsTxtRes.label, "Melhor abastecer com alcool");    
 
     // Test Result gasolina
-    await tester.enterText(inputTextGasFinder, "4.45");
-    await tester.enterText(inputTextAlcFinder, "5.39");
+    await tester.enterText(inputTextAlcFinder, "4.45");
+    await tester.enterText(inputTextGasFinder, "5.39");
     await tester.tap(butCalcFinder, pointer: 1);
     await tester.pump(const Duration(milliseconds: 100)); 
     
