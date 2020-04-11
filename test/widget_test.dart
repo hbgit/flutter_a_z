@@ -59,16 +59,7 @@ void main() {
     
     final SemanticsNode nodeTextResult = tester.getSemantics(textResulFinder);
     final SemanticsData semanticsTxtRes = nodeTextResult.getSemanticsData();
-    expect(semanticsTxtRes.label, "Melhor abastecer com alcool");
-    semanticsHandle.dispose();    
-
-    // Test Result gasolina
-    await tester.enterText(inputTextGasFinder, "5.39");
-    await tester.enterText(inputTextAlcFinder, "4.45");    
-    await tester.tap(butCalcFinder, pointer: 1);
-    await tester.pump(const Duration(milliseconds: 100)); 
-    
-    expect(semanticsTxtRes.label, "Melhor abastecer com gasolina");
+    expect(semanticsTxtRes.label, "Melhor abastecer com alcool");    
 
   });
 }
