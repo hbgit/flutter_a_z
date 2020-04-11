@@ -70,3 +70,20 @@ $ flutter create .
 |<img src="./docs/images/app_v3_t0.png" width="200"> |<img src="./docs/images/app_v3_t1.png" width="200">|<img src="./docs/images/app_v3_t2.png" width="200">|<img src="./docs/images/app_v3_t3.png" width="200">|
 ---
 
+# v4.0
+---
+## Álcool VS Gasolina
+
+- The goal of this APP is create an APP to decide the best choice analyzing the price of the Gasoline and Alcohol
+
+- Some NOTES about this APP:
+    - We adopt internal packages; SingleChildScrollView; and TextField;
+
+- Overview of the APP:
+
+| Start  | Alcohol  | Gasoline  | Incorrect Input  |
+|---|---|---|---|
+|<img src="./docs/images/app_v4_t0.png" width="200"> |<img src="./docs/images/app_v4_t1.png" width="200">|<img src="./docs/images/app_v4_t2.png" width="200">|<img src="./docs/images/app_v4_t3.png" width="200">|
+
+---
+
