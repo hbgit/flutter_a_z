@@ -29,35 +29,27 @@ void main() {
       home: Home()
     ));
 
-    /*
-    // Create the Finders.
-    final SemanticsNode gameTextFinder = tester.getSemantics(find.byKey(Key('textMsg')));    
-    final Finder rockImgFinder = find.byKey(Key('rock_img'));    
-    final Finder paperImgFinder = find.byKey(Key('paper_img'));
-    final Finder scisImgFinder = find.byKey(Key('scissors_img'));
     
+    final Finder logoImgFinder = find.byKey(Key('logo_img')); 
+    expect(logoImgFinder, findsOneWidget);
 
-    // Verify the inital screen
-    expect(gameTextFinder.label, 'What is your move?');
-    expect(rockImgFinder, findsOneWidget);
-    expect(paperImgFinder, findsOneWidget);
-    expect(scisImgFinder, findsOneWidget);
-    
-    // Tap on each option of the game
-    final Finder rockOpFinder = find.byKey(Key('rock_op'));  
-    
-    // 1 - rock
-    await tester.tap(rockOpFinder, pointer: 1);
+    final Finder initTextFinder = find.byKey(Key('msg_init_text')); 
+    expect(initTextFinder, findsOneWidget);
+
+    final Finder inputTextGasFinder = find.byKey(Key('input_text_gas')); 
+    expect(inputTextGasFinder, findsOneWidget);
+
+    final Finder inputTextAlcFinder = find.byKey(Key('input_text_alc')); 
+    expect(inputTextAlcFinder, findsOneWidget);
+
+    final Finder butCalcFinder = find.byKey(Key('but_calc')); 
+    expect(butCalcFinder, findsOneWidget);
+
+    final Finder textResulFinder = find.byKey(Key('text_result')); 
+    expect(textResulFinder, findsOneWidget);
+
+    await tester.tap(butCalcFinder, pointer: 1);
     await tester.pump(const Duration(milliseconds: 100)); 
-
-    // 2 - paper
-    //await tester.tap(paperOpFinder);
-    //await tester.pump(); 
-
-    // 3 - paper
-    //await tester.tap(scisOpFinder);
-    //await tester.pump(); 
-    */
 
   });
 }

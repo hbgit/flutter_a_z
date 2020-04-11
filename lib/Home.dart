@@ -64,7 +64,10 @@ class _HomeState extends State<Home> {
               //1) Logo Image
               Padding(
                 padding: EdgeInsets.only(bottom: 31),
-                child: Image.asset("images/logo_gasvsalc.png"),
+                child: Image.asset(
+                  "images/logo_gasvsalc.png",
+                  key: Key('logo_img'),
+                  ),
               ),
               //2) Text
               Padding(
@@ -75,6 +78,7 @@ class _HomeState extends State<Home> {
                     fontSize: 25,
                     fontWeight: FontWeight.bold
                   ),
+                  key: Key('msg_init_text'),
                 ),
               ),
               //3) Form - two inputs
@@ -88,6 +92,7 @@ class _HomeState extends State<Home> {
                   fontSize: 22
                 ),
                 controller: _controllerGasolina,
+                key: Key('input_text_gas'),
               ),
               // 3.2) - Input Text
               TextField(
@@ -99,6 +104,7 @@ class _HomeState extends State<Home> {
                   fontSize: 22
                 ),
                 controller: _controllerAlcool,
+                key: Key('input_text_alc'),
               ),
               //4) Button
               Padding(
@@ -114,6 +120,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   onPressed: _calcular,
+                  key: Key('but_calc'),
                 ),
               ),
               //5) Result text
@@ -125,6 +132,7 @@ class _HomeState extends State<Home> {
                     fontSize: 22,
                     fontWeight: FontWeight.bold
                   ),
+                  key: Key('text_result'),
                 ),
               ),
             ],
