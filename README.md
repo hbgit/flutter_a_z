@@ -39,7 +39,7 @@ $ flutter create .
 ---
 ## Phrases of the Day
 
-- The goal of this APP is show random phrases in the screen according to the button is clicked
+- The goal of this APP is showing random phrases in the screen according to the button is clicked
 
 - Some NOTES about this APP:
     - Plugin adopted in the Visual Code IDE: Flutter (Dart-Code); Awesome Flutter Snippets (Nash Ramdial); and Dart (Dart-Code)
@@ -58,7 +58,7 @@ $ flutter create .
 ---
 ## Jokenpo
 
-- The goal of this APP is create the game Jokenpo, i.e., rock, paper and scissors
+- The goal of this APP has created the game Jokenpo, i.e., rock, paper, and scissors
 
 - Some NOTES about this APP:
     - We adopt internal packages; AppBar on setState; and GestureDetector
@@ -74,7 +74,7 @@ $ flutter create .
 ---
 ## Álcool VS Gasolina
 
-- The goal of this APP is create an APP to decide the best choice analyzing the price of the Gasoline and Alcohol
+- The goal of this APP is to decide the best choice analyzing the price of the Gasoline and Alcohol
 
 - Some NOTES about this APP:
     - We adopt internal packages; SingleChildScrollView; and TextField;
