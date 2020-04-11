@@ -22,7 +22,7 @@ import 'package:flutter_a_z/Home.dart';
 
 void main() {  
 
-  testWidgets('Checking JokenPo moves testing', (WidgetTester tester) async {
+  testWidgets('Checking APP widgets', (WidgetTester tester) async {
     
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
