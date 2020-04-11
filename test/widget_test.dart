@@ -14,7 +14,7 @@ https://flutter.dev/docs/testing
 */
 
 import 'package:flutter/material.dart';
-// import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 
@@ -54,13 +54,18 @@ void main() {
     await tester.enterText(inputTextAlcFinder, "3.59");
     await tester.tap(butCalcFinder, pointer: 1);
     await tester.pump(const Duration(milliseconds: 100));
-    expect(textResulFinder.toString(), "Melhor abastecer com alcool"); 
+    
+    final SemanticsNode nodeTextResult = tester.getSemantics(textResulFinder);
+    final SemanticsData semanticsTxtRes = nodeTextResult.getSemanticsData();
+    expect(semanticsTxtRes.label, "Melhor abastecer com alcool");    
 
     // Test Result gasolina
     await tester.enterText(inputTextGasFinder, "4.45");
     await tester.enterText(inputTextAlcFinder, "5.39");
     await tester.tap(butCalcFinder, pointer: 1);
     await tester.pump(const Duration(milliseconds: 100)); 
+    
+    expect(semanticsTxtRes.label, "Melhor abastecer com gasolina");
 
   });
 }
