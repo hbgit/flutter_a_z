@@ -78,6 +78,8 @@ $ flutter create .
 
 - Some NOTES about this APP:
     - We adopt internal packages; SingleChildScrollView; and TextField;
+    - We add unit test on test/unit_calcopt_test.dart
+    - Noting that Dart tests are written using the flutter_test package's API, named with the suffix _test.dart, and placed inside the test/ subdirectory of the package under test.
 
 - Overview of the APP:
 

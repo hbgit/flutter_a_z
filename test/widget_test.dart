@@ -10,6 +10,7 @@ Checking out:
 https://github.com/bizz84/coding-with-flutter-login-demo/blob/master/test/login_page_test.dart
 https://github.com/bizz84/coding-with-flutter-login-demo/blob/master/lib/login_page.dart
 https://github.com/flutter/flutter/blob/master/packages/flutter_test/test/widget_tester_test.dart
+https://flutter.dev/docs/testing
 */
 
 import 'package:flutter/material.dart';
@@ -48,6 +49,16 @@ void main() {
     final Finder textResulFinder = find.byKey(Key('text_result')); 
     expect(textResulFinder, findsOneWidget);
 
+    // Test Result alcool
+    await tester.enterText(inputTextGasFinder, "1.45");
+    await tester.enterText(inputTextAlcFinder, "3.59");
+    await tester.tap(butCalcFinder, pointer: 1);
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(textResulFinder.toString(), "Melhor abastecer com alcool"); 
+
+    // Test Result gasolina
+    await tester.enterText(inputTextGasFinder, "4.45");
+    await tester.enterText(inputTextAlcFinder, "5.39");
     await tester.tap(butCalcFinder, pointer: 1);
     await tester.pump(const Duration(milliseconds: 100)); 
 
