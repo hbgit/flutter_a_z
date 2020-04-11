@@ -30,7 +30,7 @@ void main() {
       home: Home()
     ));
 
-    final SemanticsHandle semanticsHandle = tester.ensureSemantics();
+    // final SemanticsHandle semanticsHandle = tester.ensureSemantics();
 
     
     final Finder logoImgFinder = find.byKey(Key('logo_img')); 
