@@ -15,7 +15,7 @@ const RESOURCES = {
 "/assets/images/v5_img/moeda_cara.png": "f6b337d27683ac1157d8e0b07401e9a2",
 "/assets/images/v5_img/botao_voltar.png": "d226fb50a5f6ef9ce7bcf8663bd27f74",
 "/favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"/main.dart.js": "8adeadf650bcedf644538ee81ac5ded0",
+"/main.dart.js": "3ba6e9d9b1c35de3a66d271f3e401493",
 "/manifest.json": "267450d2e27a233810c283b77314b646"
 };
 
