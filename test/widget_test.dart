@@ -38,7 +38,14 @@ void main() {
     expect(logoImgFinder, findsOneWidget);    
 
     final Finder butPlayFinder = find.byKey(Key('button_play')); 
-    expect(butPlayFinder, findsOneWidget);      
+    expect(butPlayFinder, findsOneWidget);   
+
+    final Finder gestPlayFinder = find.byKey(Key('gesture_play')); 
+    expect(gestPlayFinder, findsOneWidget); 
+    
+
+    await tester.tap(gestPlayFinder);   
+    await tester.pump();
 
   });
 

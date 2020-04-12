@@ -54,6 +54,7 @@ class _StartGameState extends State<StartGame> {
                           "images/v5_img/botao_jogar.png",
                           key: Key("button_play"),
                           ),
+                          key: Key("gesture_play"),
                       ),
                 ),                 
               ],
