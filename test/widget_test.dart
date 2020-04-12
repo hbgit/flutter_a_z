@@ -15,7 +15,7 @@ https://flutter.dev/docs/testing
 
 
 import 'package:flutter/material.dart';
-//import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_a_z/view/StartGame.dart';
@@ -25,7 +25,7 @@ import 'package:flutter_a_z/view/ResultGame.dart';
 void main() {  
 
   testWidgets('Checking Start Game Screen', (WidgetTester tester) async {
-    
+        
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
       home: StartGame()
@@ -42,9 +42,18 @@ void main() {
 
     final Finder gestPlayFinder = find.byKey(Key('gesture_play')); 
     expect(gestPlayFinder, findsOneWidget); 
-    
 
-    await tester.tap(gestPlayFinder);   
+    //final GlobalKey detectorKey = GlobalKey();
+    //detectorKey.currentContext.findRenderObject().debugSemantics.id();
+    //final int detectorId = gestPlayFinder. //.currentContext.findRenderObject().debugSemantics.id;
+
+    //final SemanticsNode node = tester.getSemantics(gestPlayFinder);
+    //final SemanticsData semantics = node.getSemanticsData();
+    
+    final Offset point = tester.getCenter(gestPlayFinder);
+    tester.binding.pipelineOwner.semanticsOwner.performActionAt(point, SemanticsAction.tap);    
+
+    //await tester.tap(gestPlayFinder);   
     await tester.pump();
 
   });
