@@ -37,7 +37,10 @@ class _StartGameState extends State<StartGame> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset("images/v5_img/logo.png"),                
+                Image.asset(
+                  "images/v5_img/logo.png",
+                  key: Key("logo_img"),
+                  ),                
               ],
             ),
             Row(
@@ -47,7 +50,10 @@ class _StartGameState extends State<StartGame> {
                   padding: EdgeInsets.only(top: 21),
                   child: GestureDetector(
                         onTap: () => _showResult(),
-                        child: Image.asset("images/v5_img/botao_jogar.png"),
+                        child: Image.asset(
+                          "images/v5_img/botao_jogar.png",
+                          key: Key("button_play"),
+                          ),
                       ),
                 ),                 
               ],

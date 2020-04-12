@@ -34,7 +34,10 @@ class _ResultGameState extends State<ResultGame> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(imgPath),
+                Image.asset(
+                  imgPath,
+                  key: Key("img_result"),
+                  ),
               ],
             ),
             Padding(
@@ -46,7 +49,10 @@ class _ResultGameState extends State<ResultGame> {
                     onTap: (){
                       Navigator.pop(context);
                     },
-                    child: Image.asset("images/v5_img/botao_voltar.png"),
+                    child: Image.asset(
+                      "images/v5_img/botao_voltar.png",
+                      key: Key("button_back"),
+                      ),
                   )
                 ],
               ),

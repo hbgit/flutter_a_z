@@ -13,55 +13,52 @@ https://github.com/flutter/flutter/blob/master/packages/flutter_test/test/widget
 https://flutter.dev/docs/testing
 */
 
-/*
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+//import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:flutter_a_z/view/StartGame.dart';
+import 'package:flutter_a_z/view/ResultGame.dart';
 
-// From APP
-import 'package:flutter_a_z/Home.dart';
 
 void main() {  
 
-  testWidgets('Checking APP widgets', (WidgetTester tester) async {
+  testWidgets('Checking Start Game Screen', (WidgetTester tester) async {
     
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
-      home: Home()
+      home: StartGame()
     ));
 
     // final SemanticsHandle semanticsHandle = tester.ensureSemantics();
 
     
     final Finder logoImgFinder = find.byKey(Key('logo_img')); 
-    expect(logoImgFinder, findsOneWidget);
+    expect(logoImgFinder, findsOneWidget);    
 
-    final Finder initTextFinder = find.byKey(Key('msg_init_text')); 
-    expect(initTextFinder, findsOneWidget);
-
-    final Finder inputTextGasFinder = find.byKey(Key('input_text_gas')); 
-    expect(inputTextGasFinder, findsOneWidget);
-
-    final Finder inputTextAlcFinder = find.byKey(Key('input_text_alc')); 
-    expect(inputTextAlcFinder, findsOneWidget);
-
-    final Finder butCalcFinder = find.byKey(Key('but_calc')); 
-    expect(butCalcFinder, findsOneWidget);
-
-    final Finder textResulFinder = find.byKey(Key('text_result')); 
-    expect(textResulFinder, findsOneWidget);
-
-    // Test Result alcool
-    await tester.enterText(inputTextGasFinder, "3.59");
-    await tester.enterText(inputTextAlcFinder, "1.45");    
-    await tester.tap(butCalcFinder, pointer: 1);
-    await tester.pump(const Duration(milliseconds: 100));
-    
-    final SemanticsNode nodeTextResult = tester.getSemantics(textResulFinder);
-    final SemanticsData semanticsTxtRes = nodeTextResult.getSemanticsData();
-    expect(semanticsTxtRes.label, "Melhor abastecer com alcool");    
+    final Finder butPlayFinder = find.byKey(Key('button_play')); 
+    expect(butPlayFinder, findsOneWidget);      
 
   });
+
+  testWidgets('Checking Result Game Screen', (WidgetTester tester) async {
+    
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(MaterialApp(
+      home: ResultGame("cara")
+    ));
+
+    // final SemanticsHandle semanticsHandle = tester.ensureSemantics();
+
+    
+    final Finder resultImgFinder = find.byKey(Key('img_result')); 
+    expect(resultImgFinder, findsOneWidget);    
+
+    final Finder butBackFinder = find.byKey(Key('button_back')); 
+    expect(butBackFinder, findsOneWidget);      
+
+  });
+
 }
-*/
+
