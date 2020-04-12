@@ -42,19 +42,9 @@ void main() {
 
     final Finder gestPlayFinder = find.byKey(Key('gesture_play')); 
     expect(gestPlayFinder, findsOneWidget); 
-
-    //final GlobalKey detectorKey = GlobalKey();
-    //detectorKey.currentContext.findRenderObject().debugSemantics.id();
-    //final int detectorId = gestPlayFinder. //.currentContext.findRenderObject().debugSemantics.id;
-
-    //final SemanticsNode node = tester.getSemantics(gestPlayFinder);
-    //final SemanticsData semantics = node.getSemanticsData();
     
-    final Offset point = tester.getCenter(gestPlayFinder);
-    tester.binding.pipelineOwner.semanticsOwner.performActionAt(point, SemanticsAction.tap);    
-
     //await tester.tap(gestPlayFinder);   
-    await tester.pump();
+    //await tester.pump();
 
   });
 

@@ -91,7 +91,19 @@ $ flutter create .
 
 # v5.0
 ---
-## Game Coin
+## Coin Game
+
+- The goal of this APP is to automatically choose one side of a coin
+
+- Some NOTES about this APP:
+    - We adopt internal packages; and routes with MaterialPageRoute    
+
+- Overview of the APP:
+
+| Start  | Result 1  | Result 2  |
+|---|---|---|
+|<img src="./docs/images/app_v5_t0.png" width="200"> |<img src="./docs/images/app_v5_t1.png" width="200">|<img src="./docs/images/app_v5_t2.png" width="200">|
+
 
 ---
 
