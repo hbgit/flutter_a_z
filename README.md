@@ -104,6 +104,20 @@ $ flutter create .
 |---|---|---|
 |<img src="./docs/images/app_v5_t0.png" width="200"> |<img src="./docs/images/app_v5_t1.png" width="200">|<img src="./docs/images/app_v5_t2.png" width="200">|
 
-
 ---
 
+# v6.0
+---
+## Bitcoin Price
+
+- The goal of this APP is to automatically show the price of the Bitcoin
+
+- Some NOTES about this APP:
+    - We adopt internal packages; and ...
+
+- Overview of the APP:
+
+| Start  | Result 1  | Result 2  |
+|---|---|---|
+|<img src="./docs/images/app_v5_t0.png" width="200"> |<img src="./docs/images/app_v5_t1.png" width="200">|<img src="./docs/images/app_v5_t2.png" width="200">|
+---
