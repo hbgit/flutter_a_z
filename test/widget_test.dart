@@ -13,8 +13,9 @@ https://github.com/flutter/flutter/blob/master/packages/flutter_test/test/widget
 https://flutter.dev/docs/testing
 */
 
-/*
+
 import 'package:flutter/material.dart';
+import 'package:flutter_a_z/view/HomeScreen.dart';
 // import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -27,43 +28,24 @@ void main() {
         
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
-      home: StartGame()
+      home: HomeScreen()
     ));
-
-    // final SemanticsHandle semanticsHandle = tester.ensureSemantics();
-
     
-    final Finder logoImgFinder = find.byKey(Key('logo_img')); 
-    expect(logoImgFinder, findsOneWidget);    
-
-    final Finder butPlayFinder = find.byKey(Key('button_play')); 
-    expect(butPlayFinder, findsOneWidget);   
-
-    final Finder gestPlayFinder = find.byKey(Key('gesture_play')); 
-    expect(gestPlayFinder, findsOneWidget); 
+    final Finder appBarFinder = find.byKey(Key('app_bar')); 
+    expect(appBarFinder, findsOneWidget); 
     
-    //await tester.tap(gestPlayFinder);   
-    //await tester.pump();
+    final Finder imgFinder = find.byKey(Key('img_bitcoin')); 
+    expect(imgFinder, findsOneWidget);   
+
+    final Finder resultTxtFinder = find.byKey(Key('result_txt')); 
+    expect(resultTxtFinder, findsOneWidget);   
+
+    final Finder loadBtnFinder = find.byKey(Key('load_btn')); 
+    expect(loadBtnFinder, findsOneWidget);   
+    
+    await tester.tap(loadBtnFinder);   
+    await tester.pump();
 
   });
-
-  testWidgets('Checking Result Game Screen', (WidgetTester tester) async {
-    
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(
-      home: ResultGame("cara")
-    ));
-
-    // final SemanticsHandle semanticsHandle = tester.ensureSemantics();
-
-    
-    final Finder resultImgFinder = find.byKey(Key('img_result')); 
-    expect(resultImgFinder, findsOneWidget);    
-
-    final Finder butBackFinder = find.byKey(Key('button_back')); 
-    expect(butBackFinder, findsOneWidget);      
-
-  });
-
 }
-*/
+

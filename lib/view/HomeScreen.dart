@@ -34,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Preço do Bitcoin"),
-        backgroundColor: Colors.orange,        
+        backgroundColor: Colors.orange,   
+        key: Key("app_bar"),     
       ),
       body: Container(
         padding: EdgeInsets.all(31),
@@ -42,7 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset("images/v6_img/bitcoin.png"),
+              Image.asset(
+                "images/v6_img/bitcoin.png",
+                key: Key("img_bitcoin"),
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 30, bottom: 30),
                 child: Text(
@@ -50,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                     fontSize: 35
                   ),
+                  key: Key("result_txt"),
                 ),
               ),             
               Padding(
@@ -64,7 +69,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   color: Colors.orange,                
                   onPressed: () => this._getPriceText(), 
-                  controller: _btnController,                             
+                  controller: _btnController,  
+                  key: Key("load_btn"),                           
                 ),
               ),              
             ],
