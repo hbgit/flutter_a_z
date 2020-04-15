@@ -40,8 +40,8 @@ void main() {
     final Finder resultTxtFinder = find.byKey(Key('result_txt')); 
     expect(resultTxtFinder, findsOneWidget);   
 
-    final Finder loadBtnFinder = find.byKey(Key('load_btn')); 
-    expect(loadBtnFinder, findsOneWidget);   
+    final Finder loadBtnFinder = find.byKey(Key('load_btn'));     
+    expect(loadBtnFinder, findsWidgets);   
     
     await tester.tap(loadBtnFinder);   
     await tester.pump();
