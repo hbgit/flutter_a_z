@@ -66,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 21,
                       color: Colors.white
                     ),
+                    key: Key("text_btn"),
                   ),
                   color: Colors.orange,                
                   onPressed: () => this._getPriceText(), 

@@ -38,13 +38,17 @@ void main() {
     expect(imgFinder, findsOneWidget);   
 
     final Finder resultTxtFinder = find.byKey(Key('result_txt')); 
-    expect(resultTxtFinder, findsOneWidget);   
+    expect(resultTxtFinder, findsOneWidget); 
 
-    final Finder loadBtnFinder = find.byKey(Key('load_btn'));     
-    expect(loadBtnFinder, findsWidgets);   
+    //text_btn  
+    final Finder btnTxtFinder = find.byKey(Key('text_btn')); 
+    expect(btnTxtFinder, findsOneWidget); 
+
+    //final Finder loadBtnFinder = find.byKey(Key('load_btn'));     
+    //expect(loadBtnFinder, findsWidgets);   
     
-    await tester.tap(loadBtnFinder);   
-    await tester.pump();
+    //await tester.tap(loadBtnFinder);   
+    //await tester.pump();
 
   });
 }
