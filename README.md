@@ -110,14 +110,15 @@ $ flutter create .
 ---
 ## Bitcoin Price
 
-- The goal of this APP is to automatically show the price of the Bitcoin
+- The goal of this APP is to automatically show the price of the Bitcoin adopting an API.
 
 - Some NOTES about this APP:
-    - We adopt internal packages; and ...
+    - We adopt internal packages; http.Response; async Functions; json.decode; and RoundedLoadingButton.
 
 - Overview of the APP:
 
 | Start  | Result 1  | Result 2  |
 |---|---|---|
-|<img src="./docs/images/app_v5_t0.png" width="200"> |<img src="./docs/images/app_v5_t1.png" width="200">|<img src="./docs/images/app_v5_t2.png" width="200">|
+|<img src="./docs/images/app_v6_t0.png" width="200"> |<img src="./docs/images/app_v6_t1.png" width="200">|<img src="./docs/images/app_v6_t2.png" width="200">|
+
 ---
