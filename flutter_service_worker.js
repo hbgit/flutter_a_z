@@ -7,15 +7,11 @@ const RESOURCES = {
 "/assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
 "/assets/FontManifest.json": "01700ba55b08a6141f33e168c4a6c22f",
 "/assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
-"/assets/AssetManifest.json": "62d28eb7ed589961ce2b4d84291b1dba",
-"/assets/LICENSE": "832c683862cb4bf3929f34d31416f01b",
-"/assets/images/v5_img/logo.png": "1a4e05af51006dcadefbaa65872bcfc6",
-"/assets/images/v5_img/moeda_coroa.png": "c3e301a258a8f9b3a3e09549cca4b735",
-"/assets/images/v5_img/botao_jogar.png": "0faa94c13b40da8688108306601e1ea7",
-"/assets/images/v5_img/moeda_cara.png": "f6b337d27683ac1157d8e0b07401e9a2",
-"/assets/images/v5_img/botao_voltar.png": "d226fb50a5f6ef9ce7bcf8663bd27f74",
+"/assets/AssetManifest.json": "fd9e2bcd15641c1c212fcf1c5d001233",
+"/assets/LICENSE": "5e94f534dc4fb850ed1e712159ebce47",
+"/assets/images/v6_img/bitcoin.png": "177e12184c7230d63013150dd81efb52",
 "/favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"/main.dart.js": "3ba6e9d9b1c35de3a66d271f3e401493",
+"/main.dart.js": "9976fc4b25ffa78d51d09c658b4d6075",
 "/manifest.json": "267450d2e27a233810c283b77314b646"
 };
 
