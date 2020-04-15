@@ -27,7 +27,10 @@ class CollectPrice{
         //print(price);
         return true;
         //return _price;
+      }else{
+        return false;
       }
+
 
     }else{
       return false;
