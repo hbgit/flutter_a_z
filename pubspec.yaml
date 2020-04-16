@@ -50,7 +50,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - images/v6_img/bitcoin.png    
+    - images/v7_img/youtube.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -5,5 +5,6 @@ import 'package:flutter_a_z/view/HomeScreen.dart';
 void main() {
   runApp(MaterialApp(
     home: HomeScreen(),
+    debugShowCheckedModeBanner: false,
   ));
 }

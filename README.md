@@ -122,3 +122,11 @@ $ flutter create .
 |<img src="./docs/images/app_v6_t0.png" width="200"> |<img src="./docs/images/app_v6_t1.png" width="200">|<img src="./docs/images/app_v6_t2.png" width="200">|
 
 ---
+
+# v7.0
+---
+## YouTube Clone
+
+- The goal of this APP is to adopt and simulate the YouTube APP based on a specific Playlist from YouTube service.
+
+---
