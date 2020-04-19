@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_a_z/view/Start.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -9,11 +10,21 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   //Screen Actions
+  int _indiceAtual = 0;
+  String _resultado = "";
 
 
   //Screen
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> screens = [
+      Start(this._resultado),
+      Text(""),
+      Text(""),
+      Text("")
+    ];
+
     return Scaffold(
       appBar: (
         AppBar(
@@ -30,8 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
             // search
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: (){
-                print("search icon");
+              onPressed: () async {
+                String res = await showSearch(context: context, delegate: null);
+                setState(() {
+                  this._resultado = res;
+                });
               },
             ),
           ],
@@ -40,29 +54,37 @@ class _HomeScreenState extends State<HomeScreen> {
       body: (
         Container(
           padding: EdgeInsets.all(15),
-          // Move screen
+          child: screens[this._indiceAtual],
         )
       ),      
       bottomNavigationBar: (
         BottomNavigationBar(
-          currentIndex: 0,
-          //onTap: (){},
+          currentIndex: this._indiceAtual,
+          onTap: (indice){
+            setState(() {
+              this._indiceAtual = indice;
+            });
+          },
           type: BottomNavigationBarType.shifting,
           items: [
               BottomNavigationBarItem(
-                backgroundColor: Colors.cyan,
+                title: Text("Home"),
+                backgroundColor: Colors.red,
                 icon: Icon(Icons.home)
               ),
               BottomNavigationBarItem(
-                backgroundColor: Colors.red,
+                title: Text("Hot"),
+                backgroundColor: Colors.redAccent,
                 icon: Icon(Icons.whatshot)
               ),
               BottomNavigationBarItem(
-                backgroundColor: Colors.orange,
+                title: Text("Subscription"),
+                backgroundColor: Colors.deepOrange,
                 icon:Icon(Icons.subscriptions)
               ),
               BottomNavigationBarItem(
-                backgroundColor: Colors.green,
+                title: Text("Library"),
+                backgroundColor: Colors.deepOrangeAccent,
                 icon: Icon(Icons.folder)
               ),
           ],
