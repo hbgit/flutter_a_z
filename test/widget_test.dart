@@ -61,12 +61,15 @@ void main() {
 
   testWidgets('Checking Start Screen', (WidgetTester tester) async {
     // Build our app and trigger a frame.
+    Future future;
+
     await tester.pumpWidget(MaterialApp(
       home: Start("","topDate")
     ));
 
     final Finder futureFinder = find.byKey(Key('frame_build_start')); 
     expect(futureFinder, findsOneWidget); 
+    await future;
 
     /*
     final Finder listVideosFinder = find.byKey(Key('list_videos')); 
