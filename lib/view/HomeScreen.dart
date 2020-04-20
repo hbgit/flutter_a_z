@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_a_z/view/CustomSearchDelegate.dart';
 import 'package:flutter_a_z/view/Start.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,12 +18,12 @@ class _HomeScreenState extends State<HomeScreen> {
   //Screen
   @override
   Widget build(BuildContext context) {
-
-    List<Widget> screens = [
-      Start(this._resultado),
-      Text(""),
-      Text(""),
-      Text("")
+    print(this._resultado);
+    List<Widget> screens = [      
+      Start(this._resultado, "topDate"),
+      Start("","hot"),
+      Start("","view"),
+      Start("","title")
     ];
 
     return Scaffold(
@@ -42,8 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () async {
-                String res = await showSearch(context: context, delegate: null);
-                setState(() {
+                String res = await showSearch(context: context, delegate: CustomSearchDelegate());
+                setState(() {                  
                   this._resultado = res;
                 });
               },
@@ -78,14 +79,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(Icons.whatshot)
               ),
               BottomNavigationBarItem(
-                title: Text("Subscription"),
+                title: Text("Highest Views"),
                 backgroundColor: Colors.deepOrange,
                 icon:Icon(Icons.subscriptions)
               ),
               BottomNavigationBarItem(
-                title: Text("Library"),
+                title: Text("A-Z"),
                 backgroundColor: Colors.deepOrangeAccent,
-                icon: Icon(Icons.folder)
+                icon: Icon(Icons.sort_by_alpha)
               ),
           ],
         )

@@ -129,4 +129,8 @@ $ flutter create .
 
 - The goal of this APP is to adopt and simulate the YouTube APP based on a specific Playlist from YouTube service.
 
+| Start  | Hot  | Highest Views  | A-Z by Title  | Search |
+|---|---|---|---|---|
+|<img src="./docs/images/app_v7_t0.png" width="200"> |<img src="./docs/images/app_v7_t1.png" width="200">|<img src="./docs/images/app_v7_t2.png" width="200">|<img src="./docs/images/app_v7_t3.png" width="200">|<img src="./docs/images/app_v7_t4.png" width="200">|
+
 ---

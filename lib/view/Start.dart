@@ -4,16 +4,17 @@ import 'package:flutter_a_z/model/Video.dart';
 import 'package:flutter_youtube/flutter_youtube.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'dart:io';
 
 class Start extends StatefulWidget {
   //Start({Key key}) : super(key: key);
 
   final String query;
-  Start(this.query);
+  final String op;  
+  Start(this.query, this.op);
 
   @override
   _StartState createState() => _StartState();
+  
 }
 
 class _StartState extends State<Start> {
@@ -44,7 +45,16 @@ class _StartState extends State<Start> {
 
   _listVideos(String query) {
     Api api = Api();
-    return api.search(query);
+    if(widget.op == "topDate"){
+       return api.search(query);
+    }else if(widget.op == "hot"){
+      return api.opSearch("rating");
+    }else if(widget.op == "view"){
+      return api.opSearch("viewCount");
+    }else if(widget.op == "title"){
+      return api.opSearch("title");
+    }    
+
   }
 
   @override
