@@ -80,6 +80,7 @@ class _StartState extends State<Start> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Video>>(
+      key: Key("frame_build_start"),
       future: _listVideos(widget.query),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
@@ -100,6 +101,7 @@ class _StartState extends State<Start> {
           case ConnectionState.done:
             if (snapshot.hasData) {
               return ListView.separated(
+                  key: Key("list_videos"),
                   itemBuilder: (context, index) {
                     List<Video> videos = snapshot.data;
                     Video video = videos[index];
@@ -112,6 +114,7 @@ class _StartState extends State<Start> {
                       child: Column(
                         children: <Widget>[
                           Container(
+                            key: Key("img_video"),
                             height: 200,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -120,6 +123,7 @@ class _StartState extends State<Start> {
                             )),
                           ),
                           ListTile(
+                            key: Key("list_desc_video"),
                             title: Text(video.title),
                             subtitle: Text(video.channel),
                           )
@@ -139,7 +143,7 @@ class _StartState extends State<Start> {
             }
             break;
           default: // Is required by this version of Flutter
-            return Text("here");
+            return Text("Sorry :(");
         }
       },
     );

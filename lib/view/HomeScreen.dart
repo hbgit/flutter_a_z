@@ -50,16 +50,19 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ],
+          key: Key("app_bar"),
         )
       ),      
       body: (
         Container(
           padding: EdgeInsets.all(15),
           child: screens[this._indiceAtual],
-        )
+          key: Key("body_app"),
+        )        
       ),      
-      bottomNavigationBar: (
+      bottomNavigationBar: (        
         BottomNavigationBar(
+          key: Key("nav_App"),
           currentIndex: this._indiceAtual,
           onTap: (indice){
             setState(() {
