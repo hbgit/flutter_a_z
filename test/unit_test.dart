@@ -13,7 +13,7 @@ void main() {
     """    
   {
    "kind": "youtube#video",
-   "etag": "\"nxOHAKTVB7baOKsQgTtJIyGxcs8/PqmK3dQl2D1Z38JM7ai1MnWM68o\"",
+   "etag": "nxOHAKTVB7baOKsQgTtJIyGxcs8/PqmK3dQl2D1Z38JM7ai1MnWM68o",
    "id": "7Y8g0BTXRh4",
    "snippet": {
     "publishedAt": "2020-04-20T14:25:35.000Z",
