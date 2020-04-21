@@ -78,7 +78,7 @@ void main() {
     "liveBroadcastContent": "none",
     "localized": {
      "title": "The Mandalorian Season 2 Trailer | Disney+",
-     "description": "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. \"The Mandalorian\" is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.\n\n#ign"
+     "description": "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. The Mandalorian is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.\n\n#ign"
     }
    }
   }
