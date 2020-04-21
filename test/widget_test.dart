@@ -73,6 +73,12 @@ void main() {
 
     final Finder futureFinder = find.byKey(Key('frame_build_start')); 
     expect(futureFinder, findsOneWidget); 
+
+    final Finder listViFinder = find.byKey(Key('list_videos')); 
+    expect(listViFinder, findsOneWidget); 
+
+    final Finder imgContFinder = find.byKey(Key('img_video')); 
+    expect(imgContFinder, findsOneWidget); 
     
     
     await tester.pumpWidget(FutureBuilder<String>(
