@@ -86,18 +86,19 @@ void main() {
 """;
 
     Map<String, dynamic> youtubeReturn = jsonDecode(jsonString);
-    print(youtubeReturn);
+    //print(youtubeReturn);
     //final Video v = Video.fromJson(youtubeReturn);
-    Video v = youtubeReturn["items"].map<Video>((map) {
+    List<Video> v = youtubeReturn["items"].map<Video>((map) {
       return Video.fromJson(map);
-    });
+    }).toList();
 
-    expect(v.id, "7Y8g0BTXRh4");
-    expect(v.title, "The Mandalorian Season 2 Trailer | Disney+");
-    expect(v.description,
+    
+    expect(v[0].id, "7Y8g0BTXRh4");
+    expect(v[0].title, "The Mandalorian Season 2 Trailer | Disney+");
+    expect(v[0].description,
         "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. The Mandalorian is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.");
-    expect(v.image, "https://i.ytimg.com/vi/7Y8g0BTXRh4/hqdefault.jpg");
-    expect(v.channel, "IGN");
+    expect(v[0].image, "https://i.ytimg.com/vi/7Y8g0BTXRh4/hqdefault.jpg");
+    expect(v[0].channel, "IGN");
   });
 
   test("Checking Api call", () {
