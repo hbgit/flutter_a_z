@@ -19,7 +19,7 @@ void main() {
     "publishedAt": "2020-04-20T14:25:35.000Z",
     "channelId": "UCKy1dAqELo0zrOtPkf0eTMw",
     "title": "The Mandalorian Season 2 Trailer | Disney+",
-    "description": "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. \"The Mandalorian\" is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.\n\n#ign",
+    "description": "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. The Mandalorian is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.\n\n#ign",
     "thumbnails": {
      "default": {
       "url": "https://i.ytimg.com/vi/7Y8g0BTXRh4/default.jpg",
@@ -88,7 +88,7 @@ void main() {
     final Video v = Video.fromJson(youtubeReturn);
     expect(v.id, "7Y8g0BTXRh4");
     expect(v.title, "The Mandalorian Season 2 Trailer | Disney+");
-    expect(v.description, "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. \"The Mandalorian\" is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.\n\n#ign");
+    expect(v.description, "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. The Mandalorian is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.\n\n#ign");
     expect(v.image, "https://i.ytimg.com/vi/7Y8g0BTXRh4/hqdefault.jpg");
     expect(v.channel, "IGN");
   });
