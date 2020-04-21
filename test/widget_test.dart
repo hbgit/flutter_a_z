@@ -96,6 +96,7 @@ void main() {
 
   });
 
+/*
   testWidgets('Checking Custom Search Delegate', (WidgetTester tester) async {
     // Build our app and trigger a frame.  
     CustomSearchDelegate cS = CustomSearchDelegate();
@@ -110,6 +111,7 @@ void main() {
     expect(seLiFinder, findsOneWidget);     
 
   });
+  */
 
 }
 
