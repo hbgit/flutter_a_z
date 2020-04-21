@@ -89,7 +89,7 @@ void main() {
       return Video.fromJson(map);
     }).toList();*/
 
-    print(v);
+    print(v.id);
     //print(v[0]);
 
     /*
