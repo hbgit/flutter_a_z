@@ -11,7 +11,7 @@ const RESOURCES = {
 "/assets/LICENSE": "d48a8c2746b029b4dd5d134913ac90f8",
 "/assets/images/v7_img/youtube.png": "9bc925d99cd9a0718de36fb30d966bcc",
 "/favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"/main.dart.js": "a11c2b69451b08d8af5b45361f7c1c28",
+"/main.dart.js": "39f4ad502359ca488b1be727edbd2a40",
 "/manifest.json": "267450d2e27a233810c283b77314b646"
 };
 
