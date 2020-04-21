@@ -6,11 +6,9 @@ import 'package:flutter_a_z/model/Video.dart';
 import 'package:test/test.dart';
 
 void main() {
-
-  test("Checking video model", (){
-    
-    String jsonString = 
-    """    
+  test("Checking video model", () {
+    String jsonString = """ 
+  "items": [   
   {
    "kind": "youtube#video",
    "etag": "nxOHAKTVB7baOKsQgTtJIyGxcs8/PqmK3dQl2D1Z38JM7ai1MnWM68o",
@@ -82,24 +80,28 @@ void main() {
     }
    }
   }
+  ]
 """;
 
     Map<String, dynamic> youtubeReturn = jsonDecode(jsonString);
-    final Video v = Video.fromJson(youtubeReturn);
+    print(youtubeReturn);
+    //final Video v = Video.fromJson(youtubeReturn);
+    Video v = youtubeReturn["items"].map<Video>((map) {
+      return Video.fromJson(map);
+    });
+
     expect(v.id, "7Y8g0BTXRh4");
     expect(v.title, "The Mandalorian Season 2 Trailer | Disney+");
-    expect(v.description, "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. The Mandalorian is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.");
+    expect(v.description,
+        "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. The Mandalorian is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.");
     expect(v.image, "https://i.ytimg.com/vi/7Y8g0BTXRh4/hqdefault.jpg");
     expect(v.channel, "IGN");
   });
 
-  test("Checking Api call", (){
+  test("Checking Api call", () {
     Api t1 = Api();
-    t1.search("").then((value){
-      expect(value.length, isNonZero);      
+    t1.search("").then((value) {
+      expect(value.length, isNonZero);
     });
-
   });
-
 }
-
