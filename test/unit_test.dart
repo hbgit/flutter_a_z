@@ -8,10 +8,12 @@ import 'package:test/test.dart';
 void main() {
   test("Checking video model", () {
     String jsonString = """ 
-  {
-    "kind": "youtube#video",
+  {    
     "etag": "nxOHAKTVB7baOKsQgTtJIyGxcs8/PqmK3dQl2D1Z38JM7ai1MnWM68o",
-    "id": "7Y8g0BTXRh4",
+    "id": {
+      "kind": "youtube#video",
+      "videoId": "7Y8g0BTXRh4"
+    },    
     "snippet": {
       "publishedAt": "2020-04-20T14:25:35.000Z",
       "channelId": "UCKy1dAqELo0zrOtPkf0eTMw",
@@ -82,7 +84,7 @@ void main() {
 """;
 
     Map<String, dynamic> youtubeReturn = json.decode(jsonString);
-    //print(youtubeReturn);
+    print(youtubeReturn["id"]["videoId"]);
     Video v = Video.fromJson(youtubeReturn);
     /*
     List<Video> v = youtubeReturn["items"].map<Video>((map) {
@@ -92,14 +94,14 @@ void main() {
     print(v.id);
     //print(v[0]);
 
-    /*
-    expect(v[0].id, "7Y8g0BTXRh4");
-    expect(v[0].title, "The Mandalorian Season 2 Trailer | Disney+");
-    expect(v[0].description,
+    
+    expect(v.id, "7Y8g0BTXRh4");
+    expect(v.title, "The Mandalorian Season 2 Trailer | Disney+");
+    expect(v.description,
         "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. The Mandalorian is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic.");
-    expect(v[0].image, "https://i.ytimg.com/vi/7Y8g0BTXRh4/hqdefault.jpg");
-    expect(v[0].channel, "IGN");
-    */
+    expect(v.image, "https://i.ytimg.com/vi/7Y8g0BTXRh4/hqdefault.jpg");
+    expect(v.channel, "IGN");
+    
   });
 
   test("Checking Api call", () {
