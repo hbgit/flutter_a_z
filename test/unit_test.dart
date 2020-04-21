@@ -84,17 +84,8 @@ void main() {
 """;
 
     Map<String, dynamic> youtubeReturn = json.decode(jsonString);
-    print(youtubeReturn["id"]["videoId"]);
     Video v = Video.fromJson(youtubeReturn);
-    /*
-    List<Video> v = youtubeReturn["items"].map<Video>((map) {
-      return Video.fromJson(map);
-    }).toList();*/
-
-    print(v.id);
-    //print(v[0]);
-
-    
+       
     expect(v.id, "7Y8g0BTXRh4");
     expect(v.title, "The Mandalorian Season 2 Trailer | Disney+");
     expect(v.description,
@@ -105,9 +96,16 @@ void main() {
   });
 
   test("Checking Api call", () {
+    
     Api t1 = Api();
     t1.search("").then((value) {
       expect(value.length, isNonZero);
     });
+
+    Api t2 = Api();
+    t2.opSearch("rating").then((value) {
+      expect(value.length, isNonZero);
+    });
+
   });
 }
