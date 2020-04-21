@@ -9,8 +9,6 @@ void main() {
   test("Checking video model", () {
     String jsonString = """ 
   {
-    "items": [   
-    {
     "kind": "youtube#video",
     "etag": "nxOHAKTVB7baOKsQgTtJIyGxcs8/PqmK3dQl2D1Z38JM7ai1MnWM68o",
     "id": "7Y8g0BTXRh4",
@@ -80,20 +78,19 @@ void main() {
       "description": "Din Djarin has traveled far, made many enemies, and shouldered the burden of some very precious cargo...but his journey is far from over. The Mandalorian is set after the fall of the Empire and before the emergence of the First Order. We follow the travails of a lone gunfighter in the outer reaches of the galaxy far from the authority of the New Republic."
       }
     }
-    }
-    ]
-  }
+  }    
 """;
 
     Map<String, dynamic> youtubeReturn = json.decode(jsonString);
-    print(youtubeReturn["items"]);
-    //final Video v = Video.fromJson(youtubeReturn);
+    //print(youtubeReturn);
+    Video v = Video.fromJson(youtubeReturn);
+    /*
     List<Video> v = youtubeReturn["items"].map<Video>((map) {
       return Video.fromJson(map);
-    }).toList();
+    }).toList();*/
 
     print(v);
-    print(v[0]);
+    //print(v[0]);
 
     /*
     expect(v[0].id, "7Y8g0BTXRh4");
