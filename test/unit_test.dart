@@ -3,7 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter_a_z/Api.dart';
 import 'package:flutter_a_z/model/Video.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
+//import 'package:test/test.dart';
 
 void main() {
   test("Checking video model", () {
@@ -95,17 +96,18 @@ void main() {
     
   });
 
-  test("Checking Api call", () {
+  test("Checking Api call", () async {
     
     Api t1 = Api();
-    t1.search("").then((value) {
+    await t1.search("").then((value) {
       expect(value.length, isNonZero);
     });
 
     Api t2 = Api();
-    t2.opSearch("rating").then((value) {
+    await t2.opSearch("rating").then((value) {
       expect(value.length, isNonZero);
     });
 
-  });
+  });  
+
 }

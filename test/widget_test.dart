@@ -15,6 +15,7 @@ https://flutter.dev/docs/testing
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_a_z/view/CustomSearchDelegate.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
 import 'package:flutter_a_z/view/Start.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -92,6 +93,21 @@ void main() {
     expect(descVideoFinder, findsOneWidget);    
     */
 
+
+  });
+
+  testWidgets('Checking Custom Search Delegate', (WidgetTester tester) async {
+    // Build our app and trigger a frame.  
+    CustomSearchDelegate cS = CustomSearchDelegate();
+    cS.query = "games";
+    BuildContext context;
+    
+    await tester.pumpWidget(MaterialApp(
+      home: cS.buildSuggestions(context)
+    ));
+
+    final Finder seLiFinder = find.byKey(Key('search_list')); 
+    expect(seLiFinder, findsOneWidget);     
 
   });
 

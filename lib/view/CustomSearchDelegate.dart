@@ -46,6 +46,7 @@ class CustomSearchDelegate extends SearchDelegate<String>{
       ).toList();
 
       return ListView.builder(
+        key: Key("search_list"),
         itemCount: listOp.length,
         itemBuilder: (context, index){
           return ListTile(
