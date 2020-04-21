@@ -19,7 +19,11 @@ import 'package:flutter_a_z/view/HomeScreen.dart';
 import 'package:flutter_a_z/view/Start.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main() {  
+void main() { 
+
+  Widget snapshotText(BuildContext context, AsyncSnapshot<String> snapshot) {
+    return Text(snapshot.toString(), textDirection: TextDirection.ltr);
+  } 
 
   testWidgets('Checking Home Screen', (WidgetTester tester) async {
         
@@ -60,8 +64,7 @@ void main() {
   });
 
   testWidgets('Checking Start Screen', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    Future future;
+    // Build our app and trigger a frame.  
 
     await tester.pumpWidget(MaterialApp(
       home: Start("","topDate")
@@ -69,7 +72,14 @@ void main() {
 
     final Finder futureFinder = find.byKey(Key('frame_build_start')); 
     expect(futureFinder, findsOneWidget); 
-    await future;
+    
+    
+    await tester.pumpWidget(FutureBuilder<String>(
+        future: Future<String>.value('["zfBYJrhMZwQ"]'),
+        builder: snapshotText,       
+      ));
+
+    await tester.pump(Duration.zero);
 
     /*
     final Finder listVideosFinder = find.byKey(Key('list_videos')); 
