@@ -15,16 +15,10 @@ https://flutter.dev/docs/testing
 
 
 import 'package:flutter/material.dart';
-//import 'package:flutter_a_z/view/CustomSearchDelegate.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
-import 'package:flutter_a_z/view/Start.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() { 
-
-  Widget snapshotText(BuildContext context, AsyncSnapshot<String> snapshot) {
-    return Text(snapshot.toString(), textDirection: TextDirection.ltr);
-  } 
 
   testWidgets('Checking Home Screen', (WidgetTester tester) async {
         
@@ -33,7 +27,7 @@ void main() {
       home: HomeScreen()
     ));
     
-    
+    /*
     final Finder appBarFinder = find.byKey(Key('app_bar')); 
     expect(appBarFinder, findsOneWidget); 
 
@@ -42,6 +36,7 @@ void main() {
 
     final Finder navBarFinder = find.byKey(Key('nav_App')); 
     expect(navBarFinder, findsOneWidget); 
+    */
 
 
     /*
@@ -64,61 +59,8 @@ void main() {
 
   });
 
-  testWidgets('Checking Start Screen', (WidgetTester tester) async {
-    // Build our app and trigger a frame.  
+  
 
-    await tester.pumpWidget(MaterialApp(
-      home: Start("","topDate")
-    ));
-
-    final Finder futureFinder = find.byKey(Key('frame_build_start')); 
-    expect(futureFinder, findsOneWidget); 
-
-    /*
-    final Finder listViFinder = find.byKey(Key('list_videos')); 
-    expect(listViFinder, findsOneWidget); 
-
-    final Finder imgContFinder = find.byKey(Key('img_video')); 
-    expect(imgContFinder, findsOneWidget); 
-    */    
-    
-    await tester.pumpWidget(FutureBuilder<String>(
-        future: Future<String>.value('["zfBYJrhMZwQ"]'),
-        builder: snapshotText,       
-      ));
-
-    await tester.pump(Duration.zero);
-
-    /*
-    final Finder listVideosFinder = find.byKey(Key('list_videos')); 
-    expect(listVideosFinder, findsOneWidget); 
-
-    final Finder imgVideoFinder = find.byKey(Key('img_video')); 
-    expect(imgVideoFinder, findsOneWidget); 
-
-    final Finder descVideoFinder = find.byKey(Key('list_desc_video')); 
-    expect(descVideoFinder, findsOneWidget);    
-    */
-
-
-  });
-
-/*
-  testWidgets('Checking Custom Search Delegate', (WidgetTester tester) async {
-    // Build our app and trigger a frame.  
-    CustomSearchDelegate cS = CustomSearchDelegate();
-    cS.query = "games";
-    BuildContext context;
-    
-    await tester.pumpWidget(MaterialApp(
-      home: cS.buildSuggestions(context)
-    ));
-
-    final Finder seLiFinder = find.byKey(Key('search_list')); 
-    expect(seLiFinder, findsOneWidget);     
-
-  });
-  */
 
 }
 
