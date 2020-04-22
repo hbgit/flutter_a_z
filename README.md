@@ -2,6 +2,8 @@
 
 The goal is trying different flutter features, and apply CI/CD using github actions.
 
+The latest version of the APP is available to try at https://hbgit.github.io/flutter_a_z/
+
 # v1.0
 ---
 
