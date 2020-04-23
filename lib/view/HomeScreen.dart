@@ -20,44 +20,36 @@ class _HomeScreenState extends State<HomeScreen> {
   List _taskList = [];
   Task _lastTaskUsed = Task();
 
-  //Handle File 
+  //Handle File
 
   Future<File> _getFile() async {
-    
     final pathAppDir = await getApplicationDocumentsDirectory();
     return File("${pathAppDir.path}/data_task.json");
-
   }
 
-  _saveFile() async{
-    
+  _saveFile() async {
     var fileTask = await _getFile();
     List saveTask = Task().getMapListTask(_taskList);
     String data = json.encode(saveTask);
-    
+
     print("Data to be saved:");
     print(data);
-    
+
     fileTask.writeAsString(data);
   }
 
-  _readFile() async{
-
-    try{
-
+  _readFile() async {
+    try {
       final file = await _getFile();
       return file.readAsString();
-    
-    }catch(e){
+    } catch (e) {
       print(e.toString());
-      return null;      
+      return null;
     }
-
   }
 
-
   // Handle tasks
-  _saveTask(){
+  _saveTask() {
     String typedText = _controllerTask.text;
 
     Task task = Task();
@@ -75,50 +67,88 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // For APP
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
-    _readFile().then( (data){
+    _readFile().then((data) {
       setState(() {
         _taskList = Task().getListTaskFromJsonString(data);
       });
     });
-
   }
 
   // ListView using Dismissible of this Screen
-  Widget createListItems(context, index){
+  Widget createListItems(context, index) {
     return Dismissible(
-      key: Key(UniqueKey().toString()), 
-      //key: Key(_taskList[index].id), 
-      direction: DismissDirection.horizontal,
-      onDismissed: (direction){
+      key: Key(UniqueKey().toString()),
+      //key: Key(_taskList[index].id),
+      //direction: DismissDirection.,
+      onDismissed: (direction) {
+        print(direction);
 
-        // item that will be removed
-        _lastTaskUsed = _taskList[index];
-        
-        //remove item
-        _taskList.removeAt(index);
-        _saveFile();
+        if (direction == DismissDirection.endToStart) {
+          // item that will be removed
+          _lastTaskUsed = _taskList[index];
 
-        // Confirm with the user
-        final snackBar = SnackBar(
-          content: Text("Task removed!"),
-          backgroundColor: Colors.green,
-          action: SnackBarAction(
-            label: "Undo Tap Here",
-            textColor: Colors.white,
-            onPressed: (){
-              setState(() {
-                _taskList.insert(index, _lastTaskUsed);                
-              });
-              _saveFile();
-            },
-          ),
-        );
+          //remove item
+          _taskList.removeAt(index);
+          _saveFile();
 
-        Scaffold.of(context).showSnackBar(snackBar);
-      },      
+          // Confirm with the user
+          final snackBar = SnackBar(
+            content: Text("Task removed!"),
+            backgroundColor: Colors.green,
+            action: SnackBarAction(
+              label: "Undo Tap Here",
+              textColor: Colors.white,
+              onPressed: () {
+                setState(() {
+                  _taskList.insert(index, _lastTaskUsed);
+                });
+                _saveFile();
+              },
+            ),
+          );
+
+          Scaffold.of(context).showSnackBar(snackBar);
+
+        } else if (direction == DismissDirection.startToEnd) {
+          
+          AlertDialog updateAlert = AlertDialog(
+            title: Text("Update the task"),
+            content: TextField(
+              controller: this._controllerTask,
+              decoration: InputDecoration(
+                labelText: _taskList[index].description,                
+              ),
+              onChanged: (text) {},
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Cancel"),
+                onPressed: () => Navigator.pop(context),
+              ),
+              FlatButton(
+                child: Text("Save"),
+                onPressed: () {
+                  _saveTask();
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+
+          showDialog(
+            context: context,
+            builder: (BuildContext context){
+              return updateAlert;
+            }
+          );
+          
+          //Scaffold.of(context).
+
+        }
+      },
       background: Container(
         color: Colors.red,
         padding: EdgeInsets.all(15),
@@ -127,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             Icon(
               Icons.delete_forever,
-              color:  Colors.white,
+              color: Colors.white,
             ),
           ],
         ),
@@ -135,19 +165,17 @@ class _HomeScreenState extends State<HomeScreen> {
       child: CheckboxListTile(
         title: Text(_taskList[index].description),
         value: _taskList[index].status,
-        onChanged: (updateBox){
+        onChanged: (updateBox) {
           setState(() {
-            _taskList[index].status = true;
+            _taskList[index].status = updateBox;
           });
 
           _saveFile();
-
         },
       ),
     );
-  } 
- 
- 
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Todo List"),
         backgroundColor: Colors.teal,
       ),
-      
+
       body: Column(
         children: <Widget>[
           Expanded(
@@ -166,44 +194,41 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      
+
       //bottomNavigationBar: ,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_to_photos),
         backgroundColor: Colors.teal,
-        onPressed: (){
+        onPressed: () {
           showDialog(
-            context: context,
-            builder: (context){
-              return AlertDialog(
-                title: Text("Add a task"),
-                content: TextField(                  
-                  controller: this._controllerTask,
-                  decoration: InputDecoration(
-                    labelText: "Type your task",
-                    //fillColor : Colors.purple
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("Add a task"),
+                  content: TextField(
+                    controller: this._controllerTask,
+                    decoration: InputDecoration(
+                      labelText: "Type your task",
+                      //fillColor : Colors.purple
+                    ),
+                    onChanged: (text) {},
                   ),
-                  onChanged: (text){
-
-                  },                  
-                ),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text("Cancel"),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  FlatButton(
-                    child: Text("Save"),
-                    onPressed: (){
-                      _saveTask();
-                      Navigator.pop(context);
-                    },
-                  )
-                ],                
-              );
-            }
-          );
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("Cancel"),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    FlatButton(
+                      child: Text("Save"),
+                      onPressed: () {
+                        _saveTask();
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                );
+              });
         },
       ),
     );
