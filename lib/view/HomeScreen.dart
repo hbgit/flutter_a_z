@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_a_z/model/Task.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:async';
+import 'dart:convert';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -10,6 +15,137 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Controllers
   TextEditingController _controllerTask = TextEditingController();
+
+  // attr
+  List _taskList = [];
+  Task _lastTaskUsed = Task();
+
+  //Handle File 
+
+  Future<File> _getFile() async {
+    
+    final pathAppDir = await getApplicationDocumentsDirectory();
+    return File("${pathAppDir.path}/data_task.json");
+
+  }
+
+  _saveFile() async{
+    
+    var fileTask = await _getFile();
+    List saveTask = Task().getMapListTask(_taskList);
+    String data = json.encode(saveTask);
+    
+    print("Data to be saved:");
+    print(data);
+    
+    fileTask.writeAsString(data);
+  }
+
+  _readFile() async{
+
+    try{
+
+      final file = await _getFile();
+      return file.readAsString();
+    
+    }catch(e){
+      print(e.toString());
+      return null;      
+    }
+
+  }
+
+
+  // Handle tasks
+  _saveTask(){
+    String typedText = _controllerTask.text;
+
+    Task task = Task();
+    task.description = typedText;
+    task.status = false;
+    task.id = DateTime.now().millisecondsSinceEpoch.toString();
+
+    setState(() {
+      _taskList.add(task);
+    });
+
+    _saveFile();
+    _controllerTask.text = "";
+  }
+
+  // For APP
+  @override
+  void initState(){
+    super.initState();
+
+    _readFile().then( (data){
+      setState(() {
+        _taskList = Task().getListTaskFromJsonString(data);
+      });
+    });
+
+  }
+
+  // ListView using Dismissible of this Screen
+  Widget createListItems(context, index){
+    return Dismissible(
+      key: Key(UniqueKey().toString()), 
+      //key: Key(_taskList[index].id), 
+      direction: DismissDirection.horizontal,
+      onDismissed: (direction){
+
+        // item that will be removed
+        _lastTaskUsed = _taskList[index];
+        
+        //remove item
+        _taskList.removeAt(index);
+        _saveFile();
+
+        // Confirm with the user
+        final snackBar = SnackBar(
+          content: Text("Task removed!"),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+            label: "Undo Tap Here",
+            textColor: Colors.white,
+            onPressed: (){
+              setState(() {
+                _taskList.insert(index, _lastTaskUsed);                
+              });
+              _saveFile();
+            },
+          ),
+        );
+
+        Scaffold.of(context).showSnackBar(snackBar);
+      },      
+      background: Container(
+        color: Colors.red,
+        padding: EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Icon(
+              Icons.delete_forever,
+              color:  Colors.white,
+            ),
+          ],
+        ),
+      ),
+      child: CheckboxListTile(
+        title: Text(_taskList[index].description),
+        value: _taskList[index].status,
+        onChanged: (updateBox){
+          setState(() {
+            _taskList[index].status = true;
+          });
+
+          _saveFile();
+
+        },
+      ),
+    );
+  } 
  
  
   @override
@@ -20,10 +156,19 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.teal,
       ),
       
-      body: Column(),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+              itemCount: _taskList.length,
+              itemBuilder: createListItems,
+            ),
+          ),
+        ],
+      ),
       
       //bottomNavigationBar: ,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_to_photos),
         backgroundColor: Colors.teal,
@@ -51,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   FlatButton(
                     child: Text("Save"),
                     onPressed: (){
-                      // TODO: Add function
+                      _saveTask();
                       Navigator.pop(context);
                     },
                   )
