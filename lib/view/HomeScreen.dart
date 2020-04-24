@@ -77,6 +77,60 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Widget slideRightContainer() {
+    return Container(
+      color: Colors.red,
+      padding: EdgeInsets.all(15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Icon(
+            Icons.delete_forever,
+            color: Colors.white,
+          ),
+          Text(
+            " Delete",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+            textAlign: TextAlign.right,
+          ),
+          SizedBox(
+            width: 20,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget slideLeftContainer() {
+    return Container(
+      color: Colors.green,
+      padding: EdgeInsets.all(15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Icon(
+            Icons.edit,
+            color: Colors.white,
+          ),
+          Text(
+            " Edit",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+            textAlign: TextAlign.right,
+          ),
+          SizedBox(
+            width: 20,
+          ),
+        ],
+      ),
+    );
+  }
+
   // ListView using Dismissible of this Screen
   Widget createListItems(context, index) {
     return Dismissible(
@@ -111,15 +165,16 @@ class _HomeScreenState extends State<HomeScreen> {
           );
 
           Scaffold.of(context).showSnackBar(snackBar);
-
         } else if (direction == DismissDirection.startToEnd) {
-          
+          //colorDismissiedItems = Colors.blueGrey;
+          //iconDismissiedItems = Icons.edit;
+
           AlertDialog updateAlert = AlertDialog(
             title: Text("Update the task"),
             content: TextField(
               controller: this._controllerTask,
               decoration: InputDecoration(
-                labelText: _taskList[index].description,                
+                labelText: _taskList[index].description,
               ),
               onChanged: (text) {},
             ),
@@ -139,29 +194,17 @@ class _HomeScreenState extends State<HomeScreen> {
           );
 
           showDialog(
-            context: context,
-            builder: (BuildContext context){
-              return updateAlert;
-            }
-          );
-          
+              context: context,
+              builder: (BuildContext context) {
+                return updateAlert;
+              });
+
           //Scaffold.of(context).
 
         }
       },
-      background: Container(
-        color: Colors.red,
-        padding: EdgeInsets.all(15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Icon(
-              Icons.delete_forever,
-              color: Colors.white,
-            ),
-          ],
-        ),
-      ),
+      background: slideLeftContainer(),
+      secondaryBackground: slideRightContainer(),
       child: CheckboxListTile(
         title: Text(_taskList[index].description),
         value: _taskList[index].status,
