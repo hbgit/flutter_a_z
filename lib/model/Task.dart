@@ -4,12 +4,14 @@ class Task {
 
   String id;  
   String description;
+  double priority;
   bool status;  
 
   Task(
     {
       this.id,       
       this.description, 
+      this.priority,
       this.status
     }
   );
@@ -23,6 +25,7 @@ class Task {
       Task tmpTask = Task(
         id: element["id"],
         description: element["description"],
+        priority: element["priority"],
         status: element["status"],
       );
 
@@ -41,6 +44,7 @@ class Task {
     task.forEach((element) {
       tmpTask["id"] = element.id;
       tmpTask["description"] = element.description;
+      tmpTask["priority"] = element.description;
       tmpTask["status"] = element.status;
 
       mapTask.add(tmpTask);
