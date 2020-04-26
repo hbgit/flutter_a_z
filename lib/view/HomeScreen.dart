@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_a_z/model/Task.dart';
+import 'package:flutter_a_z/view/GetPriorityPickerDialog.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:async';
@@ -15,10 +16,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Controllers
   TextEditingController _controllerTask = TextEditingController();
+  //TextEditingController _controllerTaskUpdate = TextEditingController();
 
   // attr
   List _taskList = [];
   Task _lastTaskUsed = Task();
+  double _priorityTask = 0.0;
+  Color _priorityColor = Colors.green;
+  // EdgeInsets _sliderEdge = EdgeInsets.all(15);
 
   //Handle File
 
@@ -54,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     Task task = Task();
     task.description = typedText;
+    task.priority = _priorityTask;
     task.status = false;
     task.id = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -63,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _saveFile();
     _controllerTask.text = "";
+    _priorityTask = 0.0;
   }
 
   // For APP
@@ -75,6 +82,27 @@ class _HomeScreenState extends State<HomeScreen> {
         _taskList = Task().getListTaskFromJsonString(data);
       });
     });
+  }
+
+  Future<bool> _showPriorityPickerDialog() async {
+    final resultDialog = await showDialog<List>(
+      context: context,
+      builder: (context) => GetPriorityPickerDialog(
+          initialPriority: _priorityTask,
+          initCtrlTask: _controllerTask,
+        ),
+    );
+
+    if(resultDialog.length > 0){
+      //setState(() {
+        // print(resultDialog);
+        _priorityTask = resultDialog[0];
+        _controllerTask = resultDialog[1];
+      //});
+      return true;
+    }else{
+      return false;
+    }
   }
 
   Widget slideRightContainer() {
@@ -96,9 +124,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             textAlign: TextAlign.right,
           ),
-          SizedBox(
+          /*SizedBox(
             width: 20,
-          ),
+          ),*/
         ],
       ),
     );
@@ -123,29 +151,41 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             textAlign: TextAlign.right,
           ),
-          SizedBox(
+          /*SizedBox(
             width: 20,
-          ),
+          ),*/
         ],
       ),
     );
   }
+  
 
   // ListView using Dismissible of this Screen
   Widget createListItems(context, index) {
+
+    if (_taskList[index].priority >= 5.0){
+      _priorityColor = Colors.red;
+    }else{
+      _priorityColor = Colors.green;
+    }
+
     return Dismissible(
       key: Key(UniqueKey().toString()),
       //key: Key(_taskList[index].id),
       //direction: DismissDirection.,
       onDismissed: (direction) {
-        print(direction);
+        // print(direction);
 
         if (direction == DismissDirection.endToStart) {
+          // _sliderEdge = EdgeInsets.all(0);
           // item that will be removed
           _lastTaskUsed = _taskList[index];
 
           //remove item
-          _taskList.removeAt(index);
+          setState(() {
+            _taskList.removeAt(index);  
+          });
+          
           _saveFile();
 
           // Confirm with the user
@@ -165,48 +205,38 @@ class _HomeScreenState extends State<HomeScreen> {
           );
 
           Scaffold.of(context).showSnackBar(snackBar);
+
         } else if (direction == DismissDirection.startToEnd) {
-          //colorDismissiedItems = Colors.blueGrey;
-          //iconDismissiedItems = Icons.edit;
 
-          AlertDialog updateAlert = AlertDialog(
-            title: Text("Update the task"),
-            content: TextField(
-              controller: this._controllerTask,
-              decoration: InputDecoration(
-                labelText: _taskList[index].description,
-              ),
-              onChanged: (text) {},
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Cancel"),
-                onPressed: () => Navigator.pop(context),
-              ),
-              FlatButton(
-                child: Text("Save"),
-                onPressed: () {
-                  _saveTask();
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return updateAlert;
-              });
-
-          //Scaffold.of(context).
-
+          this._controllerTask.text = _taskList[index].description;
+          this._priorityTask = _taskList[index].priority;
+          
+          _showPriorityPickerDialog().then((value) {
+            if(value){
+              setState(() {                
+                _taskList[index].description = this._controllerTask.text;
+                _taskList[index].priority = this._priorityTask;
+              }); 
+              //print(_taskList[index].description);             
+              _saveFile();
+              this._controllerTask.text = "";
+              this._priorityTask = 0.0;
+            }
+          });          
         }
       },
       background: slideLeftContainer(),
       secondaryBackground: slideRightContainer(),
       child: CheckboxListTile(
         title: Text(_taskList[index].description),
+        subtitle: Text(          
+          "Priority: ${_taskList[index].priority.round().toString()}", 
+          style: TextStyle(
+            backgroundColor: _priorityColor,
+            color: Colors.white,
+            fontWeight: FontWeight.bold 
+          ),         
+        ),
         value: _taskList[index].status,
         onChanged: (updateBox) {
           setState(() {
@@ -227,10 +257,10 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.teal,
       ),
 
-      body: Column(
+      body: Column(        
         children: <Widget>[
           Expanded(
-            child: ListView.builder(
+            child: ListView.builder(              
               itemCount: _taskList.length,
               itemBuilder: createListItems,
             ),
@@ -244,34 +274,13 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Icon(Icons.add_to_photos),
         backgroundColor: Colors.teal,
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text("Add a task"),
-                  content: TextField(
-                    controller: this._controllerTask,
-                    decoration: InputDecoration(
-                      labelText: "Type your task",
-                      //fillColor : Colors.purple
-                    ),
-                    onChanged: (text) {},
-                  ),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text("Cancel"),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    FlatButton(
-                      child: Text("Save"),
-                      onPressed: () {
-                        _saveTask();
-                        Navigator.pop(context);
-                      },
-                    )
-                  ],
-                );
-              });
+          _showPriorityPickerDialog().then((value) {
+            if(value){
+              _saveTask();
+              this._controllerTask.text = "";
+              this._priorityTask = 0.0;
+            }
+          });
         },
       ),
     );
