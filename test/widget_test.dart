@@ -37,7 +37,8 @@ void main() {
 
     final Finder floatButFinder = find.byKey(Key('floatbut_app')); 
     expect(floatButFinder, findsOneWidget); 
-    
+
+    await tester.tap(floatButFinder);       
 
   });
 
