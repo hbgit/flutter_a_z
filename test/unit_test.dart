@@ -27,23 +27,23 @@ void main() {
     """;
 
     //print(jsonString);
-    print(json.decode(jsonString));
+    //print(json.decode(jsonString));
 
     List resultJson = task.getListTaskFromJsonString(jsonString);    
     expect(resultJson.length, isNonZero);
 
-    print(resultJson);
+    //print(resultJson);
     List getMapList = task.getMapListTask(resultJson);
-    print(getMapList);
-    
+    //print(getMapList);
+
     getMapList.forEach((element) {
       
       print(element);
 
-      expect(element.id, "123abc");
-      expect(element.description, "Read paper");
-      expect(element.priority, 7.0);
-      expect(element.priority, false);
+      expect(element["id"], "123abc");
+      expect(element["description"], "Read paper");
+      expect(element["priority"], 7.0);
+      expect(element["status"], false);
     });    
     
   });  
