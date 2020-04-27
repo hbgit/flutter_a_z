@@ -253,11 +253,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: Key("app_bar"),
         title: Text("Todo List"),
         backgroundColor: Colors.teal,
       ),
 
-      body: Column(        
+      body: Column( 
+        key: Key("body_app"),       
         children: <Widget>[
           Expanded(
             child: ListView.builder(              
@@ -271,6 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //bottomNavigationBar: ,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        key: Key('floatbut_app'),
         child: Icon(Icons.add_to_photos),
         backgroundColor: Colors.teal,
         onPressed: () {
