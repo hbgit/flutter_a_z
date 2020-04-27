@@ -43,6 +43,8 @@ $ flutter create .
 
 - The goal of this APP is showing random phrases in the screen according to the button is clicked
 
+- The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_phrase
+
 - Some NOTES about this APP:
     - Plugin adopted in the Visual Code IDE: Flutter (Dart-Code); Awesome Flutter Snippets (Nash Ramdial); and Dart (Dart-Code)
     - We try: Image, RaisedButton, and dart:math 
@@ -62,6 +64,8 @@ $ flutter create .
 
 - The goal of this APP has created the game Jokenpo, i.e., rock, paper, and scissors
 
+- The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_jokenpo_app
+
 - Some NOTES about this APP:
     - We adopt internal packages; AppBar on setState; and GestureDetector
 
@@ -77,6 +81,8 @@ $ flutter create .
 ## Álcool VS Gasolina
 
 - The goal of this APP is to decide the best choice analyzing the price of the Gasoline and Alcohol
+
+- The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_gasvsalco
 
 - Some NOTES about this APP:
     - We adopt internal packages; SingleChildScrollView; and TextField;
@@ -97,6 +103,8 @@ $ flutter create .
 
 - The goal of this APP is to automatically choose one side of a coin
 
+- The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_gamecoin
+
 - Some NOTES about this APP:
     - We adopt internal packages; and routes with MaterialPageRoute    
 
@@ -114,6 +122,8 @@ $ flutter create .
 
 - The goal of this APP is to automatically show the price of the Bitcoin adopting an API.
 
+- The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_bitcoinprice
+
 - Some NOTES about this APP:
     - We adopt internal packages; http.Response; async Functions; json.decode; and RoundedLoadingButton.
 
@@ -130,6 +140,8 @@ $ flutter create .
 ## YouTube Clone
 
 - The goal of this APP is to adopt and simulate the YouTube APP based on a specific Playlist from YouTube service.
+
+- The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_youtubeclone
 
 - In this APP was adopted:
     - Youtube API (https://developers.google.com/youtube/v3/docs/search/list)
@@ -152,3 +164,40 @@ $ flutter create .
 |<img src="./docs/images/app_v7_t0.png" width="200"> |<img src="./docs/images/app_v7_t1.png" width="200">|<img src="./docs/images/app_v7_t2.png" width="200">|<img src="./docs/images/app_v7_t3.png" width="200">|<img src="./docs/images/app_v7_t4.png" width="200">|
 
 ---
+<<<<<<< HEAD
+=======
+
+# v8.0
+---
+## TODO List
+
+- The goal of this APP is to organize a Todo List with multiple tasks with the option to: create, update, and delete a task.
+
+- The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_tasklist
+
+- In this APP was adopted:
+    - Youtube API (https://developers.google.com/youtube/v3/docs/search/list)
+    - Internal packages 
+    - http.Response 
+    - async Functions
+    - json.decode
+    - url_launcher/url_launcher
+    - flutter/foundation
+    - flutter_youtube/flutter_youtube
+    - ListView
+    - BoxDecoration
+    - NetworkImage
+    - SearchDelegate    
+
+- Overview of the APP:
+
+| Start  | Screen 0  | Screen 1  | Screen 2  | Screen 3 |
+|---|---|---|---|---|
+|<img src="./docs/images/app_v8_t0.png" width="200"> |<img src="./docs/images/app_v8_t1.png" width="200">|<img src="./docs/images/app_v8_t2.png" width="200">|<img src="./docs/images/app_v8_t3.png" width="200">|<img src="./docs/images/app_v8_t4.png" width="200">|
+
+| Screen 4  | Screen 5  | Screen 6  | Screen 7  | Screen 8 |
+|---|---|---|---|---|
+|<img src="./docs/images/app_v8_t4.png" width="200"> |<img src="./docs/images/app_v8_t5.png" width="200">|<img src="./docs/images/app_v8_t6.png" width="200">|<img src="./docs/images/app_v8_t7.png" width="200">|<img src="./docs/images/app_v8_t8.png" width="200">|
+
+---
+>>>>>>> Update README
