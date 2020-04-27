@@ -8,10 +8,10 @@ const RESOURCES = {
 "/assets/FontManifest.json": "01700ba55b08a6141f33e168c4a6c22f",
 "/assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
 "/assets/AssetManifest.json": "cd7f43645769faf9c87df072bfbdc159",
-"/assets/LICENSE": "d48a8c2746b029b4dd5d134913ac90f8",
+"/assets/LICENSE": "8483d01d74e1e7a6c72dfbc62125d51d",
 "/assets/images/v7_img/youtube.png": "9bc925d99cd9a0718de36fb30d966bcc",
 "/favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"/main.dart.js": "39f4ad502359ca488b1be727edbd2a40",
+"/main.dart.js": "f215531b4fa9fb1dfba71c70e4ad0ce0",
 "/manifest.json": "267450d2e27a233810c283b77314b646"
 };
 
