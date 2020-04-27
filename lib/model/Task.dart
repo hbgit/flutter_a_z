@@ -44,7 +44,7 @@ class Task {
     task.forEach((element) {
       tmpTask["id"] = element.id;
       tmpTask["description"] = element.description;
-      tmpTask["priority"] = element.description;
+      tmpTask["priority"] = element.priority;
       tmpTask["status"] = element.status;
 
       mapTask.add(tmpTask);
