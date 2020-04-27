@@ -2,7 +2,7 @@
 
 The goal is trying different flutter features, and apply CI/CD using github actions.
 
-- The source code is available at: https://hbgit.github.io/flutter_a_z/
+The latest version of the APP is available to try at https://hbgit.github.io/flutter_a_z/
 
 # v1.0
 ---
@@ -196,3 +196,4 @@ $ flutter create .
 |<img src="./docs/images/app_v8_t4.png" width="200"> |<img src="./docs/images/app_v8_t5.png" width="200">|<img src="./docs/images/app_v8_t6.png" width="200">|<img src="./docs/images/app_v8_t7.png" width="200">|<img src="./docs/images/app_v8_t8.png" width="200">|
 
 ---
+

@@ -37,16 +37,23 @@ void main() {
 
     final Finder floatButFinder = find.byKey(Key('floatbut_app')); 
     expect(floatButFinder, findsOneWidget); 
-    
+
+    await tester.tap(floatButFinder);       
 
   });
 
 
   testWidgets('Checking Dialog Screen', (WidgetTester tester) async {
+
+    TextEditingController txtEdiCtrl = TextEditingController();
+    txtEdiCtrl.text = "Buy a ticket";
         
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
-      home: GetPriorityPickerDialog(initialPriority: 0.0)
+      home: GetPriorityPickerDialog(
+        initialPriority: 0.0, 
+        initCtrlTask: txtEdiCtrl
+      )
     ));
        
     
