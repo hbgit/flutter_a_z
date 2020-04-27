@@ -164,8 +164,6 @@ $ flutter create .
 |<img src="./docs/images/app_v7_t0.png" width="200"> |<img src="./docs/images/app_v7_t1.png" width="200">|<img src="./docs/images/app_v7_t2.png" width="200">|<img src="./docs/images/app_v7_t3.png" width="200">|<img src="./docs/images/app_v7_t4.png" width="200">|
 
 ---
-<<<<<<< HEAD
-=======
 
 # v8.0
 ---
@@ -198,4 +196,4 @@ $ flutter create .
 |<img src="./docs/images/app_v8_t4.png" width="200"> |<img src="./docs/images/app_v8_t5.png" width="200">|<img src="./docs/images/app_v8_t6.png" width="200">|<img src="./docs/images/app_v8_t7.png" width="200">|<img src="./docs/images/app_v8_t8.png" width="200">|
 
 ---
->>>>>>> Update README
+
