@@ -173,19 +173,17 @@ $ flutter create .
 
 - The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_tasklist
 
-- In this APP was adopted:
-    - Youtube API (https://developers.google.com/youtube/v3/docs/search/list)
-    - Internal packages 
-    - http.Response 
+- In this APP was adopted:    
+    - Internal packages     
     - async Functions
     - json.decode
-    - url_launcher/url_launcher
-    - flutter/foundation
-    - flutter_youtube/flutter_youtube
-    - ListView
-    - BoxDecoration
-    - NetworkImage
-    - SearchDelegate    
+    - path_provider/path_provider
+    - dart:io
+    - Dismissible
+    - SnackBar
+    - CheckboxListTile
+    - FloatingActionButton
+    - Slider    
 
 - Overview of the APP:
 
