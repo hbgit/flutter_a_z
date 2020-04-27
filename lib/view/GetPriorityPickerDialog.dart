@@ -40,6 +40,7 @@ class _GetPriorityPickerDialogState extends State<GetPriorityPickerDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      key: Key("alert_dialog"),
       scrollable: true,
       title: _titleDialog,
       content: Container(
@@ -52,6 +53,7 @@ class _GetPriorityPickerDialogState extends State<GetPriorityPickerDialog> {
               children: [
                 Expanded(
                   child: TextField(
+                    key: Key("tf_dialog"),
                     autofocus: true,
                     controller: this._controllerTask,
                     decoration: InputDecoration(
@@ -72,6 +74,7 @@ class _GetPriorityPickerDialogState extends State<GetPriorityPickerDialog> {
               children: [
                 Expanded(
                   child: Slider(
+                    key: Key("slider_dia"),
                     value: _priorityValue,
                     min: 0,
                     max: 10,
@@ -108,6 +111,7 @@ class _GetPriorityPickerDialogState extends State<GetPriorityPickerDialog> {
           onPressed: () => Navigator.pop(context),
         ),
         FlatButton(
+          key: Key("flatBut_save"),
           autofocus: false,
           color: Colors.green,
           child: Text("Save"),

@@ -15,6 +15,7 @@ https://flutter.dev/docs/testing
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_a_z/view/GetPriorityPickerDialog.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -27,35 +28,40 @@ void main() {
       home: HomeScreen()
     ));
     
-    /*
+    
     final Finder appBarFinder = find.byKey(Key('app_bar')); 
     expect(appBarFinder, findsOneWidget); 
 
     final Finder bodyBarFinder = find.byKey(Key('body_app')); 
     expect(bodyBarFinder, findsOneWidget); 
 
-    final Finder navBarFinder = find.byKey(Key('nav_App')); 
-    expect(navBarFinder, findsOneWidget); 
-    */
-
-
-    /*
-    final Finder imgFinder = find.byKey(Key('img_bitcoin')); 
-    expect(imgFinder, findsOneWidget);   
-
-    final Finder resultTxtFinder = find.byKey(Key('result_txt')); 
-    expect(resultTxtFinder, findsOneWidget); 
-
-    //text_btn  
-    final Finder btnTxtFinder = find.byKey(Key('text_btn')); 
-    expect(btnTxtFinder, findsOneWidget); 
-
-    //final Finder loadBtnFinder = find.byKey(Key('load_btn'));     
-    //expect(loadBtnFinder, findsWidgets);   
+    final Finder floatButFinder = find.byKey(Key('floatbut_app')); 
+    expect(floatButFinder, findsOneWidget); 
     
-    //await tester.tap(loadBtnFinder);   
-    //await tester.pump();
-    */
+
+  });
+
+
+  testWidgets('Checking Dialog Screen', (WidgetTester tester) async {
+        
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(MaterialApp(
+      home: GetPriorityPickerDialog(initialPriority: 0.0)
+    ));
+       
+    
+    final Finder alertDiaFinder = find.byKey(Key('alert_dialog')); 
+    expect(alertDiaFinder, findsOneWidget); 
+
+    final Finder tfDiaFinder = find.byKey(Key("tf_dialog")); 
+    expect(tfDiaFinder, findsOneWidget); 
+
+    final Finder sliderDiaFinder = find.byKey(Key('slider_dia')); 
+    expect(sliderDiaFinder, findsOneWidget); 
+    
+    final Finder flatButFinder = find.byKey(Key('flatBut_save')); 
+    expect(flatButFinder, findsOneWidget); 
+    
 
   });
 
