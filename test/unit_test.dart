@@ -29,12 +29,17 @@ void main() {
     //print(jsonString);
     print(json.decode(jsonString));
 
-    List resultJson = task.getListTaskFromJsonString(jsonString);
+    List resultJson = task.getListTaskFromJsonString(jsonString);    
     expect(resultJson.length, isNonZero);
 
+    print(resultJson);
     List getMapList = task.getMapListTask(resultJson);
-
+    print(getMapList);
+    
     getMapList.forEach((element) {
+      
+      print(element);
+
       expect(element.id, "123abc");
       expect(element.description, "Read paper");
       expect(element.priority, 7.0);
