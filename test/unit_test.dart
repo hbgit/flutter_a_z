@@ -16,16 +16,18 @@ void main() {
     );
 
     String jsonString = """
-    {
+    [
+     {
       "id": "123abc",
       "description": "Read paper",
       "priority": 7.0,
       "status": false
-    }
+     }
+    ]
     """;
 
     //print(jsonString);
-    //print(json.decode(jsonString));
+    print(json.decode(jsonString));
 
     List resultJson = task.getListTaskFromJsonString(jsonString);
     expect(resultJson.length, isNonZero);
