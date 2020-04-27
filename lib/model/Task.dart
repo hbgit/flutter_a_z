@@ -18,6 +18,8 @@ class Task {
 
   List getListTaskFromJsonString(String jsonString){
 
+    print(json.decode(jsonString));
+    
     List tasksData = json.decode(jsonString);
     List tasksObj = [];
 

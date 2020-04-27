@@ -24,9 +24,9 @@ void main() {
     }
     """;
 
-    print(jsonString);
-    print(json.decode(jsonString));
-    
+    //print(jsonString);
+    //print(json.decode(jsonString));
+
     List resultJson = task.getListTaskFromJsonString(jsonString);
     expect(resultJson.length, isNonZero);
 
