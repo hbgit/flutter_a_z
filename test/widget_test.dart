@@ -15,7 +15,6 @@ https://flutter.dev/docs/testing
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_a_z/view/GetPriorityPickerDialog.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -28,7 +27,7 @@ void main() {
       home: HomeScreen()
     ));
     
-    
+    /*
     final Finder appBarFinder = find.byKey(Key('app_bar')); 
     expect(appBarFinder, findsOneWidget); 
 
@@ -38,39 +37,10 @@ void main() {
     final Finder floatButFinder = find.byKey(Key('floatbut_app')); 
     expect(floatButFinder, findsOneWidget); 
 
-    await tester.tap(floatButFinder);       
+    await tester.tap(floatButFinder);  */     
 
   });
 
-
-  testWidgets('Checking Dialog Screen', (WidgetTester tester) async {
-
-    TextEditingController txtEdiCtrl = TextEditingController();
-    txtEdiCtrl.text = "Buy a ticket";
-        
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(
-      home: GetPriorityPickerDialog(
-        initialPriority: 0.0, 
-        initCtrlTask: txtEdiCtrl
-      )
-    ));
-       
-    
-    final Finder alertDiaFinder = find.byKey(Key('alert_dialog')); 
-    expect(alertDiaFinder, findsOneWidget); 
-
-    final Finder tfDiaFinder = find.byKey(Key("tf_dialog")); 
-    expect(tfDiaFinder, findsOneWidget); 
-
-    final Finder sliderDiaFinder = find.byKey(Key('slider_dia')); 
-    expect(sliderDiaFinder, findsOneWidget); 
-    
-    final Finder flatButFinder = find.byKey(Key('flatBut_save')); 
-    expect(flatButFinder, findsOneWidget); 
-    
-
-  });
 
   
 
