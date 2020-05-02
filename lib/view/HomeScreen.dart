@@ -15,58 +15,54 @@ import 'package:audioplayer/audioplayer.dart';
 enum PlayerState { stopped, playing, paused }
 
 class HomeScreen extends StatefulWidget {
-  final String url;  
+  final String url;
 
-  HomeScreen({Key key, @required this.url})
-      : super(key: key);
+  HomeScreen({Key key, @required this.url}) : super(key: key);
 
-  @override  
+  @override
   _HomeScreenState createState() => _HomeScreenState();
-
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   //attr
-  String url;  
+  String url;
 
-  AudioPlayer _audioPlayer;  
-  PlayerState _playerState = PlayerState.stopped;  
+  AudioPlayer _audioPlayer;
+  PlayerState _playerState = PlayerState.stopped;
   Duration _duration;
   Duration _position;
-  
-  StreamSubscription _positionSubscription;  
+
+  StreamSubscription _positionSubscription;
   StreamSubscription _audioPlayerStateSubscription;
 
-  bool isMuted = false;  
+  bool isMuted = false;
   Widget _muteWIcon = Icon(Icons.volume_mute);
 
   // class actions
   get _isPlaying => _playerState == PlayerState.playing;
   get _isPaused => _playerState == PlayerState.paused;
-  get _durationText => 
-    _duration != null ? _duration.toString().split('.').first : '';
-  get _positionText => 
-    _position != null ? _position.toString().split('.').first : '';
+  get _durationText =>
+      _duration != null ? _duration.toString().split('.').first : '';
+  get _positionText =>
+      _position != null ? _position.toString().split('.').first : '';
 
-  double _getPositionValue(){
-    if(_duration != null){
-      return _position?.inMilliseconds?.toDouble() ?? 0.0;
+  double _getPositionValue() {
+    if (_duration != null) {
+      print("POSITION: ${_position?.inSeconds?.toDouble() ?? 0.0}");
+      return _position?.inSeconds?.toDouble() ?? 0.0;
     }
 
     return 0.0;
   }
 
-  double _getMaxPositionValue(){
-    if(_duration != null){
-      return _duration.inMilliseconds.toDouble();
+  double _getMaxPositionValue() {
+    if (_duration != null) {
+      print("DURATION: ${_duration?.inSeconds?.toDouble() ?? 0.0}");
+      return _duration?.inSeconds?.toDouble() ?? 0.0;
     }
 
-    return 0;
+    return 0.0;
   }
-
-
-  
-  
 
   @override
   void initState() {
@@ -76,10 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _audioPlayer.stop();   
+    _audioPlayer.stop();
     _positionSubscription.cancel();
     _audioPlayerStateSubscription.cancel();
-    _audioPlayer.stop();   
+    _audioPlayer.stop();
     super.dispose();
   }
 
@@ -89,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _initAudioPlayer() {
     _audioPlayer = AudioPlayer();
-    
+
     _positionSubscription = _audioPlayer.onAudioPositionChanged.listen((event) {
       setState(() {
         _position = event;
@@ -97,36 +93,34 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
 
-    _audioPlayerStateSubscription = _audioPlayer.onPlayerStateChanged.listen((event) { 
-      
-      if(event == AudioPlayerState.PLAYING){
+    _audioPlayerStateSubscription =
+        _audioPlayer.onPlayerStateChanged.listen((event) {
+      if (event == AudioPlayerState.PLAYING) {
         setState(() {
           _duration = _audioPlayer.duration;
         });
-      }else if(event == AudioPlayerState.STOPPED){
+      } else if (event == AudioPlayerState.STOPPED) {
         _onComplete();
         setState(() {
           _position = _duration;
         });
       }
-     }, onError: (msg){
-       setState(() {
+    }, onError: (msg) {
+      setState(() {
         _playerState = PlayerState.stopped;
         _duration = Duration(seconds: 0);
         _position = Duration(seconds: 0);
-       });
-     });
-
+      });
+    });
   }
 
   Future _play() async {
-    print("PLAY");    
+    print("PLAY");
 
-    await _audioPlayer.play(widget.url);    
+    await _audioPlayer.play(widget.url);
     setState(() {
       _playerState = PlayerState.playing;
     });
-    
   }
 
   Future _stop() async {
@@ -150,6 +144,18 @@ class _HomeScreenState extends State<HomeScreen> {
       isMuted = muted;
     });
   }
+
+
+  String _getPlayerStateString(){
+    if(_playerState == PlayerState.playing){
+      return "Playing";
+    }else if(_playerState == PlayerState.paused){
+      return "Paused";
+    }else{
+      return "Stopped";
+    }
+  }
+
 
   // interface
   @override
@@ -181,9 +187,9 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 IconButton(
                   icon: Icon(Icons.play_arrow),
-                  onPressed: (){
-                    print(_isPlaying);
-                    if(!_isPlaying){
+                  onPressed: () {
+                    //print(_isPlaying);
+                    if (!_isPlaying) {
                       _play();
                     }
                   },
@@ -191,19 +197,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.cyan,
                 ),
                 IconButton(
-                  icon: Icon(Icons.pause),
-                  onPressed: (){
-                    if(_isPlaying){
-                      _pause();
-                    }
-                  },
-                  iconSize: 64,
-                  color: Colors.cyan
-                ),
-                IconButton(  
-                  key: Key('stop_button'),                                  
-                  onPressed: (){
-                    if ( _isPlaying || _isPaused){
+                    icon: Icon(Icons.pause),
+                    onPressed: () {
+                      if (_isPlaying) {
+                        _pause();
+                      }
+                    },
+                    iconSize: 64,
+                    color: Colors.cyan),
+                IconButton(
+                  key: Key('stop_button'),
+                  onPressed: () {
+                    if (_isPlaying || _isPaused) {
                       _stop();
                     }
                   },
@@ -213,49 +218,66 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 IconButton(
                   icon: _muteWIcon,
-                  onPressed: (){
-                    isMuted = !isMuted;                    
-                    if(isMuted){
+                  onPressed: () {
+                    isMuted = !isMuted;
+                    if (isMuted) {
                       _muteWIcon = Icon(Icons.volume_off);
                       _mute(true);
-                    }else{
+                    } else {
                       _muteWIcon = Icon(Icons.volume_mute);
                       _mute(false);
-                    }                      
+                    }
                   },
                   color: Colors.cyan,
                   iconSize: 64,
                 ),
-                IconButton(
-                        icon: Icon(Icons.forward_10),
-                        onPressed: (){
-                          print(_getPositionValue());
-                          print(_getMaxPositionValue());
-                          _audioPlayer.seek(_getPositionValue()*10);
-                          
-                          
-                        },
-                      ),
               ],
             ),
             Column(
               children: [
                 Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.replay_10),
+                        color: Colors.cyan,
+                        iconSize: 45,
+                        onPressed: () {
+                          _audioPlayer.seek(_getPositionValue() - 10);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.forward_10),
+                        color: Colors.cyan,
+                        iconSize: 45,
+                        onPressed: () {
+                          _audioPlayer.seek(_getPositionValue() + 10);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
                   padding: EdgeInsets.all(12),
                   child: Stack(
                     children: [
                       Slider(
-                          value: _getPositionValue(),
-                          onChanged: (double value) {
-                            print(value);
-                            print((value/100).roundToDouble());
-                            print(_getMaxPositionValue());
-                            return _audioPlayer.seek((value/100).roundToDouble());
-                          },
-                          min: 0.0,
-                          max: _getMaxPositionValue(),
-                          divisions: 10,
-                      ),                      
+                        value: _getPositionValue(),
+                        onChanged: (double value) {
+                          print("SLICER: ${value.roundToDouble()}");
+                          setState(() {
+                            _position = Duration(seconds: value.toInt());
+                            _audioPlayer.seek(value.roundToDouble());
+                          });
+                        },
+                        min: 0.0,
+                        max: _getMaxPositionValue(),
+                        divisions: (_getMaxPositionValue() != 0
+                            ? _getMaxPositionValue().toInt()
+                            : 100),
+                      ),
                     ],
                   ),
                 ),
@@ -265,9 +287,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       : _duration != null ? _durationText : '',
                   style: TextStyle(fontSize: 24),
                 ),
+                Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: CircularProgressIndicator(
+                    value: _position != null && _position.inSeconds > 0
+                        ? (_position?.inSeconds?.toDouble() ?? 0.0) /
+                            (_duration?.inSeconds?.toDouble() ?? 0.0)
+                        : 0.0,
+                    valueColor: AlwaysStoppedAnimation(Colors.blue[700]),
+                    backgroundColor: Colors.grey.shade400,
+                  ),
+                ),
               ],
             ),
-            Text('State: $_playerState')
+            Text(
+              'Player Status: ${_getPlayerStateString()}',
+              style: TextStyle(
+                fontSize: 15,
+              ), 
+            )
           ],
         ),
       ),
