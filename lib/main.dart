@@ -4,7 +4,7 @@ import 'package:flutter_a_z/view/HomeScreen.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: HomeScreen(url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"),
-    debugShowCheckedModeBanner: false,
+    home: HomeScreen(urlJsonMusic: "assets/images/v9_img/json/songs.json",),
+    debugShowCheckedModeBanner: false,    
   ));
 }

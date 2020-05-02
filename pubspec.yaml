@@ -54,6 +54,7 @@ flutter:
   # <a href="https://www.freepik.com/free-photos-vectors/music">Music vector created by upklyak - www.freepik.com</a>
   assets:
     - assets/images/v9_img/195.jpg
+    - assets/images/v9_img/json/songs.json
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,310 +1,117 @@
-import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-
-import 'package:audioplayer/audioplayer.dart';
-
-/// This audio player is Based on:
-/// - https://github.com/luanpotter/audioplayers/blob/master/example/lib/player_widget.dart
-/// - https://github.com/rxlabz/audioplayer/blob/master/example/lib/main.dart
-
-// https://www.soundhelix.com/audio-examples
-
-// state music
-enum PlayerState { stopped, playing, paused }
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_a_z/model/Music.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String url;
+  final String urlJsonMusic;
 
-  HomeScreen({Key key, @required this.url}) : super(key: key);
+  HomeScreen({Key key, @required this.urlJsonMusic}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //attr
-  String url;
+  // Attr
+  List _songList = [];
 
-  AudioPlayer _audioPlayer;
-  PlayerState _playerState = PlayerState.stopped;
-  Duration _duration;
-  Duration _position;
-
-  StreamSubscription _positionSubscription;
-  StreamSubscription _audioPlayerStateSubscription;
-
-  bool isMuted = false;
-  Widget _muteWIcon = Icon(Icons.volume_mute);
-
-  // class actions
-  get _isPlaying => _playerState == PlayerState.playing;
-  get _isPaused => _playerState == PlayerState.paused;
-  get _durationText =>
-      _duration != null ? _duration.toString().split('.').first : '';
-  get _positionText =>
-      _position != null ? _position.toString().split('.').first : '';
-
-  double _getPositionValue() {
-    if (_duration != null) {
-      print("POSITION: ${_position?.inSeconds?.toDouble() ?? 0.0}");
-      return _position?.inSeconds?.toDouble() ?? 0.0;
-    }
-
-    return 0.0;
+  // Class actions
+  Future<String> _loadAsset() async {
+    //Map<bool,String> result;
+    return await rootBundle.loadString(widget.urlJsonMusic);     
   }
 
-  double _getMaxPositionValue() {
-    if (_duration != null) {
-      print("DURATION: ${_duration?.inSeconds?.toDouble() ?? 0.0}");
-      return _duration?.inSeconds?.toDouble() ?? 0.0;
-    }
-
-    return 0.0;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _initAudioPlayer();
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.stop();
-    _positionSubscription.cancel();
-    _audioPlayerStateSubscription.cancel();
-    _audioPlayer.stop();
-    super.dispose();
-  }
-
-  void _onComplete() {
-    setState(() => _playerState = PlayerState.stopped);
-  }
-
-  void _initAudioPlayer() {
-    _audioPlayer = AudioPlayer();
-
-    _positionSubscription = _audioPlayer.onAudioPositionChanged.listen((event) {
-      setState(() {
-        _position = event;
-        //print(_position);
+  
+  _getSongs() {
+    _loadAsset().then((value){
+      List jsonList = json.decode( value );
+      jsonList.forEach((element) { 
+        print(element);
+        Music song = Music.fromJson(element);
+        _songList.add(song);
       });
-    });
-
-    _audioPlayerStateSubscription =
-        _audioPlayer.onPlayerStateChanged.listen((event) {
-      if (event == AudioPlayerState.PLAYING) {
-        setState(() {
-          _duration = _audioPlayer.duration;
-        });
-      } else if (event == AudioPlayerState.STOPPED) {
-        _onComplete();
-        setState(() {
-          _position = _duration;
-        });
-      }
-    }, onError: (msg) {
-      setState(() {
-        _playerState = PlayerState.stopped;
-        _duration = Duration(seconds: 0);
-        _position = Duration(seconds: 0);
-      });
-    });
+    });   
   }
 
-  Future _play() async {
-    print("PLAY");
-
-    await _audioPlayer.play(widget.url);
-    setState(() {
-      _playerState = PlayerState.playing;
-    });
+  // Based on https://proandroiddev.com/flutter-thursday-02-beautiful-list-ui-and-detail-page-a9245f5ceaf0
+  Widget createListItems(context, index) {    
+    return Card(
+      elevation: 8.0,
+      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      child: Container(
+        decoration: BoxDecoration(color: Colors.black),
+        child: ListTile(
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            leading: Container(
+              padding: EdgeInsets.only(right: 12.0),
+              decoration: new BoxDecoration(
+                  border: new Border(
+                      right:
+                          new BorderSide(width: 1.0, color: Colors.white24))),
+              child: Icon(
+                Icons.headset_mic, 
+                color: Colors.teal,
+                size: 40,
+              ),
+            ),
+            title: Text(
+              _songList[index].name,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),        
+            subtitle: Row(
+              children: <Widget>[
+                Icon(Icons.face, color: Colors.teal),
+                Text(" ${_songList[index].artistName}", style: TextStyle(color: Colors.white))
+              ],
+            ),
+            trailing: Icon(Icons.keyboard_arrow_right,
+                color: Colors.white, size: 30.0)),
+      ),
+    );
   }
 
-  Future _stop() async {
-    await _audioPlayer.stop();
-    setState(() {
-      _playerState = PlayerState.stopped;
-      _position = Duration();
-    });
-  }
-
-  Future _pause() async {
-    await _audioPlayer.pause();
-    setState(() {
-      _playerState = PlayerState.paused;
-    });
-  }
-
-  Future _mute(bool muted) async {
-    await _audioPlayer.mute(muted);
-    setState(() {
-      isMuted = muted;
-    });
-  }
-
-
-  String _getPlayerStateString(){
-    if(_playerState == PlayerState.playing){
-      return "Playing";
-    }else if(_playerState == PlayerState.paused){
-      return "Paused";
-    }else{
-      return "Stopped";
-    }
-  }
-
-
-  // interface
   @override
-  Widget build(BuildContext context) {
+  void initState() {        
+    super.initState();    
+    setState(() {
+      _getSongs();
+      //print(_songList);
+    });
+  }
+
+  // Interface
+  @override
+  Widget build(BuildContext context) { 
+    
+    print(_songList);  
+
     return Scaffold(
+      backgroundColor: Colors.purple,
       appBar: AppBar(
-        title: Text("Music Net Player"),
+        backgroundColor: Colors.black87,
+        title: Text(
+          "MuSic PLayer",
+          style: TextStyle(
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Container(
+        padding: EdgeInsets.all(10),
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Icon(
-                    Icons.music_note,
-                    size: 200,
-                  ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.play_arrow),
-                  onPressed: () {
-                    //print(_isPlaying);
-                    if (!_isPlaying) {
-                      _play();
-                    }
-                  },
-                  iconSize: 64,
-                  color: Colors.cyan,
-                ),
-                IconButton(
-                    icon: Icon(Icons.pause),
-                    onPressed: () {
-                      if (_isPlaying) {
-                        _pause();
-                      }
-                    },
-                    iconSize: 64,
-                    color: Colors.cyan),
-                IconButton(
-                  key: Key('stop_button'),
-                  onPressed: () {
-                    if (_isPlaying || _isPaused) {
-                      _stop();
-                    }
-                  },
-                  iconSize: 64,
-                  icon: Icon(Icons.stop),
-                  color: Colors.cyan,
-                ),
-                IconButton(
-                  icon: _muteWIcon,
-                  onPressed: () {
-                    isMuted = !isMuted;
-                    if (isMuted) {
-                      _muteWIcon = Icon(Icons.volume_off);
-                      _mute(true);
-                    } else {
-                      _muteWIcon = Icon(Icons.volume_mute);
-                      _mute(false);
-                    }
-                  },
-                  color: Colors.cyan,
-                  iconSize: 64,
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.replay_10),
-                        color: Colors.cyan,
-                        iconSize: 45,
-                        onPressed: () {
-                          _audioPlayer.seek(_getPositionValue() - 10);
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.forward_10),
-                        color: Colors.cyan,
-                        iconSize: 45,
-                        onPressed: () {
-                          _audioPlayer.seek(_getPositionValue() + 10);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(12),
-                  child: Stack(
-                    children: [
-                      Slider(
-                        value: _getPositionValue(),
-                        onChanged: (double value) {
-                          print("SLICER: ${value.roundToDouble()}");
-                          setState(() {
-                            _position = Duration(seconds: value.toInt());
-                            _audioPlayer.seek(value.roundToDouble());
-                          });
-                        },
-                        min: 0.0,
-                        max: _getMaxPositionValue(),
-                        divisions: (_getMaxPositionValue() != 0
-                            ? _getMaxPositionValue().toInt()
-                            : 100),
-                      ),
-                    ],
-                  ),
-                ),
-                Text(
-                  _position != null
-                      ? '${_positionText ?? ''} / ${_durationText ?? ''}'
-                      : _duration != null ? _durationText : '',
-                  style: TextStyle(fontSize: 24),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: CircularProgressIndicator(
-                    value: _position != null && _position.inSeconds > 0
-                        ? (_position?.inSeconds?.toDouble() ?? 0.0) /
-                            (_duration?.inSeconds?.toDouble() ?? 0.0)
-                        : 0.0,
-                    valueColor: AlwaysStoppedAnimation(Colors.blue[700]),
-                    backgroundColor: Colors.grey.shade400,
-                  ),
-                ),
-              ],
-            ),
-            Text(
-              'Player Status: ${_getPlayerStateString()}',
-              style: TextStyle(
-                fontSize: 15,
-              ), 
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: _songList.length,
+                itemBuilder: createListItems,
+              ),
             )
           ],
         ),
