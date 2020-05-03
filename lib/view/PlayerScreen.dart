@@ -160,11 +160,16 @@ class _PlayerScreenState extends State<PlayerScreen> {
   // interface
   @override
   Widget build(BuildContext context) {
+
+    //_play();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Music Net Player"),
+        title: Text("Go Home"),
+        backgroundColor: Colors.black,
       ),
       body: Container(
+        color: Colors.purple,
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -177,6 +182,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   child: Icon(
                     Icons.music_note,
                     size: 200,
+                    color: Colors.white,
                   ),
                 )
               ],
@@ -194,7 +200,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     }
                   },
                   iconSize: 64,
-                  color: Colors.cyan,
+                  color: Colors.white,
                 ),
                 IconButton(
                     icon: Icon(Icons.pause),
@@ -204,7 +210,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       }
                     },
                     iconSize: 64,
-                    color: Colors.cyan),
+                    color: Colors.white),
                 IconButton(
                   key: Key('stop_button'),
                   onPressed: () {
@@ -214,7 +220,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   },
                   iconSize: 64,
                   icon: Icon(Icons.stop),
-                  color: Colors.cyan,
+                  color: Colors.white,
                 ),
                 IconButton(
                   icon: _muteWIcon,
@@ -228,7 +234,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       _mute(false);
                     }
                   },
-                  color: Colors.cyan,
+                  color: Colors.white,
                   iconSize: 64,
                 ),
               ],
@@ -242,7 +248,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.replay_10),
-                        color: Colors.cyan,
+                        color: Colors.white,
                         iconSize: 45,
                         onPressed: () {
                           _audioPlayer.seek(_getPositionValue() - 10);
@@ -250,7 +256,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       ),
                       IconButton(
                         icon: Icon(Icons.forward_10),
-                        color: Colors.cyan,
+                        color: Colors.white,
                         iconSize: 45,
                         onPressed: () {
                           _audioPlayer.seek(_getPositionValue() + 10);
@@ -264,6 +270,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   child: Stack(
                     children: [
                       Slider(
+                        inactiveColor: Colors.black,
+                        activeColor: Colors.white,
                         value: _getPositionValue(),
                         onChanged: (double value) {
                           print("SLICER: ${value.roundToDouble()}");
@@ -285,7 +293,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   _position != null
                       ? '${_positionText ?? ''} / ${_durationText ?? ''}'
                       : _duration != null ? _durationText : '',
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(12.0),
@@ -294,7 +306,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         ? (_position?.inSeconds?.toDouble() ?? 0.0) /
                             (_duration?.inSeconds?.toDouble() ?? 0.0)
                         : 0.0,
-                    valueColor: AlwaysStoppedAnimation(Colors.blue[700]),
+                    valueColor: AlwaysStoppedAnimation(Colors.black),
                     backgroundColor: Colors.grey.shade400,
                   ),
                 ),
@@ -304,6 +316,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
               'Player Status: ${_getPlayerStateString()}',
               style: TextStyle(
                 fontSize: 15,
+                color: Colors.white
               ), 
             )
           ],
