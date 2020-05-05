@@ -11,6 +11,8 @@ https://github.com/bizz84/coding-with-flutter-login-demo/blob/master/test/login_
 https://github.com/bizz84/coding-with-flutter-login-demo/blob/master/lib/login_page.dart
 https://github.com/flutter/flutter/blob/master/packages/flutter_test/test/widget_tester_test.dart
 https://flutter.dev/docs/testing
+
+https://medium.com/flutter-comunidade-br/widget-test-787b81cf8996
 */
 
 

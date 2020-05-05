@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:audioplayer/audioplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_a_z/model/Music.dart';
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final List jsonList = json.decode(response);
 
     jsonList.forEach((element) {
-      print(element);
+      //print(element);
       Music song = Music.fromJson(element);
       _songList.add(song);
     });
@@ -47,17 +48,21 @@ class _HomeScreenState extends State<HomeScreen> {
     });*/
   }
 
+  
   // Based on https://proandroiddev.com/flutter-thursday-02-beautiful-list-ui-and-detail-page-a9245f5ceaf0
-  Widget createListItems(context, index) {
+  Widget createListItems(context, index) {   
+    
     return GestureDetector(
       onTap: (){
-        //print(_songList[index].artistName);
-        Navigator.push(
+        //print(_songList[index].artistName);                       
+        Navigator.push(          
           context, 
-          MaterialPageRoute(
-            builder: (context) => PlayerScreen(url: _songList[index].urlMusic),
+          MaterialPageRoute(            
+            builder: (context) => PlayerScreen(
+              url: _songList[index].urlMusic,              
+              ),
           )
-        );
+        );                
       },
       child: Card(
         elevation: 8.0,
@@ -146,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
           "MuSic PLayer",
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+        ),        
       ),
       body: body,
     );
