@@ -1,50 +1,34 @@
 // Import the test package and Counter class
-// import 'dart:convert';
+import 'dart:convert';
 
+import 'package:flutter_a_z/model/Music.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
 
   test("Checking task model", () async {
     
-   /*
-    Task task = Task(
-      id: "12q",
-      description: "Read paper",
-      priority: 7.0,
-      status: false
-    );
+         
 
-    String jsonString = """
-    [
-     {
-      "id": "123abc",
-      "description": "Read paper",
-      "priority": 7.0,
-      "status": false
-     }
-    ]
+    String jsonString = """    
+    {
+      "name": "SoundHelix Song 1",
+      "coverImg": null,
+      "artistName": "T. Schürger",
+      "urlMusic":  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+    }    
     """;
 
     //print(jsonString);
     //print(json.decode(jsonString));
 
-    List resultJson = task.getListTaskFromJsonString(jsonString);    
-    expect(resultJson.length, isNonZero);
-
-    //print(resultJson);
-    List getMapList = task.getMapListTask(resultJson);
-    //print(getMapList);
-
-    getMapList.forEach((element) {
-      
-      print(element);
-
-      expect(element["id"], "123abc");
-      expect(element["description"], "Read paper");
-      expect(element["priority"], 7.0);
-      expect(element["status"], false);
-    });  */  
+    Music song = Music.fromJson(json.decode(jsonString));
+    
+    expect(song.name, "SoundHelix Song 1");
+    expect(song.coverImg, null);
+    expect(song.artistName, "T. Schürger");
+    expect(song.urlMusic, "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+    
     
   });  
 

@@ -26,20 +26,21 @@ void main() {
         
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
-      home: HomeScreen()
+      home: HomeScreen(urlJsonMusic: "assets/images/v9_img/json/songs.json")
     ));
     
-    /*
+    
     final Finder appBarFinder = find.byKey(Key('app_bar')); 
     expect(appBarFinder, findsOneWidget); 
 
-    final Finder bodyBarFinder = find.byKey(Key('body_app')); 
+    final Finder bodyBarFinder = find.byKey(Key('body')); 
     expect(bodyBarFinder, findsOneWidget); 
 
-    final Finder floatButFinder = find.byKey(Key('floatbut_app')); 
-    expect(floatButFinder, findsOneWidget); 
+    final Finder gesture = find.byKey(Key('card')); 
+    expect(gesture, findsOneWidget); 
 
-    await tester.tap(floatButFinder);  */     
+    await tester.tap(gesture); 
+    await tester.pumpAndSettle();    
 
   });
 

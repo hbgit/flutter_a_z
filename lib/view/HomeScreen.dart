@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:audioplayer/audioplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_a_z/model/Music.dart';
@@ -53,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget createListItems(context, index) {   
     
     return GestureDetector(
+      key: Key("card"),
       onTap: (){
         //print(_songList[index].artistName);                       
         Navigator.push(          
@@ -113,6 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     //print(_songList);
     Widget body = FutureBuilder(
+      key: Key("body"),
       future: _getSongs(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -146,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.purple,
       appBar: AppBar(
+        key: Key("app_bar"),
         backgroundColor: Colors.black87,
         title: Text(
           "MuSic PLayer",
