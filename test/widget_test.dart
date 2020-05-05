@@ -36,8 +36,8 @@ void main() {
     final Finder bodyBarFinder = find.byKey(Key('body')); 
     expect(bodyBarFinder, findsOneWidget); 
 
-    final Finder gesture = find.byKey(Key('card')); 
-    expect(gesture, findsOneWidget); 
+    final Finder gesture = find.byType(GestureDetector); 
+    expect(gesture, findsWidgets); 
 
     await tester.tap(gesture); 
     await tester.pumpAndSettle();    
