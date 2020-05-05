@@ -23,24 +23,31 @@ import 'package:flutter_test/flutter_test.dart';
 void main() { 
 
   testWidgets('Checking Home Screen', (WidgetTester tester) async {
+
+    await tester.runAsync(() async {
+ 
+      // test code here
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(MaterialApp(
+        home: HomeScreen(urlJsonMusic: "assets/images/v9_img/json/songs.json")
+      ));
+      
+      
+      final Finder appBarFinder = find.byKey(Key('app_bar')); 
+      expect(appBarFinder, findsOneWidget); 
+
+      final Finder bodyBarFinder = find.byKey(Key('body')); 
+      expect(bodyBarFinder, findsOneWidget);       
+
+      final Finder gesture = find.byType(GestureDetector); 
+      expect(gesture, findsWidgets); 
+
+      await tester.tap(gesture); 
+      await tester.pumpAndSettle();    
+ 
+    });
         
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(
-      home: HomeScreen(urlJsonMusic: "assets/images/v9_img/json/songs.json")
-    ));
-    
-    
-    final Finder appBarFinder = find.byKey(Key('app_bar')); 
-    expect(appBarFinder, findsOneWidget); 
-
-    final Finder bodyBarFinder = find.byKey(Key('body')); 
-    expect(bodyBarFinder, findsOneWidget); 
-
-    final Finder gesture = find.byType(GestureDetector); 
-    expect(gesture, findsWidgets); 
-
-    await tester.tap(gesture); 
-    await tester.pumpAndSettle();    
+   
 
   });
 
