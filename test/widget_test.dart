@@ -69,7 +69,9 @@ void main() {
     await tester.pump(Duration.zero);
 
     Finder waiting = find.byType(CircularProgressIndicator);
-    expect(waiting, findsNothing);
+    expect(waiting, findsOneWidget);
+
+    await tester.pump(new Duration(seconds: 60)); 
 
     final Finder placeWave = find.byKey(Key('wave')); 
     expect(placeWave, findsOneWidget); 
