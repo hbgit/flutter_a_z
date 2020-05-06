@@ -224,13 +224,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
+                    key: Key("wave"),
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
                         //padding: EdgeInsets.all(15),
-                        child: Center(
-                          key: Key("wave"),
+                        child: Center(                          
                           // https://pub.dev/packages/wave#-example-tab-
                           child: WaveWidget(                            
                             config: CustomConfig(
