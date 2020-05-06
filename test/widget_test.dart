@@ -65,7 +65,8 @@ void main() {
     final Finder bodyBarFinder = find.byKey(Key('body')); 
     expect(bodyBarFinder, findsOneWidget); 
 
-    await tester.pump(new Duration(seconds: 60));      
+    await tester.pump(new Duration(seconds: 60)); 
+    await Future.delayed(Duration(seconds: 60));     
 
     final Finder placeWave = find.byKey(Key('wave')); 
     expect(placeWave, findsOneWidget); 
