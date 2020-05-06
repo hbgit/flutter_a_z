@@ -53,28 +53,30 @@ void main() {
   testWidgets('Checking Player Screen', (WidgetTester tester) async {
 
     // test code here
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(
-      home: PlayerScreen(url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
-    ));
-    
-    
-    final Finder appBarFinder = find.byKey(Key('app_bar')); 
-    expect(appBarFinder, findsOneWidget); 
+    await tester.runAsync(() async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(MaterialApp(
+        home: PlayerScreen(url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+      ));
+      
+      
+      final Finder appBarFinder = find.byKey(Key('app_bar')); 
+      expect(appBarFinder, findsOneWidget); 
 
-    final Finder bodyBarFinder = find.byKey(Key('body')); 
-    expect(bodyBarFinder, findsOneWidget); 
+      final Finder bodyBarFinder = find.byKey(Key('body')); 
+      expect(bodyBarFinder, findsOneWidget); 
 
-    // this will cause the stream to emit the first event
-    await tester.pump(Duration.zero);
+      // this will cause the stream to emit the first event
+      await tester.pump(Duration.zero);
 
-    Finder waiting = find.byType(CircularProgressIndicator);
-    expect(waiting, findsOneWidget);
+      Finder waiting = find.byType(CircularProgressIndicator);
+      expect(waiting, findsOneWidget);
 
-    await tester.pump(new Duration(seconds: 60)); 
+      await tester.pump(new Duration(seconds: 60)); 
 
-    final Finder placeWave = find.byKey(Key('wave')); 
-    expect(placeWave, findsOneWidget); 
+      final Finder placeWave = find.byKey(Key('wave')); 
+      expect(placeWave, findsOneWidget); 
+    });
 
 
     /*
