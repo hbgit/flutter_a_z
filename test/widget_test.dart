@@ -65,8 +65,8 @@ void main() {
     final Finder bodyBarFinder = find.byKey(Key('body')); 
     expect(bodyBarFinder, findsOneWidget); 
 
-    await tester.pump(new Duration(seconds: 60)); 
-    await Future.delayed(Duration(seconds: 60));     
+    await tester.pump(new Duration(seconds: 10)); 
+    await Future.delayed(Duration(seconds: 10));     
 
     final Finder placeWave = find.byKey(Key('wave')); 
     expect(placeWave, findsOneWidget); 
@@ -74,12 +74,12 @@ void main() {
     final Finder pausebtn = find.byKey(Key('pause_btn')); 
     expect(pausebtn, findsOneWidget); 
     await tester.tap(pausebtn);
-    await tester.pump(new Duration(seconds: 30));      
+    await tester.pump(new Duration(seconds: 10));      
     
     final Finder playbtn = find.byKey(Key('play_but')); 
     expect(playbtn, findsOneWidget); 
     await tester.tap(playbtn);
-    await tester.pump(new Duration(seconds: 30));      
+    await tester.pump(new Duration(seconds: 10));      
 
   });
 
