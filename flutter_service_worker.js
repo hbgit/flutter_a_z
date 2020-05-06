@@ -4,14 +4,14 @@ const RESOURCES = {
   "/index.html": "9fbcc4aef28a6e07e93351f63b10e120",
 "/icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "/icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
-"/assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
-"/assets/FontManifest.json": "01700ba55b08a6141f33e168c4a6c22f",
+"/assets/assets/images/v9_img/195.jpg": "132164f0ef044145ae124e258d29a07b",
+"/assets/assets/images/v9_img/json/songs.json": "eb8bf119b358f90989bb3604d68f96d9",
+"/assets/FontManifest.json": "580ff1a5d08679ded8fcf5c6848cece7",
 "/assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
-"/assets/AssetManifest.json": "cd7f43645769faf9c87df072bfbdc159",
-"/assets/LICENSE": "8483d01d74e1e7a6c72dfbc62125d51d",
-"/assets/images/v7_img/youtube.png": "9bc925d99cd9a0718de36fb30d966bcc",
+"/assets/AssetManifest.json": "2d791c06b34a05dec95e5fcc4476b011",
+"/assets/LICENSE": "76ad06766052a61fbdbfa7b8c9f4a4b1",
 "/favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"/main.dart.js": "f215531b4fa9fb1dfba71c70e4ad0ce0",
+"/main.dart.js": "3fb684ca9b69a95ff1b8f190c0fc167d",
 "/manifest.json": "267450d2e27a233810c283b77314b646"
 };
 
