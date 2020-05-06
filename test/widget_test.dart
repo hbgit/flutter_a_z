@@ -65,9 +65,15 @@ void main() {
     final Finder bodyBarFinder = find.byKey(Key('body')); 
     expect(bodyBarFinder, findsOneWidget); 
 
-    tester.allElements.forEach((element) { 
-      print(element);
-     });
+    // this will cause the stream to emit the first event
+    await tester.pump(Duration.zero);
+
+    Finder waiting = find.byType(CircularProgressIndicator);
+    expect(waiting, findsNothing);
+
+    final Finder placeWave = find.byKey(Key('wave')); 
+    expect(placeWave, findsOneWidget); 
+
 
     /*
     await tester.pump(new Duration(seconds: 60)); 
