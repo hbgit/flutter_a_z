@@ -18,6 +18,7 @@ https://medium.com/flutter-comunidade-br/widget-test-787b81cf8996
 
 import 'package:flutter/material.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
+import 'package:flutter_a_z/view/PlayerScreen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() { 
@@ -45,6 +46,39 @@ void main() {
     await tester.tap(gesture.first); 
     await tester.pump(new Duration(seconds: 60));      
     //await tester.pumpAndSettle(Duration(seconds: 60));     
+
+  });
+
+
+  testWidgets('Checking Player Screen', (WidgetTester tester) async {
+
+    // test code here
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(MaterialApp(
+      home: PlayerScreen(url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+    ));
+    
+    
+    final Finder appBarFinder = find.byKey(Key('app_bar')); 
+    expect(appBarFinder, findsOneWidget); 
+
+    final Finder bodyBarFinder = find.byKey(Key('body')); 
+    expect(bodyBarFinder, findsOneWidget); 
+
+    await tester.pump(new Duration(seconds: 60));      
+
+    final Finder placeWave = find.byKey(Key('wave')); 
+    expect(placeWave, findsOneWidget); 
+
+    final Finder pausebtn = find.byKey(Key('pause_btn')); 
+    expect(pausebtn, findsOneWidget); 
+    await tester.tap(pausebtn);
+    await tester.pump(new Duration(seconds: 30));      
+    
+    final Finder playbtn = find.byKey(Key('play_but')); 
+    expect(playbtn, findsOneWidget); 
+    await tester.tap(playbtn);
+    await tester.pump(new Duration(seconds: 30));      
 
   });
 

@@ -212,6 +212,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
   Widget build(BuildContext context) {
     //_play();    
     Widget body = FutureBuilder(
+        key: Key("body"),
         future: _autoPlay(),
         builder: (context, snapshot) {
           print("${snapshot.hasData}-${snapshot.data}");
@@ -229,8 +230,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       Expanded(
                         //padding: EdgeInsets.all(15),
                         child: Center(
+                          key: Key("wave"),
                           // https://pub.dev/packages/wave#-example-tab-
-                          child: WaveWidget(
+                          child: WaveWidget(                            
                             config: CustomConfig(
                               colors: [
                                 Colors.white70,
@@ -264,6 +266,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       IconButton(
+                        key: Key("play_but"),
                         icon: Icon(Icons.play_arrow),
                         onPressed: () {
                           //print(_isPlaying);
@@ -275,6 +278,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         color: Colors.white,
                       ),
                       IconButton(
+                          key:  Key("pause_but"),
                           icon: Icon(Icons.pause),
                           onPressed: () {
                             if (_isPlaying) {
@@ -284,7 +288,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           iconSize: 64,
                           color: Colors.white),
                       IconButton(
-                        key: Key('stop_button'),
+                        key: Key('stop_but'),
                         onPressed: () {
                           if (_isPlaying || _isPaused) {
                             _stop();
@@ -295,6 +299,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         color: Colors.white,
                       ),
                       IconButton(
+                        key:  Key("mute_but"),
                         icon: _muteWIcon,
                         onPressed: () {
                           isMuted = !isMuted;
@@ -402,6 +407,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        key: Key("app_bar"),
         title: Text("Go Home"),
         backgroundColor: Colors.black,
         leading: IconButton(
