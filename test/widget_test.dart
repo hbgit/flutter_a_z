@@ -43,7 +43,7 @@ void main() {
     expect(gesture, findsWidgets); 
 
     await tester.tap(gesture.first); 
-    await tester.pumpAndSettle();     
+    await tester.pumpAndSettle(Duration(seconds: 60));     
 
   });
 
