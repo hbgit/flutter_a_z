@@ -42,7 +42,7 @@ void main() {
     final Finder gesture = find.byType(GestureDetector); 
     expect(gesture, findsWidgets); 
 
-    await tester.tap(gesture); 
+    await tester.tap(gesture.first); 
     await tester.pumpAndSettle();     
 
   });
