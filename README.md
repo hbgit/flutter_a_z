@@ -199,13 +199,32 @@ $ flutter create .
 
 # v9.0
 ---
-## TODO List
+## Music Player
 
-- The goal of this APP is to organize a Todo List with multiple tasks with the option to: create, update, and delete a task.
+- The goal of this APP is to generate a playlist adopting song from a given URL, and it provides a Player Music for each song. In this APP to simulate a web service, it's adopted a JSON file from APP assets.
 
 - The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_music_player
 
-- In this APP was adopted: 
+- In this APP was adopted:
+    - interal packages
+    - audioplayer/audioplayer
+    - wave/wave
+    - flutter/services
+    - StreamSubscription
+    - initState and dispose
+    - async functions
+    - SingleChildScrollView
+    - ConstrainedBox
+    - Expanded
+    - Slider
+    - CircularProgressIndicator
+    - Card
+
+- Overview of the APP:
+
+| Start  | Screen 1  | Screen 2  | Screen 3  |
+|---|---|---|---|
+|<img src="./docs/images/app_v9_t0.png" width="200"> |<img src="./docs/images/app_v9_t1.png" width="200">|<img src="./docs/images/app_v9_t2.png" width="200">|<img src="./docs/images/app_v9_t3.png" width="200">|
 
 ---
 
