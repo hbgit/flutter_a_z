@@ -15,13 +15,80 @@ https://flutter.dev/docs/testing
 https://medium.com/flutter-comunidade-br/widget-test-787b81cf8996
 */
 
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
 import 'package:flutter_a_z/view/PlayerScreen.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:audioplayer/audioplayer.dart';
+//import 'package:mockito/mockito.dart';
 
-void main() { 
+//class for mockito
+class FakePlayer {
+  AudioPlayer audioPlayer;
+  bool autoPlaySt;
+  PlayerState playerState;
+  bool resultAutoPlay;  
+
+  FakePlayer() {
+    audioPlayer = AudioPlayer();
+    autoPlaySt = true;
+    playerState = PlayerState.stopped;
+    resultAutoPlay = false;
+  }
+
+  /*
+  Future<void> spendTime() {
+    List count = [10, 30, 60];
+    print('Playing');
+    count.forEach((i) {
+      Future.delayed(Duration(seconds: i), () => print("Delayed: $i s"));
+    });
+    return Future.value();
+  }
+  
+  
+  Future<bool> autoPlay() async {
+    await play();
+    print('Result autoPlay');
+    return true;
+  }
+  
+  play() async {
+    // Imagine that this function is more complex and slow.
+    await spendTime();
+    print('Result Play');
+  }*/
+
+  Future<bool> autoPlay() async {
+    if (autoPlaySt) {
+      print("Going to play");
+
+      await play();
+
+      print(playerState);
+      resultAutoPlay = true;
+
+      print('Result autoPlay');
+    }
+    return resultAutoPlay;
+  }
+
+  Future<void> play() async {
+    print("Running play()");
+    audioPlayer
+        .play("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+    //await spendTime();
+    playerState = PlayerState.playing;
+    print('Result Play');
+  }
+}
+
+// Mock class
+// class MockPlayer extends Mock implements FakePlayer {}
+
+void main() {
 
   testWidgets('Checking Home Screen', (WidgetTester tester) async {
 
@@ -44,64 +111,80 @@ void main() {
     expect(gesture, findsWidgets); 
 
     await tester.tap(gesture.first); 
-    await tester.pump(new Duration(seconds: 60));      
+    //await tester.pump(new Duration(seconds: 60));      
+    await tester.pump(Duration.zero);
     //await tester.pumpAndSettle(Duration(seconds: 60));     
 
   });
 
-
+  Widget makeTestableWidget({Widget child}) {
+    return MaterialApp(
+      home: child,
+    );
+  }
+  
   testWidgets('Checking Player Screen', (WidgetTester tester) async {
+    // Create mock object.
+    var mocPlayer = FakePlayer();
+    Future<bool> rtrue;
 
-    // test code here
-    await tester.runAsync(() async {
-      // Build our app and trigger a frame.
-      await tester.pumpWidget(MaterialApp(
-        home: PlayerScreen(url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
-      ));
-      
-      
-      final Finder appBarFinder = find.byKey(Key('app_bar')); 
-      expect(appBarFinder, findsOneWidget); 
+    //when(player.autoPlay()).
+    //print(mocPlayer.resultAutoPlay);
 
-      final Finder bodyBarFinder = find.byKey(Key('body')); 
-      expect(bodyBarFinder, findsOneWidget); 
-
-      // this will cause the stream to emit the first event
-      await tester.pump(Duration.zero);
-
-      Finder waiting = find.byType(CircularProgressIndicator);
-      expect(waiting, findsOneWidget);
-
-      await tester.pump(new Duration(seconds: 60)); 
-
-      final Finder placeWave = find.byKey(Key('wave')); 
-      expect(placeWave, findsOneWidget); 
-    });
-
-
+    //when(mocPlayer.autoPlay()).thenReturn(Future.value(true));
     /*
-    await tester.pump(new Duration(seconds: 60)); 
-    print(tester.allElements);
-    //await Future.delayed(Duration(seconds: 10));     
+    when(mocPlayer.autoPlay().then((value){
+      if(value == true){
+        //Future.delayed(Duration(seconds: 1), () => []);
+        rtrue.whenComplete(() => true);
+      }
+    }));*/
+
+    print('Running test');
+    mocPlayer.autoPlay().then((value) async {
+      print("Result testing: $value");
+      rtrue = Future.value(value);
+    });
+    await tester.pump(new Duration(seconds: 60));
+    //resultAutoPlay.then((value) => print("Result testing: $value"));
+    //print("Result testing: $resultAutoPlay");
+
+    PlayerScreen playScr = PlayerScreen(
+      url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      buildAutoPlay: rtrue
+    );
+
+    await tester.pumpWidget(makeTestableWidget(child: playScr));
+
+    final Finder appBarFinder = find.byKey(Key('app_bar'));
+    expect(appBarFinder, findsOneWidget);
+
+    final Finder bodyBarFinder = find.byKey(Key('body'));
+    expect(bodyBarFinder, findsOneWidget);
+
+    Finder waiting = find.byType(CircularProgressIndicator);
+    expect(waiting, findsOneWidget);
+
+    await tester.pump(new Duration(seconds: 60));
 
     final Finder placeWave = find.byKey(Key('wave')); 
-    expect(placeWave, findsOneWidget); 
+    expect(placeWave, findsOneWidget);
 
     final Finder pausebtn = find.byKey(Key('pause_btn')); 
     expect(pausebtn, findsOneWidget); 
     await tester.tap(pausebtn);
     await tester.pump(new Duration(seconds: 10));      
-    
-    final Finder playbtn = find.byKey(Key('play_but')); 
-    expect(playbtn, findsOneWidget); 
-    await tester.tap(playbtn);
-    await tester.pump(new Duration(seconds: 10));   */   
+
+    final Finder stopbtn = find.byKey(Key('stop_btn')); 
+    expect(stopbtn, findsOneWidget); 
+    await tester.tap(stopbtn);
+    await tester.pump(new Duration(seconds: 10));      
+
+    final Finder mutebtn = find.byKey(Key('mute_btn')); 
+    expect(mutebtn, findsOneWidget); 
+    await tester.tap(mutebtn);
+    await tester.pump(new Duration(seconds: 10));      
+
 
   });
-
-
-  
-
-
 }
-

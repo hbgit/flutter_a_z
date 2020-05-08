@@ -58,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
           context, 
           MaterialPageRoute(            
             builder: (context) => PlayerScreen(
-              url: _songList[index].urlMusic,              
+              url: _songList[index].urlMusic, 
+              buildAutoPlay: Future.value(false),             
               ),
           )
         );                
