@@ -11,7 +11,7 @@ const RESOURCES = {
 "/assets/AssetManifest.json": "2d791c06b34a05dec95e5fcc4476b011",
 "/assets/LICENSE": "905073d2e450b57e9aaab2c4c11f8287",
 "/favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"/main.dart.js": "de038823b58ccd1b6302428d0f6d15fe",
+"/main.dart.js": "a3769f8b3d8bdede3869a8e2d55c041d",
 "/manifest.json": "267450d2e27a233810c283b77314b646"
 };
 
