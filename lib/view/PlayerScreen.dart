@@ -215,7 +215,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
       }
     });
 
-    BoxConstraints viewportConstrains;
+    // BoxConstraints viewportConstrains;
 
     Widget body = FutureBuilder(
         key: Key("body"),
