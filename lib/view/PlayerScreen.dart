@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:audioplayer/audioplayer.dart';
+import 'package:flutter/rendering.dart';
 import 'package:wave/config.dart';
 // import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
@@ -140,19 +141,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
     print(_audioPlayer.state);
 
     if (_autoPlaySt) {
-      if ((_playerState == PlayerState.paused ||
-              _playerState == PlayerState.stopped) &&
-          _playerState != PlayerState.playing) {
-        _autoPlaySt = false;
+      _autoPlaySt = false;
+      print("OKAY autoplay");
 
-        print("OKAY autoplay");
+      await _play();
+      _resultAutoPlay = true;
 
-        _play().then((value) {
-          print("PLAy call");
-          _buildAutoPlay = Future.value(true);
-          _resultAutoPlay = true;
-        });
-      }
+      print('Result autoPlay');
     }
 
     print("_resultAutoPlay: $_resultAutoPlay");
@@ -164,7 +159,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
   //widget.buildAutoPlay = _autoPlay();
 
   Future<bool> _play() async {
-    await _audioPlayer.play(widget.url);
+    _audioPlayer.play(widget.url);
 
     setState(() {
       _playerState = PlayerState.playing;
@@ -213,14 +208,15 @@ class _PlayerScreenState extends State<PlayerScreen> {
   @override
   Widget build(BuildContext context) {
     //_play();
-    _buildAutoPlay.then((value){
+    _buildAutoPlay.then((value) {
       print(value);
-      if(value == false){
+      if (value == false) {
         _buildAutoPlay = _autoPlay();
       }
     });
-    
-    
+
+    BoxConstraints viewportConstrains;
+
     Widget body = FutureBuilder(
         key: Key("body"),
         future: _buildAutoPlay, //_autoPlay(),
@@ -231,8 +227,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
             return Container(
               color: Colors.purple,
               child: SingleChildScrollView(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                child: Column(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(),
+                  child: Column(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Row(
                       key: Key("wave"),
@@ -406,6 +404,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     )
                   ],
                 ),
+                ),
               ),
             );
           } else {
@@ -419,6 +418,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         });
 
     return Scaffold(
+      backgroundColor: Colors.purple,
       appBar: AppBar(
         key: Key("app_bar"),
         title: Text("Go Home"),
