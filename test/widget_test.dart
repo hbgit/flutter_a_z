@@ -15,75 +15,10 @@ https://flutter.dev/docs/testing
 https://medium.com/flutter-comunidade-br/widget-test-787b81cf8996
 */
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
-import 'package:flutter_a_z/view/PlayerScreen.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:audioplayer/audioplayer.dart';
 //import 'package:mockito/mockito.dart';
-
-//class for mockito
-class FakePlayer {
-  AudioPlayer audioPlayer;
-  bool autoPlaySt;
-  PlayerState playerState;
-  bool resultAutoPlay;  
-
-  FakePlayer() {
-    audioPlayer = AudioPlayer();
-    autoPlaySt = true;
-    playerState = PlayerState.stopped;
-    resultAutoPlay = false;
-  }
-
-  /*
-  Future<void> spendTime() {
-    List count = [10, 30, 60];
-    print('Playing');
-    count.forEach((i) {
-      Future.delayed(Duration(seconds: i), () => print("Delayed: $i s"));
-    });
-    return Future.value();
-  }
-  
-  
-  Future<bool> autoPlay() async {
-    await play();
-    print('Result autoPlay');
-    return true;
-  }
-  
-  play() async {
-    // Imagine that this function is more complex and slow.
-    await spendTime();
-    print('Result Play');
-  }*/
-
-  Future<bool> autoPlay() async {
-    if (autoPlaySt) {
-      print("Going to play");
-
-      await play();
-
-      print(playerState);
-      resultAutoPlay = true;
-
-      print('Result autoPlay');
-    }
-    return resultAutoPlay;
-  }
-
-  Future<void> play() async {
-    print("Running play()");
-    audioPlayer
-        .play("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
-    //await spendTime();
-    playerState = PlayerState.playing;
-    print('Result Play');
-  }
-}
 
 // Mock class
 // class MockPlayer extends Mock implements FakePlayer {}
@@ -98,7 +33,7 @@ void main() {
       home: HomeScreen(urlJsonMusic: "assets/images/v9_img/json/songs.json")
     ));
     
-    
+    /*
     final Finder appBarFinder = find.byKey(Key('app_bar')); 
     expect(appBarFinder, findsOneWidget); 
 
@@ -114,9 +49,11 @@ void main() {
     //await tester.pump(new Duration(seconds: 60));      
     await tester.pump(Duration.zero);
     //await tester.pumpAndSettle(Duration(seconds: 60));     
+    */
 
   });
 
+/*
   Widget makeTestableWidget({Widget child}) {
     return MaterialApp(
       home: child,
@@ -186,5 +123,5 @@ void main() {
     await tester.pump(new Duration(seconds: 10));      
 
 
-  });
+  });*/
 }
