@@ -1,161 +1,233 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_a_z/model/Music.dart';
-import 'package:flutter_a_z/view/PlayerScreen.dart';
+import 'package:flutter_a_z/controll/NoteControll.dart';
+import 'package:flutter_a_z/model/Note.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String urlJsonMusic;
-
-  HomeScreen({Key key, @required this.urlJsonMusic}) : super(key: key);
+  HomeScreen({Key key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // Attr
-  List _songList = [];
 
-  // Class actions
-  Future<String> _loadAsset() async {
-    return await rootBundle.loadString(widget.urlJsonMusic);
-  }
+  //attr
+  var _db = NoteControll();
+  List<Note> _listNotes = List<Note>();
 
-  Future<List> _getSongs() async {
-    final response = await _loadAsset();
-    final List jsonList = json.decode(response);
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descController = TextEditingController();
 
-    jsonList.forEach((element) {
+
+  //Screen Actions
+  _recoveryNotes() async {
+
+    print(">> _recoveryNotes");
+
+    List noteRec = await _db.recoveryNotes();
+    print(" Notes: ${noteRec.length}");
+
+    List<Note> listTmp = List<Note>();
+
+    noteRec.forEach((element) { 
       //print(element);
-      Music song = Music.fromJson(element);
-      _songList.add(song);
+      Note note = Note.fromMap(element);
+      listTmp.add(note);
     });
 
-    return _songList;
+    setState(() {
+      _listNotes = listTmp;
+    });
 
-    /* 
-   await _loadAsset().then((value){
-      List jsonList = json.decode( value );
-      jsonList.forEach((element) { 
-        print(element);
-        Music song = Music.fromJson(element);
-        _songList.add(song);
-      });
-    });*/
+    listTmp = null;
   }
 
-  
-  // Based on https://proandroiddev.com/flutter-thursday-02-beautiful-list-ui-and-detail-page-a9245f5ceaf0
-  Widget createListItems(context, index) {   
+  @override
+  void initState() { 
+    super.initState();
+    print(">> initState");
     
-    return GestureDetector(
-      key: Key("card"),
-      onTap: (){
-        //print(_songList[index].artistName);                       
-        Navigator.push(          
-          context, 
-          MaterialPageRoute(            
-            builder: (context) => PlayerScreen(
-              url: _songList[index].urlMusic, 
-              buildAutoPlay: Future.value(false),             
-              ),
-          )
-        );                
-      },
-      child: Card(
-        elevation: 8.0,
-        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Container(
-          decoration: BoxDecoration(color: Colors.black),
-          child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-              leading: Container(
-                padding: EdgeInsets.only(right: 12.0),
-                decoration: new BoxDecoration(
-                    border: new Border(
-                        right:
-                            new BorderSide(width: 1.0, color: Colors.white24))),
-                child: Icon(
-                  Icons.headset_mic,
-                  color: Colors.teal,
-                  size: 40,
+    _recoveryNotes();
+  }
+
+  _saveUpdateNote( {Note noteSected} ) async {
+    String title = _titleController.text;
+    String desc  = _descController.text;
+
+    if(noteSected == null){
+      print("Save NOTE");
+      Note note = Note(title, desc, DateTime.now().toString());
+      int result = await _db.saveNote(note);
+      print(result);
+    }else{
+      print("Save UPDATE");
+      noteSected.title = title;
+      noteSected.desc = desc;
+      noteSected.date = DateTime.now().toString();
+      int result = await _db.updateNote(noteSected);
+      print(result);
+    }
+
+    _titleController.clear();
+    _descController.clear();
+
+    _recoveryNotes();
+
+
+  }
+
+  _showDialogToAdd( {Note note} ){
+    String flagSaveUpdate = "";
+    if(note == null){
+      _titleController.text = "";
+      _descController.text = "";
+      flagSaveUpdate = "Save";
+    }else{
+      _titleController.text = note.title;
+      _descController.text = note.desc;
+      flagSaveUpdate = "Update";
+    }    
+
+    showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          title: Text("$flagSaveUpdate Note"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _titleController,
+                autofocus: true,
+                decoration: InputDecoration(
+                  labelText: "Title",
+                  hintText: "Type a note title ..."
                 ),
               ),
-              title: Text(
-                _songList[index].name,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              TextField(
+                controller: _descController,
+                autofocus: true,
+                decoration: InputDecoration(
+                  labelText: "Description",
+                  hintText: "Type a note description ..."
+                ),
               ),
-              subtitle: Row(
-                children: <Widget>[
-                  Icon(Icons.face, color: Colors.teal),
-                  Text(" ${_songList[index].artistName}",
-                      style: TextStyle(color: Colors.white))
-                ],
+            ],
+          ),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.pop(context),
+              color: Colors.red,
+              child: Text(
+                "Cancel",
+                style: TextStyle(
+                  color: Colors.white
+                ),
               ),
-              trailing: Icon(Icons.keyboard_arrow_right,
-                  color: Colors.white, size: 30.0)),
-        ),
-      ),
+            ),
+            FlatButton(
+              onPressed: (){                
+                _saveUpdateNote(noteSected: note);
+                Navigator.pop(context);
+              },
+              color: Colors.green,
+              child: Text(
+                "Save",
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              ),
+            ),
+          ],
+        );
+      }
     );
+
   }
 
-  @override
-  void initState() {
-    super.initState();
+  _formatDate(String date){
+
+    initializeDateFormatting("pt_BR");
+
+    var pattern = DateFormat.yMd("pt_BR");
+
+    DateTime dateConvert = DateTime.parse(date);
+    String newDatePattern = pattern.format(dateConvert);
+
+    return newDatePattern;
+
   }
 
-  // Interface
+
   @override
   Widget build(BuildContext context) {
-    //print(_songList);
-    Widget body = FutureBuilder(
-      key: Key("body"),
-      future: _getSongs(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: createListItems,
-                  ),
-                )
-              ],
-            ),
-          );
-        } else {
-          return Center(
-            child: LinearProgressIndicator(
-              backgroundColor: Colors.purple,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-            ),
-          );
-        }
-      },
-    );
-
-    return Scaffold(
-      backgroundColor: Colors.purple,
+    return Scaffold(      
       appBar: AppBar(
-        key: Key("app_bar"),
-        backgroundColor: Colors.black87,
-        title: Text(
-          "MuSic PLayer",
-          style: TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-        ),        
+        title: Text("Keep Notes"),
+        backgroundColor: Colors.teal,
       ),
-      body: body,
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: _listNotes.length, 
+              itemBuilder: (context, index){
+                
+                final note = _listNotes[index];
+
+                return Card(
+                  color: Colors.green[200],
+                  elevation: 5,
+                  child: ListTile(
+                    title: Text(
+                      note.title,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      "${_formatDate(note.date)} - ${note.desc}"
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          onTap: (){},
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 15),
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (){},
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 0),
+                            child: Icon(
+                              Icons.delete_forever,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
+        child: Icon(Icons.note_add),
+        onPressed: (){
+          _showDialogToAdd();
+        },
+      ),
     );
   }
 }

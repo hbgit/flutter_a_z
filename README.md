@@ -233,5 +233,7 @@ $ flutter create .
 ---
 ## Keep Notes
 
+- sqflite: 1.3.0+1, Web is not supported one solution is https://pub.dev/packages/moor
+
 ---
 
