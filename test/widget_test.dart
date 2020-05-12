@@ -30,7 +30,7 @@ void main() {
     // test code here
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
-      home: HomeScreen(urlJsonMusic: "assets/images/v9_img/json/songs.json")
+      home: HomeScreen()
     ));
     
     /*

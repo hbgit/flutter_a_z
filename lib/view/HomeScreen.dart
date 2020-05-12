@@ -52,13 +52,20 @@ class _HomeScreenState extends State<HomeScreen> {
     _recoveryNotes();
   }
 
-  _saveUpdateNote( {Note noteSected} ) async {
+  _saveUpdateNote( {Note noteSected, bool flagUndo} ) async {
     String title = _titleController.text;
     String desc  = _descController.text;
 
-    if(noteSected == null){
+    if(noteSected == null || flagUndo == true){
       print("Save NOTE");
-      Note note = Note(title, desc, DateTime.now().toString());
+      Note note;
+      
+      if(flagUndo == true){
+        note = noteSected;        
+      }else{
+        note = Note(title, desc, DateTime.now().toString());
+      }
+
       int result = await _db.saveNote(note);
       print(result);
     }else{
@@ -160,6 +167,44 @@ class _HomeScreenState extends State<HomeScreen> {
 
   }
 
+  _removeNote(BuildContext context, Note note) async {
+
+    print(">> Remove note");    
+    await _db.removeNote(note.id);
+    _recoveryNotes();
+
+    final snackBar = SnackBar(
+      duration: Duration(seconds: 5),
+      content: Text(
+        "Note removed!",
+        style: TextStyle(
+          fontWeight: FontWeight.bold
+        ),
+      ),
+      backgroundColor: Colors.green,
+      action: SnackBarAction(
+        label: "Undo",
+        textColor: Colors.white,
+        onPressed: (){
+          //Scaffold.of(context).hideCurrentSnackBar();
+          print(">> UNDO");
+          print(note.title);
+          setState(() {
+            _saveUpdateNote(noteSected: note, flagUndo: true);  
+          });          
+          //_recoveryNotes();
+        },
+      ),
+       
+    );
+    
+    Scaffold.of(context).showSnackBar(
+      snackBar
+    );
+
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +237,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            _showDialogToAdd(note: note);
+                          },
                           child: Padding(
                             padding: EdgeInsets.only(right: 15),
                             child: Icon(
@@ -202,7 +249,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            _removeNote(context, note);
+                          },
                           child: Padding(
                             padding: EdgeInsets.only(right: 0),
                             child: Icon(
