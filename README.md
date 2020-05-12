@@ -233,7 +233,33 @@ $ flutter create .
 ---
 ## Keep Notes
 
-- sqflite: 1.3.0+1, Web is not supported one solution is https://pub.dev/packages/moor
+- The goal of this APP is to generate a note system that allows the user to save a note with a title, description, and date. In the APP is possible to create, update, and remove notes.
+
+- The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_notes
+
+- In this APP was adopted:
+    - interal packages
+    - intl/intl
+    - intl/date_symbol_data_local
+    - AlertDialog
+    - FlatButton
+    - SnackBar
+    - Card
+    - GestureDetector
+    - FloatingActionButton
+    - path/path
+    - NoteControll._internal() : singleton design pattern
+    - sqflite/sqflite: 1.3.0+1, Web is not supported, one solution is https://pub.dev/packages/moor
+
+- Overview of the APP:
+
+| Start  | Screen 0  | Screen 1  |
+|---|---|---|
+|<img src="./docs/images/app_v10_t1.png" width="200"> |<img src="./docs/images/app_v10_t2.png" width="200">|<img src="./docs/images/app_v10_t3.png" width="200">|
+
+| Screen 2  | Screen 3  | Screen 4  |
+|---|---|---|
+|<img src="./docs/images/app_v10_t4.png" width="200"> |<img src="./docs/images/app_v10_t5.png" width="200">|<img src="./docs/images/app_v10_t6.png" width="200">|
 
 ---
 

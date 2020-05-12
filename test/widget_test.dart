@@ -5,16 +5,6 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-/*
-Checking out:
-https://github.com/bizz84/coding-with-flutter-login-demo/blob/master/test/login_page_test.dart
-https://github.com/bizz84/coding-with-flutter-login-demo/blob/master/lib/login_page.dart
-https://github.com/flutter/flutter/blob/master/packages/flutter_test/test/widget_tester_test.dart
-https://flutter.dev/docs/testing
-
-https://medium.com/flutter-comunidade-br/widget-test-787b81cf8996
-*/
-
 import 'package:flutter/material.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
 import 'package:flutter_test/flutter_test.dart';
