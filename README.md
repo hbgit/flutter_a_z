@@ -237,6 +237,8 @@ $ flutter create .
 
 - The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_notes
 
+- For while I prefer disabled the testing and codecov service, focusing on the developed APP.
+
 - In this APP was adopted:
     - interal packages
     - intl/intl

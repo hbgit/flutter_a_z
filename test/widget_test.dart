@@ -14,6 +14,10 @@ import 'package:flutter_test/flutter_test.dart';
 // class MockPlayer extends Mock implements FakePlayer {}
 
 void main() {
+  /*
+  Material _getMaterialFromDialog(WidgetTester tester) {
+    return tester.widget<Material>(find.descendant(of: find.byType(AlertDialog), matching: find.byType(Material)));
+  }*/
 
   testWidgets('Checking Home Screen', (WidgetTester tester) async {
 
@@ -23,15 +27,37 @@ void main() {
       home: HomeScreen()
     ));
     
-    /*
+    
     final Finder appBarFinder = find.byKey(Key('app_bar')); 
     expect(appBarFinder, findsOneWidget); 
 
     final Finder bodyBarFinder = find.byKey(Key('body')); 
     expect(bodyBarFinder, findsOneWidget); 
 
-    await tester.pump(new Duration(seconds: 60));      
+    final Finder floatBtnFinder = find.byKey(Key('float_btn')); 
+    expect(floatBtnFinder, findsOneWidget); 
+    
+    await tester.tap(floatBtnFinder);
+    await tester.pump(new Duration(seconds: 60));  
+    //await tester.pumpAndSettle(Duration(seconds: 10));
 
+    //final Finder dialogSavaFinder = find.byKey(Key('addup_form')); 
+    //expect(dialogSavaFinder, findsOneWidget); 
+
+    //await tester.pumpWidget(tester.widget(dialogSavaFinder));
+
+    //final Finder formFinder = find.byKey(Key('form')); 
+    //expect(formFinder, findsOneWidget); 
+
+    //final Finder cancelBtnFinder = find.byKey(Key('cancel_btn')); 
+    //expect(cancelBtnFinder, TextField); 
+    
+    //final Finder gestEditFinder = find.byKey(Key('gest_edit')); 
+    //expect(gestEditFinder, findsOneWidget);   
+
+    
+
+    /*
     final Finder gesture = find.byType(GestureDetector); 
     expect(gesture, findsWidgets); 
 

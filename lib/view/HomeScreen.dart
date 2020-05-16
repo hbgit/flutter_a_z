@@ -101,11 +101,14 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context){
         return AlertDialog(
+          key: Key("addup_form"),
           title: Text("$flagSaveUpdate Note"),
           content: Column(
+            key: Key("form"),
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
+                key: Key("input_tit"),
                 controller: _titleController,
                 autofocus: true,
                 decoration: InputDecoration(
@@ -125,6 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: [
             FlatButton(
+              key: Key("cancel_btn"),
               onPressed: () => Navigator.pop(context),
               color: Colors.red,
               child: Text(
@@ -210,10 +214,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(      
       appBar: AppBar(
+        key: Key("app_bar"),
         title: Text("Keep Notes"),
         backgroundColor: Colors.teal,
       ),
       body: Column(
+        key: Key("body"),
         children: [
           Expanded(
             child: ListView.builder(
@@ -237,6 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
+                          key: Key("gest_edit"),
                           onTap: (){
                             _showDialogToAdd(note: note);
                           },
@@ -270,6 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        key: Key("float_btn"),
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
         child: Icon(Icons.note_add),
