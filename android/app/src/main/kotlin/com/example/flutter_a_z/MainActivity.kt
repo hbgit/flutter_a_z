@@ -1,4 +1,4 @@
-package com.example.flutter_a_z
+package com.hbgit.flutter_a_z
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
