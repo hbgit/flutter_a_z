@@ -265,3 +265,28 @@ $ flutter create .
 
 ---
 
+
+# v11.0
+---
+## Whats Clone
+
+- Go to https://console.firebase.google.com/ setting up the data base 
+    - Register Android APP on Firebase
+        - In the App Project go to android/app/src/main/AndroidManifest.xml
+        - Get the package name, e.g., com.hbgit.flutter_a_z
+        - Provide the SHA-1, check out https://developers.google.com/android/guides/client-auth (note in the password type android)
+        - Add the google json on android/app
+        - Add firebase sdk to the project, checkout https://firebase.google.com/docs/android/setup?authuser=0
+        - Go to android/build.gradle and copy/paste the classpath in the last line of section dependencies
+        - In the app level, go to android/app/build.gradle and then add the plugin cmd as in the documentation
+        - Go to https://pub.dev to get the package name
+        - Possible ERROR Migrate Android X, checkout https://developer.android.com/jetpack/androidx/migrate
+        - Go to android/gradle.properties, and then checkout if it has: android.useAndroidX=true and android.enableJetifier=true
+        - Possible ERROR, install app because size files, checkout https://developer.android.com/studio/build/multidex
+        - Go to android/app/build.gradle and add in the defaultConfig section multiDexEnabled true
+        - Go to firebase in Database and setting up Cloud Firestore
+        - Now is just write the flutter code :)
+        - Plus: setting up to web https://github.com/FirebaseExtended/flutterfire/issues/1688 and also add "firebase_auth_web:" on pubspec.yaml
+
+
+---
