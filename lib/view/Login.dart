@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_a_z/view/AddUser.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -8,6 +9,44 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  GlobalKey<FormState> _key = new GlobalKey();
+  bool _validate = false;
+  String _email, _password;
+
+  String _validatePassWord(String value) {
+    if (value.length == 0) {
+      return "Password is Required";
+    }
+    return null;
+  }
+
+  String _validateEmail(String value) {
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Email is Required";
+    } else if (!regExp.hasMatch(value)) {
+      return "Invalid Email";
+    } else {
+      return null;
+    }
+  }
+
+  _sendToServer() {
+    if (_key.currentState.validate()) {
+      // No any error in validation
+      _key.currentState.save();
+      print("Email $_email");
+      print("Pass $_password");
+    } else {
+      // validation error
+      setState(() {
+        _validate = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,45 +66,55 @@ class _LoginState extends State<Login> {
                     height: 150,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 7),
-                  child: TextField(
-                    autofocus: true,
-                    keyboardType: TextInputType.emailAddress,
-                    style: TextStyle(fontSize: 20),
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(31, 15, 31, 15),
-                        hintText: "E-mail",
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(31))),
-                  ),
-                ),
-                TextField(
-                  autofocus: true,
-                  keyboardType: TextInputType.visiblePassword,
-                  style: TextStyle(fontSize: 20),
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(31, 15, 31, 15),
-                      hintText: "Password",
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(31))),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 11),
-                  child: RaisedButton(
-                    child: Text(
-                      "Let's go",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    color: Colors.green,
-                    padding: EdgeInsets.fromLTRB(31, 15, 31, 15),
-                    shape: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(31)),
-                    onPressed: () {},
+                Form(
+                  key: _key,
+                  autovalidate: _validate,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "E-mail",
+                            counterText: "",
+                            filled: true,
+                            fillColor: Colors.white,
+                            helperStyle:
+                                TextStyle(color: Colors.white, fontSize: 15),
+                            errorStyle:
+                                TextStyle(color: Colors.white, fontSize: 21)),
+                        keyboardType: TextInputType.emailAddress,
+                        maxLength: 32,
+                        validator: _validateEmail,
+                        onSaved: (String v) {
+                          _email = v;
+                        },
+                      ),
+                      SizedBox(height: 5),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "Password",
+                            counterText: "",
+                            filled: true,
+                            fillColor: Colors.white,
+                            helperStyle:
+                                TextStyle(color: Colors.white, fontSize: 15),
+                            errorStyle:
+                                TextStyle(color: Colors.white, fontSize: 21)),
+                        keyboardType: TextInputType.text,
+                        obscureText: true,
+                        maxLength: 32,
+                        validator: _validatePassWord,
+                        onSaved: (String v) {
+                          _password = v;
+                        },
+                      ),
+                      SizedBox(height: 15.0),
+                      RaisedButton(
+                        onPressed: _sendToServer,
+                        color: Colors.green,
+                        textColor: Colors.white,
+                        child: new Text("Let's go"),
+                      ),
+                    ],
                   ),
                 ),
                 Center(
@@ -74,7 +123,10 @@ class _LoginState extends State<Login> {
                       "Don't have an account? Sign up",
                       style: TextStyle(color: Colors.white),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AddUser()));
+                    },
                   ),
                 ),
               ],
