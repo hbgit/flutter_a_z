@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_a_z/controll/RouteGenerator.dart';
+import 'package:flutter_a_z/model/User.dart';
 import 'package:flutter_a_z/view/AddUser.dart';
 
 class Login extends StatefulWidget {
@@ -12,6 +15,7 @@ class _LoginState extends State<Login> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
   String _email, _password;
+  String _msgError = "";
 
   String _validatePassWord(String value) {
     if (value.length == 0) {
@@ -33,12 +37,60 @@ class _LoginState extends State<Login> {
     }
   }
 
+  _showDialog(BuildContext context){
+    AlertDialog showDia = AlertDialog(
+      title: Text("Sign In Error"),
+      content: Text(_msgError),
+      actions: [
+        FlatButton(
+          child: Text("OK"),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        )
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (context){
+        return showDia;
+      }
+    );
+  }
+
+  _signIn(User user){
+
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    auth.signInWithEmailAndPassword(
+      email: user.email, 
+      password: user.password
+    ).then((firebaseUser){
+      Navigator.pushReplacementNamed(context, RouteGenerator.ROUTE_HOME);
+    }).catchError((onError){
+      setState(() {
+        _msgError = "E-mail or Password is not correct, please try again.";
+        _showDialog(context);
+      });
+    });
+
+  }
+
   _sendToServer() {
     if (_key.currentState.validate()) {
       // No any error in validation
       _key.currentState.save();
+      
       print("Email $_email");
       print("Pass $_password");
+
+      User user = User();
+      user.email = _email;
+      user.password = _password;
+
+      _signIn(user);
+
     } else {
       // validation error
       setState(() {

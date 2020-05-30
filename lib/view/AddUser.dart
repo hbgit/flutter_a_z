@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:flutter_a_z/controll/RouteGenerator.dart';
+import 'package:flutter_a_z/model/User.dart';
+
 class AddUser extends StatefulWidget {
   AddUser({Key key}) : super(key: key);
 
@@ -24,6 +30,13 @@ class _AddUserState extends State<AddUser> {
     return null;
   }
 
+  String _validatePassword(String value) {    
+    if (value.length < 5) {
+      return "The Password length > 5";
+    } 
+    return null;
+  }
+
   String _validateEmail(String value) {
     String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -37,13 +50,48 @@ class _AddUserState extends State<AddUser> {
     }
   }
 
+  _addNewUser(User user){
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    auth.createUserWithEmailAndPassword(
+      email: user.email, 
+      password: user.password
+    ).then((firebaseUser){
+      
+      Firestore db = Firestore.instance;
+      
+      db.collection("user")
+      .document(firebaseUser.user.uid)
+      .setData(user.toMap());
+
+      Navigator.pushNamedAndRemoveUntil(
+        context, 
+        RouteGenerator.ROUTE_HOME,
+        (_) => false
+      );
+
+    }).catchError((onError){
+      print("ERROR ADD USER" + onError.toString());
+    });
+  }
+
   _sendToServer() {
     if (_key.currentState.validate()) {
       // No any error in validation
+      
       _key.currentState.save();
       print("Name $_name");
       print("Email $_email");
       print("Pass $_password");
+
+      User user = User();
+      user.name = _name;
+      user.email = _email;
+      user.password = _password;
+
+      _addNewUser(user);
+
+
     } else {
       // validation error
       setState(() {
@@ -94,7 +142,7 @@ class _AddUserState extends State<AddUser> {
           keyboardType: TextInputType.text,
           obscureText: true,
           maxLength: 32,
-          validator: _validateName,
+          validator: _validatePassword,
           onSaved: (String v) {
             _password = v;
           },
