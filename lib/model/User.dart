@@ -1,6 +1,9 @@
 class User {
+
+  String idUser;
   String name;
   String email;
+  String urlImage;
   String password;
 
   User();

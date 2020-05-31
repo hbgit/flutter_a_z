@@ -59,6 +59,7 @@ flutter:
   assets:
     - assets/v11/logo.png
     - assets/v11/usuario.png
+    - assets/v11/background.jpg
 
     
 
