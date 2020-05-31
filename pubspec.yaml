@@ -29,6 +29,7 @@ dependencies:
   firebase_auth_web:
   firebase_storage: 3.1.5 # store files
   cloud_firestore: 0.13.5 # database
+  image_picker: ^0.6.7 # no WEB support
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_a_z/view/AddUser.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
 import 'package:flutter_a_z/view/Login.dart';
+import 'package:flutter_a_z/view/Settings.dart';
 
 class RouteGenerator {
   
@@ -10,6 +11,7 @@ class RouteGenerator {
   static const String ROUTE_HOME = "/home";
   static const String ROUTE_LOGIN = "/login";
   static const String ROUTE_ADD_USER = "/adduser";
+  static const String ROUTE_SETTINGS = "/settings";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     
@@ -30,6 +32,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AddUser());
       case ROUTE_HOME:
         return MaterialPageRoute(builder: (_) => HomeScreen());
+      case ROUTE_SETTINGS:
+        return MaterialPageRoute(builder: (_) => Settings());
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
