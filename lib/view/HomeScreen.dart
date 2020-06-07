@@ -68,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("ChatApp"),
+      appBar: AppBar(        
+        title: Text("ChatApp - " + _emailUser),
         bottom: TabBar(
           indicatorWeight: 4,
           labelStyle: TextStyle(

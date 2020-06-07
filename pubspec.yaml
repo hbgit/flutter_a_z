@@ -30,6 +30,7 @@ dependencies:
   firebase_storage: 3.1.5 # store files
   cloud_firestore: 0.13.5 # database
   image_picker: ^0.6.7 # no WEB support
+  cached_network_image: 2.2.0+1
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,7 @@ flutter:
     - assets/v11/logo.png
     - assets/v11/usuario.png
     - assets/v11/background.jpg
+    - assets/v11/defaultUser.png
 
     
 

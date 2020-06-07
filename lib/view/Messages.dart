@@ -1,7 +1,14 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_a_z/model/Chat.dart';
 import 'package:flutter_a_z/model/Message.dart';
 import 'package:flutter_a_z/model/User.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Messages extends StatefulWidget {
   //Messages({Key key}) : super(key: key);
@@ -15,9 +22,66 @@ class Messages extends StatefulWidget {
 }
 
 class _MessagesState extends State<Messages> {
+  
+  //File _img;
+  bool _upImg = false;
   String _idUseLogIn;
-  String _idUseDest;
+  String _idUseTo;
+  Firestore db = Firestore.instance;
+  TextEditingController _controllerMsg = TextEditingController();
+  List<String> listMsg = List();
+  
+  final _controller = StreamController<QuerySnapshot>.broadcast();
+  ScrollController _scrollController = ScrollController();
 
+  _saveChat(Message msg){
+    //Save chat to who sent
+    Chat chatFrom = Chat();
+    chatFrom.idFrom = _idUseLogIn;
+    chatFrom.idTo =  _idUseTo;
+    chatFrom.msg = msg.msg;
+    chatFrom.name = widget.user.name;
+    chatFrom.pathPhoto = widget.user.urlImage;
+    chatFrom.type = msg.type;
+    chatFrom.save();
+
+    //Save chat to who receiver
+    Chat chatTo = Chat();
+    chatTo.idFrom = _idUseTo;
+    chatTo.idTo =  _idUseLogIn;
+    chatTo.msg = msg.msg;
+    chatTo.name = widget.user.name;
+    chatTo.pathPhoto = widget.user.urlImage;
+    chatTo.type = msg.type;
+    chatTo.save();
+
+
+  }
+  
+  _sendMsg(){
+
+    String txtMsg = _controllerMsg.text;
+    if(txtMsg.isNotEmpty){
+      Message msg = Message();
+      msg.idUser = _idUseLogIn;
+      msg.msg = txtMsg;
+      msg.urlImg = "";
+      msg.type = "text";
+      msg.date = Timestamp.now().toString();
+
+      //Save msg to who sent 
+      _saveMsg(_idUseLogIn, _idUseTo, msg);
+
+      //Save msg to receiver
+      _saveMsg(_idUseTo, _idUseLogIn, msg);
+
+      //Save chat
+      _saveChat(msg);
+    }
+
+  }
+
+  /*
   List<String> listMsg =[
     "Olá meu amigo, tudo bem?",
     "Tudo ótimo!!! e contigo?",
@@ -32,9 +96,9 @@ class _MessagesState extends State<Messages> {
     "vai sim!",
     "Lembra do carro que tinha te falado",
     "Que legal!!"
-  ];
+  ];*/
 
-  TextEditingController _controllerMsg = TextEditingController();
+  
 
   _saveMsg(String idUserFrom, String idUserDest, Message msg) async {
     Firestore db = Firestore.instance;
@@ -47,24 +111,90 @@ class _MessagesState extends State<Messages> {
     _controllerMsg.clear();
   }
 
-  _sendPhoto(){
+  _sendPhoto() async {
+    PickedFile imgSelected;
+    final ImagePicker imgPicker = ImagePicker();
+
+    imgSelected = await imgPicker.getImage(source: ImageSource.gallery);
+    _upImg = true;
+    String nameImg = DateTime.now().millisecondsSinceEpoch.toString();
+    FirebaseStorage storage = FirebaseStorage.instance;
+    StorageReference rootFolder = storage.ref();
+    StorageReference file = rootFolder
+      .child("messages")
+      .child(_idUseLogIn)
+      .child(nameImg + ".jpg");
+
+      //Upload img
+      StorageUploadTask task = file.putFile(File(imgSelected.path));
+
+      task.events.listen((StorageTaskEvent event) { 
+        if(event.type == StorageTaskEventType.progress){
+          setState(() {
+            _upImg = true;
+          });
+        }else if(event.type == StorageTaskEventType.success){
+          setState(() {
+            _upImg = false;
+          });
+        }
+      });
+
+      //recovery img url
+      task.onComplete.then((StorageTaskSnapshot snapshot){
+        _recoveryImgUrl(snapshot);
+      });
 
   }
-  
-  
-  _sendMsg(){
     
-    String txtMsg = _controllerMsg.text;
-    if(txtMsg.isNotEmpty){
-      Message msg = Message();
-      msg.idUser = _idUseLogIn;
-      msg.msg = txtMsg;
-      msg.urlImg = "";
-      msg.type = "texto";
+  Future _recoveryImgUrl(StorageTaskSnapshot snapshot) async {
+    
+    String url = await snapshot.ref.getDownloadURL();
+    
+    Message msg = Message();
+    msg.idUser = _idUseLogIn;
+    msg.msg = "";
+    msg.urlImg = url;
+    msg.type = "image";
+    msg.date = Timestamp.now().toString();
 
-      _saveMsg(_idUseLogIn, _idUseDest, msg);
-    }
+    // save msg to who sent
+    _saveMsg(_idUseLogIn, _idUseTo, msg);
 
+    // save msg to who receiver
+    _saveMsg(_idUseTo, _idUseLogIn, msg);
+  }
+
+  _recoveryDataUser() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseUser userLogIn = await auth.currentUser();
+    _idUseLogIn = userLogIn.uid;
+    _idUseTo = widget.user.idUser;
+
+    _addListenerMsg();
+  }
+
+  Stream<QuerySnapshot> _addListenerMsg(){
+    final stream = db.collection("messages")
+      .document(_idUseLogIn)
+      .collection(_idUseTo)
+      .orderBy("date", descending: false)
+      .snapshots();
+
+    stream.listen((data) { 
+        _controller.add(data);
+        Timer(Duration(seconds: 1), (){
+          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+        });
+      });
+
+    return stream;
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+    _recoveryDataUser();
   }
 
 
@@ -88,50 +218,102 @@ class _MessagesState extends State<Messages> {
                   hintText: "Type a message...",
                   filled: true,
                   fillColor: Colors.white,
-                  prefixIcon: IconButton(
-                    icon: Icon(Icons.camera_alt),
-                    onPressed: _sendPhoto(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(31)
                   ),
+                  prefixIcon: _upImg
+                    ? CircularProgressIndicator()
+                    : IconButton(
+                        icon: Icon(Icons.camera_alt),
+                        onPressed: _sendPhoto(),
+                      ),
                 ),
               ),
             ),
           ),
+          FloatingActionButton(
+            backgroundColor: Color(0xff075E54),
+            child: Icon(
+              Icons.send,
+              color: Colors.white,
+            ),
+            mini: true,
+            onPressed: _sendMsg(),
+          ),
         ],
       ),
-    );
+    );    
 
-    var listView = Expanded(
-      child: ListView.builder(
-        itemCount: listMsg.length,
-        itemBuilder: (context, index){
-          double sizeContainer = MediaQuery.of(context).size.width * 0.8;
-          Alignment ali = Alignment.centerRight;
-          Color cor = Color(0xffd2ffa5);
-          if( index % 2 == 0){
-            ali = Alignment.centerLeft;
-            cor = Colors.white;
-          }
-
-          return Align(
-            alignment: ali,
-            child: Padding(
-              padding: EdgeInsets.all(5),
-              child: Container(
-                width: sizeContainer,
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  color: cor,
-                  borderRadius: BorderRadius.all(Radius.circular(7))
-                ),
-                child: Text(
-                  listMsg[index],
-                  style: TextStyle(fontSize: 18),
-                ),
+    var stream = StreamBuilder(
+      stream: _controller.stream,
+      builder: (context, snapshot){
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return Container();
+            break;
+          case ConnectionState.waiting:
+            return Center(
+              child: Column(
+                children: [
+                  Text("Loading ..."),
+                  CircularProgressIndicator()
+                ],
               ),
-            ),
-          );
-        },
-      ),
+            );
+            break;
+          case ConnectionState.active:
+            return Container();
+            break;
+          case ConnectionState.done:
+            QuerySnapshot querySnapshot = snapshot.data;
+            if(snapshot.hasError){
+              return Text("Error, sorry about it :)");              
+            }else{
+              return Expanded(
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: querySnapshot.documents.length,
+                  itemBuilder: (context, index){
+                    List<DocumentSnapshot> msg = querySnapshot.documents.toList();
+                    DocumentSnapshot item = msg[index];
+
+                    double sizeContainer = MediaQuery.of(context).size.width * 0.8;
+
+                    Alignment ali  = Alignment.centerRight;
+                    Color cor = Color(0xffd2ffa5);
+                    if(_idUseLogIn != item["idUser"]){
+                      ali = Alignment.centerLeft;
+                      cor = Colors.white;
+                    }
+
+                    return Align(
+                      alignment: ali,
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          width: sizeContainer,
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            color: cor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(8)
+                            ),                            
+                          ),
+                          child: item["type"] == "text"
+                            ? Text(item["msg"], style: TextStyle(fontSize: 17))
+                            : Image.network(item["urlImg"]),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
+            }
+            break;
+          default:
+            return Container();
+        }
+      },
     );
 
     return Scaffold(
@@ -165,7 +347,7 @@ class _MessagesState extends State<Messages> {
             padding: EdgeInsets.all(7),
             child: Column(
               children: [
-                listView,
+                stream,
                 msgBox,
               ],
             ),

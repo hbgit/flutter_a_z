@@ -15,6 +15,7 @@ class AddUser extends StatefulWidget {
 }
 
 class _AddUserState extends State<AddUser> {
+  bool _statusAction = false;
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
   String _name, _email, _password;
@@ -30,10 +31,10 @@ class _AddUserState extends State<AddUser> {
     return null;
   }
 
-  String _validatePassword(String value) {    
+  String _validatePassword(String value) {
     if (value.length < 5) {
       return "The Password length > 5";
-    } 
+    }
     return null;
   }
 
@@ -50,27 +51,29 @@ class _AddUserState extends State<AddUser> {
     }
   }
 
-  _addNewUser(User user){
+  _addNewUser(User user) async {
+
+    setState(() {
+        _statusAction = true;
+    });
+
     FirebaseAuth auth = FirebaseAuth.instance;
 
-    auth.createUserWithEmailAndPassword(
-      email: user.email, 
-      password: user.password
-    ).then((firebaseUser){
-      
+    auth
+        .createUserWithEmailAndPassword(
+            email: user.email, password: user.password)
+        .then((firebaseUser) async {
       Firestore db = Firestore.instance;
-      
-      db.collection("user")
-      .document(firebaseUser.user.uid)
-      .setData(user.toMap());
+
+      await db
+          .collection("user")
+          .document(firebaseUser.user.uid)
+          .setData(user.toMap());      
 
       Navigator.pushNamedAndRemoveUntil(
-        context, 
-        RouteGenerator.ROUTE_HOME,
-        (_) => false
-      );
+          context, RouteGenerator.ROUTE_HOME, (_) => false);
 
-    }).catchError((onError){
+    }).catchError((onError) {
       print("ERROR ADD USER" + onError.toString());
     });
   }
@@ -78,7 +81,7 @@ class _AddUserState extends State<AddUser> {
   _sendToServer() {
     if (_key.currentState.validate()) {
       // No any error in validation
-      
+
       _key.currentState.save();
       print("Name $_name");
       print("Email $_email");
@@ -90,8 +93,6 @@ class _AddUserState extends State<AddUser> {
       user.password = _password;
 
       _addNewUser(user);
-
-
     } else {
       // validation error
       setState(() {
@@ -152,7 +153,7 @@ class _AddUserState extends State<AddUser> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             RaisedButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.pop(context);
               },
               color: Colors.red,
@@ -178,38 +179,40 @@ class _AddUserState extends State<AddUser> {
         decoration: BoxDecoration(color: Color(0xff075E54)),
         padding: EdgeInsets.all(15),
         child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 31),
-                      child: Image.asset(
-                        "assets/v11/usuario.png",
-                        width: 100,
-                        height: 50,
+          child: _statusAction == true
+              ? CircularProgressIndicator()
+              : SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 31),
+                            child: Image.asset(
+                              "assets/v11/usuario.png",
+                              width: 100,
+                              height: 50,
+                            ),
+                          ),
+                          Text(
+                            "New User :)",
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      "New User :)",
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                      Form(
+                        key: _key,
+                        autovalidate: _validate,
+                        child: _formAddUser(),
+                      ),
+                    ],
+                  ),
                 ),
-                Form(
-                  key: _key,
-                  autovalidate: _validate,
-                  child: _formAddUser(),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     );

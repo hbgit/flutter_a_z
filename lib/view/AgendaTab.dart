@@ -93,6 +93,10 @@ class _AgendaTabState extends State<AgendaTab> {
                     user.name,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
+                  subtitle: Text(
+                    _idUserLogIn,
+                    style: TextStyle(fontSize: 5),
+                  ),
                 );
               },
             );

@@ -123,7 +123,8 @@ class _LoginState extends State<Login> {
                   autovalidate: _validate,
                   child: Column(
                     children: [
-                      TextFormField(
+                      TextFormField(     
+                        autofocus: true,                   
                         decoration: InputDecoration(
                             hintText: "E-mail",
                             counterText: "",
