@@ -31,6 +31,7 @@ dependencies:
   cloud_firestore: 0.13.5 # database
   image_picker: ^0.6.7 # no WEB support
   cached_network_image: 2.2.0+1
+  splashscreen: 1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -23,9 +23,13 @@ class _AddUserState extends State<AddUser> {
   String _validateName(String value) {
     String patttern = r'(^[a-zA-Z ]*$)';
     RegExp regExp = new RegExp(patttern);
+    print(value.length);
     if (value.length == 0) {
       return "Name is Required";
-    } else if (!regExp.hasMatch(value)) {
+    } else if (value.length < 2) {
+      return "Grater than 1 letter";
+    }
+    else if (!regExp.hasMatch(value)) {
       return "Name must be a-z and A-Z";
     }
     return null;
@@ -102,12 +106,13 @@ class _AddUserState extends State<AddUser> {
   }
 
   Widget _formAddUser() {
-    return Column(
+    return Column(      
       children: [
-        TextFormField(
+        TextFormField(          
           autofocus: true,
           decoration: InputDecoration(
               hintText: "Name",
+              counterText: "",
               filled: true,
               fillColor: Colors.white,
               helperStyle: TextStyle(color: Colors.white, fontSize: 15),
@@ -119,9 +124,11 @@ class _AddUserState extends State<AddUser> {
             _name = v;
           },
         ),
+        SizedBox(height: 15.0),
         TextFormField(
           decoration: InputDecoration(
               hintText: "E-mail",
+              counterText: "",
               filled: true,
               fillColor: Colors.white,
               helperStyle: TextStyle(color: Colors.white, fontSize: 15),
@@ -133,9 +140,11 @@ class _AddUserState extends State<AddUser> {
             _email = v;
           },
         ),
+        SizedBox(height: 15.0),
         TextFormField(
           decoration: InputDecoration(
               hintText: "Password",
+              counterText: "",
               filled: true,
               fillColor: Colors.white,
               helperStyle: TextStyle(color: Colors.white, fontSize: 15),

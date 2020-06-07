@@ -5,6 +5,7 @@ import 'package:flutter_a_z/view/HomeScreen.dart';
 import 'package:flutter_a_z/view/Login.dart';
 import 'package:flutter_a_z/view/Messages.dart';
 import 'package:flutter_a_z/view/Settings.dart';
+import 'package:flutter_a_z/view/SplashView.dart';
 
 class RouteGenerator {
   
@@ -12,24 +13,25 @@ class RouteGenerator {
   static const String ROUTE_HOME = "/home";
   static const String ROUTE_LOGIN = "/login";
   static const String ROUTE_MSG = "/message";
+  static const String ROUTE_SPLASH = "/splash";
   static const String ROUTE_ADD_USER = "/adduser";
   static const String ROUTE_SETTINGS = "/settings";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     
     print("ROUTE set: " + settings.toString());
-    print(ROUTE_HOME);
+    //print(ROUTE_HOME);
 
     var args = settings.arguments;
 
     switch (settings.name) {
-      case "":
+      case ROUTE_SPLASH:
         return MaterialPageRoute(            
-            builder: (_) => Login());
+            builder: (_) => SplashView());      
       case ROUTE_ROOT:
         return MaterialPageRoute(
             // "_" not allocate memory to var
-            builder: (_) => Login());
+            builder: (_) => SplashView());
       case ROUTE_LOGIN:
         return MaterialPageRoute(builder: (_) => Login());
       case ROUTE_MSG:

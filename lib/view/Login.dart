@@ -170,6 +170,7 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
+                SizedBox(height: 20),
                 Center(
                   child: GestureDetector(
                     child: Text(
