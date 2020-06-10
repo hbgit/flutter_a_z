@@ -71,7 +71,7 @@ class _AgendaTabState extends State<AgendaTab> {
               itemBuilder: (_, index) {
                 List<User> listItems = snapshot.data;
                 User user = listItems[index];
-
+                
                 return ListTile(
                   onTap: () {
                     Navigator.pushNamed(
