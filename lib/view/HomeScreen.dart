@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_a_z/controll/RouteGenerator.dart';
@@ -19,15 +20,21 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     "Sign Out"
   ];
 
-  String _emailUser = "";
+  //String _emailUser = "";
+  String _nameUser = "";
 
   Future _recoveryDataUser() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseUser userLogIn = await auth.currentUser();
 
-    setState(() {
-      _emailUser = userLogIn.email;
+    //Firestore db = Firestore.instance;
+    var document = Firestore.instance.document('user/'+userLogIn.uid);
+    document.get().then((value){
+      setState(() {
+        _nameUser = value.data["name"];
+      });
     });
+       
 
   }
   
@@ -67,9 +74,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(        
-        title: Text("ChatApp - " + _emailUser),
+        title: Text("I'm: " + _nameUser),
         bottom: TabBar(
           indicatorWeight: 4,
           labelStyle: TextStyle(

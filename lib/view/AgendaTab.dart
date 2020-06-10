@@ -12,7 +12,7 @@ class AgendaTab extends StatefulWidget {
 }
 
 class _AgendaTabState extends State<AgendaTab> {
-  String _idUserLogIn;
+  //String _idUserLogIn;
   String _emailUserLogIn;
 
   @override
@@ -24,7 +24,7 @@ class _AgendaTabState extends State<AgendaTab> {
   _recoveryDataUser() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseUser userLog = await auth.currentUser();
-    _idUserLogIn = userLog.uid;
+    //_idUserLogIn = userLog.uid;
     _emailUserLogIn = userLog.email;
   }
 
@@ -60,12 +60,7 @@ class _AgendaTabState extends State<AgendaTab> {
             return Container();
           case ConnectionState.waiting:
             return Center(
-              child: Column(
-                children: [
-                  Text("Loading..."),
-                  CircularProgressIndicator()
-                ],
-              ),
+              child: CircularProgressIndicator(),
             );
             break;
           case ConnectionState.active:
@@ -79,8 +74,10 @@ class _AgendaTabState extends State<AgendaTab> {
 
                 return ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, RouteGenerator.ROUTE_MSG,
-                        arguments: user);
+                    Navigator.pushNamed(
+                      context, 
+                      RouteGenerator.ROUTE_MSG,
+                      arguments: user);
                   },
                   contentPadding: EdgeInsets.fromLTRB(15, 7, 15, 7),
                   leading: CircleAvatar(
@@ -94,8 +91,8 @@ class _AgendaTabState extends State<AgendaTab> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   subtitle: Text(
-                    _idUserLogIn,
-                    style: TextStyle(fontSize: 5),
+                    user.email,
+                    style: TextStyle(fontSize: 12),
                   ),
                 );
               },

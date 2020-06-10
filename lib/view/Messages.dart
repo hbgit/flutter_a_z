@@ -32,7 +32,7 @@ class _MessagesState extends State<Messages> {
   List<String> listMsg = List();
   
   final _controller = StreamController<QuerySnapshot>.broadcast();
-  ScrollController _scrollController = ScrollController();
+  ScrollController _scrollController = ScrollController(initialScrollOffset: 0);
 
   _saveChat(Message msg){
     //Save chat to who sent
@@ -59,8 +59,11 @@ class _MessagesState extends State<Messages> {
   }
   
   _sendMsg(){
+    print("_sendMsg()");    
 
-    String txtMsg = _controllerMsg.text;
+    String txtMsg = _controllerMsg.text.toString();
+    print("++++++" + txtMsg);
+
     if(txtMsg.isNotEmpty){
       Message msg = Message();
       msg.idUser = _idUseLogIn;
@@ -80,25 +83,6 @@ class _MessagesState extends State<Messages> {
     }
 
   }
-
-  /*
-  List<String> listMsg =[
-    "Olá meu amigo, tudo bem?",
-    "Tudo ótimo!!! e contigo?",
-    "Estou muito bem!! queria ver uma coisa contigo, você vai na corrida de sábado?",
-    "Não sei ainda :(",
-    "Pq se você fosse, queria ver se posso ir com você...",
-    "Posso te confirma no sábado? vou ver isso",
-    "Opa! tranquilo",
-    "Excelente!!",
-    "Estou animado para essa corrida, não vejo a hora de chegar! ;) ",
-    "Vai estar bem legal!! muita gente",
-    "vai sim!",
-    "Lembra do carro que tinha te falado",
-    "Que legal!!"
-  ];*/
-
-  
 
   _saveMsg(String idUserFrom, String idUserDest, Message msg) async {
     Firestore db = Firestore.instance;
@@ -182,9 +166,13 @@ class _MessagesState extends State<Messages> {
       .snapshots();
 
     stream.listen((data) { 
+        //print(data.toString());
         _controller.add(data);
         Timer(Duration(seconds: 1), (){
-          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+          if (_scrollController.hasClients) {
+            _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+          }     
+          
         });
       });
 
@@ -193,7 +181,7 @@ class _MessagesState extends State<Messages> {
 
   @override
   void initState() { 
-    super.initState();
+    super.initState();    
     _recoveryDataUser();
   }
 
@@ -201,6 +189,8 @@ class _MessagesState extends State<Messages> {
   @override
   Widget build(BuildContext context) {
 
+    print("***********" + _upImg.toString());
+  
     var msgBox = Container(
       padding: EdgeInsets.all(7),
       child: Row(
@@ -214,16 +204,18 @@ class _MessagesState extends State<Messages> {
                 keyboardType: TextInputType.text,
                 style: TextStyle(fontSize: 20),
                 decoration: InputDecoration(
+                  /*
                   contentPadding: EdgeInsets.fromLTRB(31, 7, 31, 7),
                   hintText: "Type a message...",
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(31)
-                  ),
-                  prefixIcon: _upImg
+                  ),   */        
+                  //TODO: Is not working       
+                  prefixIcon: _upImg == true
                     ? CircularProgressIndicator()
-                    : IconButton(
+                    : IconButton(                        
                         icon: Icon(Icons.camera_alt),
                         onPressed: _sendPhoto(),
                       ),
@@ -238,19 +230,25 @@ class _MessagesState extends State<Messages> {
               color: Colors.white,
             ),
             mini: true,
-            onPressed: _sendMsg(),
+            onPressed: (){
+              print("HERE");
+              print(_controllerMsg.text.toString());
+              _sendMsg();
+            },
           ),
         ],
       ),
-    );    
+    );  
+
 
     var stream = StreamBuilder(
       stream: _controller.stream,
-      builder: (context, snapshot){
+      builder: (context, snapshot){        
+        print(snapshot.connectionState);
         switch (snapshot.connectionState) {
           case ConnectionState.none:
-            return Container();
-            break;
+            //return Container();
+            //break;
           case ConnectionState.waiting:
             return Center(
               child: Column(
@@ -262,13 +260,15 @@ class _MessagesState extends State<Messages> {
             );
             break;
           case ConnectionState.active:
-            return Container();
-            break;
+            //return Container();
+            //break;
           case ConnectionState.done:
+            print(">> ConnectionState.done");
             QuerySnapshot querySnapshot = snapshot.data;
             if(snapshot.hasError){
               return Text("Error, sorry about it :)");              
             }else{
+              print("Listing msg");
               return Expanded(
                 child: ListView.builder(
                   controller: _scrollController,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_a_z/controll/Auth.dart';
 import 'package:flutter_a_z/controll/RouteGenerator.dart';
 
 class StartApp extends StatelessWidget {

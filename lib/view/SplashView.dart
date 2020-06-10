@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_a_z/controll/Auth.dart';
 import 'package:flutter_a_z/view/HomeScreen.dart';
 import 'package:flutter_a_z/view/Login.dart';
-import 'package:splashscreen/splashscreen.dart';
 
 class SplashView extends StatefulWidget {
   @override
@@ -50,7 +47,8 @@ class _SplashViewState extends State<SplashView> {
                     ),
                   ),
                   Center(
-                    child: CircularProgressIndicator(),
+                    child: Padding(padding: EdgeInsets.only(bottom: 80),
+                    child: CircularProgressIndicator(),)
                   ),
                 ],
               ),
