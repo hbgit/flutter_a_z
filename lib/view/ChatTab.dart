@@ -15,20 +15,19 @@ class ChatTab extends StatefulWidget {
 }
 
 class _ChatTabState extends State<ChatTab> {
-  
   List<Chat> _listChat = List();
   final _controller = StreamController<QuerySnapshot>.broadcast();
   Firestore db = Firestore.instance;
   String _idUserLogIn;
 
-  Stream<QuerySnapshot>_addListenerChat(){
-    
+  Stream<QuerySnapshot> _addListenerChat() {
     print(_idUserLogIn);
 
-    final stream = db.collection("chat")
-          .document(_idUserLogIn)
-          .collection("lastchat")
-          .snapshots();
+    final stream = db
+        .collection("chat")
+        .document(_idUserLogIn)
+        .collection("lastchat")
+        .snapshots();
 
     stream.listen((data) {
       print(data);
@@ -47,9 +46,9 @@ class _ChatTabState extends State<ChatTab> {
   }
 
   @override
-  void initState() {    
+  void initState() {
     super.initState();
-    
+
     _recoveryDataUser();
 
     Chat chat = Chat();
@@ -59,93 +58,77 @@ class _ChatTabState extends State<ChatTab> {
     _listChat.add(chat);
   }
 
-
   @override
   Widget build(BuildContext context) {
-    
     return StreamBuilder<QuerySnapshot>(
       stream: _controller.stream,
-      builder: (context, snapshot){
-        switch (snapshot.connectionState) {          
-          case ConnectionState.none:            
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
           case ConnectionState.waiting:
             print(">>>> ConnectionState.waiting");
             return Center(
               child: CircularProgressIndicator(),
             );
-            //break;
-          case ConnectionState.active:                            
-          case ConnectionState.done: 
-            print(">>>> ConnectionState.done");                    
-            if(snapshot.hasError){
+          //break;
+          case ConnectionState.active:
+          case ConnectionState.done:
+            print(">>>> ConnectionState.done");
+            if (snapshot.hasError) {
               return Text("ERROR to load data :(");
-            }else{
+            } else {
               print(">>>> Has data");
               QuerySnapshot querySnap = snapshot.data;
-              if(querySnap.documents.length == 0){
+              if (querySnap.documents.length == 0) {
                 return Center(
                   child: Text(
                     "You do not have msg, so let's start :)",
-                    style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold
-                    ),
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                   ),
                 );
               }
 
               return ListView.builder(
                 itemCount: _listChat.length,
-                itemBuilder: (context, index){
-
+                itemBuilder: (context, index) {
                   print(">>>> Generating ListView");
 
                   List<DocumentSnapshot> chats = querySnap.documents.toList();
                   DocumentSnapshot item = chats[index];
+                  print(item);
 
                   String urlImg = item["pathPhoto"];
-                  String type   = item["type"];
-                  String msg    = item["msg"];
-                  String name   = item["name"];
-                  String idTo   = item["idTo"];
+                  String type = item["type"];
+                  String msg = item["msg"];
+                  String name = item["name"];
+                  String idTo = item["idTo"];
 
                   User user = User();
                   user.name = name;
                   print(">>>> " + user.name);
                   user.urlImage = urlImg;
+                  print(user.urlImage);
                   user.idUser = idTo;
 
                   return ListTile(
-                    onTap: (){
-                      Navigator.pushNamed(
-                      context, 
-                      RouteGenerator.ROUTE_MSG,
-                      arguments: user);
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteGenerator.ROUTE_MSG,
+                          arguments: user);
                     },
                     contentPadding: EdgeInsets.fromLTRB(15, 7, 15, 7),
                     leading: CircleAvatar(
                       maxRadius: 30,
                       backgroundColor: Colors.grey,
-                      backgroundImage: urlImg != null
-                        ? NetworkImage(urlImg)
-                        : null,
+                      backgroundImage:
+                          urlImg != null ? NetworkImage(urlImg) : null,
                     ),
                     title: Text(
                       name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15
-                      ),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    subtitle: Text(
-                          type=="text"
-                              ? msg
-                              : "Image",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15
-                          )
-                      ),
+                    subtitle: Text(type == "text" ? msg : "Image",
+                        style: TextStyle(color: Colors.grey, fontSize: 15)),
                   );
                 },
               );

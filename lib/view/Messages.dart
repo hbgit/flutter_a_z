@@ -34,6 +34,7 @@ class _MessagesState extends State<Messages> {
   ScrollController _scrollController = ScrollController(initialScrollOffset: 0);
 
   _saveChat(Message msg) {
+    print(">>>" + widget.user.urlImage);
     //Save chat to who sent
     Chat chatFrom = Chat();
     chatFrom.idFrom = _idUseLogIn;
@@ -97,8 +98,8 @@ class _MessagesState extends State<Messages> {
     final ImagePicker imgPicker = ImagePicker();
 
     imgSelected = await imgPicker.getImage(source: ImageSource.gallery);
-        
-    if (imgSelected != null) {      
+
+    if (imgSelected != null) {
       _upImg = true;
       String nameImg = DateTime.now().millisecondsSinceEpoch.toString();
       FirebaseStorage storage = FirebaseStorage.instance;
@@ -128,7 +129,6 @@ class _MessagesState extends State<Messages> {
         _recoveryImgUrl(snapshot);
       });
     }
-
   }
 
   Future _recoveryImgUrl(StorageTaskSnapshot snapshot) async {

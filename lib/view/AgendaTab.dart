@@ -44,6 +44,7 @@ class _AgendaTabState extends State<AgendaTab> {
       user.email = data["email"];
       user.name = data["name"];
       user.urlImage = data["urlImage"];
+      print(user.urlImage);
 
       listUser.add(user);
     }
@@ -71,13 +72,11 @@ class _AgendaTabState extends State<AgendaTab> {
               itemBuilder: (_, index) {
                 List<User> listItems = snapshot.data;
                 User user = listItems[index];
-                
+
                 return ListTile(
                   onTap: () {
-                    Navigator.pushNamed(
-                      context, 
-                      RouteGenerator.ROUTE_MSG,
-                      arguments: user);
+                    Navigator.pushNamed(context, RouteGenerator.ROUTE_MSG,
+                        arguments: user);
                   },
                   contentPadding: EdgeInsets.fromLTRB(15, 7, 15, 7),
                   leading: CircleAvatar(
