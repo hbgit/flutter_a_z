@@ -18,6 +18,17 @@
   <link rel="manifest" href="/manifest.json">
 </head>
 <body>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-firestore.js"></script>
+
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -28,6 +39,29 @@
       });
     }
   </script>
+
   <script src="main.dart.js" type="application/javascript"></script>
+
+  <!--- Firebase setting -->
+
+  
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDt4j3q9Xh5mC5CMy1edFo5-GLPpaQV-jQ",
+    authDomain: "whatsapphb-9f39d.firebaseapp.com",
+    databaseURL: "https://whatsapphb-9f39d.firebaseio.com",
+    projectId: "whatsapphb-9f39d",
+    storageBucket: "whatsapphb-9f39d.appspot.com",
+    messagingSenderId: "648855137769",
+    appId: "1:648855137769:web:681877912a6e831761af78",
+    measurementId: "G-5WT9BTRCHQ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
 </body>
 </html>
