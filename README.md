@@ -268,25 +268,51 @@ $ flutter create .
 
 # v11.0
 ---
-## Whats Clone
+## Whats Message Clone
 
-- Go to https://console.firebase.google.com/ setting up the data base 
-    - Register Android APP on Firebase
-        - In the App Project go to android/app/src/main/AndroidManifest.xml
-        - Get the package name, e.g., com.hbgit.flutter_a_z
-        - Provide the SHA-1, check out https://developers.google.com/android/guides/client-auth (note in the password type android)
-        - Add the google json on android/app
-        - Add firebase sdk to the project, checkout https://firebase.google.com/docs/android/setup?authuser=0
-        - Go to android/build.gradle and copy/paste the classpath in the last line of section dependencies
-        - In the app level, go to android/app/build.gradle and then add the plugin cmd as in the documentation
-        - Go to https://pub.dev to get the package name
-        - Possible ERROR Migrate Android X, checkout https://developer.android.com/jetpack/androidx/migrate
-        - Go to android/gradle.properties, and then checkout if it has: android.useAndroidX=true and android.enableJetifier=true
-        - Possible ERROR, install app because size files, checkout https://developer.android.com/studio/build/multidex
-        - Go to android/app/build.gradle and add in the defaultConfig section multiDexEnabled true
-        - Go to firebase in Database and setting up Cloud Firestore
-        - Now is just write the flutter code :)
-        - Plus: setting up to web https://github.com/FirebaseExtended/flutterfire/issues/1688 and also add "firebase_auth_web:" on pubspec.yaml
+- The goal of this APP is allow the user to send messages using 1 to M, where all APP user can send messages one each other
 
+- The source code is available at: https://github.com/hbgit/flutter_a_z/tree/feature_whatsclone
 
+- This is not working on Web, since flutter packages limitation adopted
+
+- How setting up the project on Firebase (https://console.firebase.google.com/): 
+    
+    - In the App Project go to android/app/src/main/AndroidManifest.xml
+    - Get the package name, e.g., com.hbgit.flutter_a_z
+    - Provide the SHA-1, check out https://developers.google.com/android/guides/client-auth (note in the password type android)
+    - Add the google json on android/app
+    - Add firebase sdk to the project, checkout https://firebase.google.com/docs/android/setup?authuser=0
+    - Go to android/build.gradle and copy/paste the classpath in the last line of section dependencies
+    - In the app level, go to android/app/build.gradle and then add the plugin cmd as in the documentation
+    - Go to https://pub.dev to get the package name
+    - Possible ERROR Migrate Android X, checkout https://developer.android.com/jetpack/androidx/migrate
+    - Go to android/gradle.properties, and then checkout if it has: android.useAndroidX=true and android.enableJetifier=true
+    - Possible ERROR, install app because size files, checkout https://developer.android.com/studio/build/multidex
+    - Go to android/app/build.gradle and add in the defaultConfig section multiDexEnabled true
+    - Go to firebase in Database and setting up Cloud Firestore
+    - Now is just write the flutter code :)
+    - Plus: setting up to web https://github.com/FirebaseExtended/flutterfire/issues/1688 and also add "firebase_auth_web:" on pubspec.yaml
+
+- In this APP was adopted:
+    - interal packages
+    - firebase_core: 0.4.4+3
+    - firebase_auth: 0.16.0 
+    - firebase_auth_web:
+    - firebase_storage: 3.1.5
+    - cloud_firestore: 0.13.5
+    - image_picker: ^0.6.7
+    - cached_network_image: 2.2.0+1
+    - call WidgetsFlutterBinding.ensureInitialized();
+    - RouteGenerator.generateRoute
+
+- Overview of the APP:
+
+| Start  | Screen 0  | Screen 1  | Screen 2  |
+|---|---|---|---|
+|<img src="./docs/images/app_v11_t0.png" width="200"> |<img src="./docs/images/app_v11_t1.png" width="200">|<img src="./docs/images/app_v11_t2.png" width="200">|<img src="./docs/images/app_v11_t3.png" width="200">|
+
+| Screen 3  | Screen 4  | Screen 5  | Screen 6  |
+|---|---|---|---|
+|<img src="./docs/images/app_v11_t4.png" width="200"> |<img src="./docs/images/app_v11_t5.png" width="200">|<img src="./docs/images/app_v11_t6.png" width="200">|<img src="./docs/images/app_v11_t7.png" width="200">|    
 ---
